@@ -1,6 +1,6 @@
 view: sql_runner_query_2 {
   derived_table: {
-    sql: SELECT site_rapid_patient_id,
+    sql: SELECT rapid_patient_id,
       patient_age,
       patient_gender,
       module_name,
@@ -34,7 +34,7 @@ view: sql_runner_query_2 {
       array_to_string(array_agg(aspect_score),', ') AS aspect_score
       FROM (
       SELECT
-      series.site_rapid_patient_id  AS site_rapid_patient_id,
+      series.site_rapid_patient_id  AS rapid_patient_id,
       series.patient_age  AS patient_age,
       series.patient_gender  AS patient_gender,
       tasks.module_name  AS module_name,
@@ -85,9 +85,9 @@ view: sql_runner_query_2 {
     drill_fields: [detail*]
   }
 
-  dimension: site_rapid_patient_id {
+  dimension: rapid_patient_id {
     type: number
-    sql: ${TABLE}.site_rapid_patient_id ;;
+    sql: ${TABLE}.rapid_patient_id ;;
   }
 
   dimension: patient_age {
@@ -237,7 +237,7 @@ view: sql_runner_query_2 {
 
   dimension: aspects_affected_side {
     type: string
-    sql: ${TABLE}.aspects_affected_sid ;;
+    sql: ${TABLE}.aspects_affected_side ;;
   }
 
   dimension: aspect_score {
@@ -247,7 +247,7 @@ view: sql_runner_query_2 {
 
   set: detail {
     fields: [
-      site_rapid_patient_id,
+      rapid_patient_id,
       patient_age,
       patient_gender,
       module_name,
