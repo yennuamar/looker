@@ -57,4 +57,7 @@ explore: sites {
   }
 }
 
-explore: sql_runner_query_2 {}
+explore: sql_runner_query_2 {
+  label: "Main Merged Table"
+  group_label: "Main Merged Table"
+}
