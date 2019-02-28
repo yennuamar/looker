@@ -57,7 +57,7 @@ explore: sites {
   }
 }
 
-explore: sql_runner_query_2 {
+explore: merged_table {
   label: "Main Merged Table"
   group_label: "Main Merged Table"
 }

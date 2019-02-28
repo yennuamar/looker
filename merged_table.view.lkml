@@ -1,4 +1,4 @@
-view: sql_runner_query_2 {
+view: merged_table {
   derived_table: {
     sql: SELECT rapid_patient_id,
       patient_age,
