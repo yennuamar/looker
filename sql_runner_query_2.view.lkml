@@ -235,7 +235,7 @@ view: sql_runner_query_2 {
     sql: ${TABLE}.hem_ratio ;;
   }
 
-  dimension: aspects_affected_sid {
+  dimension: aspects_affected_side {
     type: string
     sql: ${TABLE}.aspects_affected_sid ;;
   }
@@ -277,7 +277,7 @@ view: sql_runner_query_2 {
       volume,
       cta1_affected_side,
       hem_ratio,
-      aspects_affected_sid,
+      aspects_affected_side,
       aspect_score
     ]
   }
