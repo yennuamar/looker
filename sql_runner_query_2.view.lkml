@@ -30,7 +30,7 @@ view: sql_runner_query_2 {
       array_to_string(array_agg(volume),', ') AS volume,
       array_to_string(array_agg(cta1_affected_side),', ') AS cta1_affected_side,
       array_to_string(array_agg(hem_ratio),', ') AS hem_ratio,
-      array_to_string(array_agg(aspects_affected_side),', ') AS aspects_affected_sid,
+      array_to_string(array_agg(aspects_affected_side),', ') AS aspects_affected_side,
       array_to_string(array_agg(aspect_score),', ') AS aspect_score
       FROM (
       SELECT
