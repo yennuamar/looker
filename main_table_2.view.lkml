@@ -131,7 +131,7 @@ SELECT
   main_table_1.manufacturer  AS "manufacturer",
   main_table_1.manufacturer_model  AS "manufacturer_model",
   main_table_1.datetime_started_time[array_upper(main_table_1.datetime_started_time, 1)]  AS "datetime_started_time",
-  main_table_1.datetime_finished_time[array_upper(main_table_1.datetime_finished_time, 1)]  AS "datetime_finished_time",
+  to_timestamp(main_table_1.datetime_finished_time[array_upper(main_table_1.datetime_finished_time, 1)])  AS "datetime_finished_time",
   main_table_1.series_description[array_upper(main_table_1.series_description, 1)]  AS "series_description",
   main_table_1.series_datetime_time[array_upper(main_table_1.series_datetime_time, 1)]  AS "series_datetime_time",
   main_table_1.entry_id[array_upper(main_table_1.entry_id, 1)]  AS "entry_id",
