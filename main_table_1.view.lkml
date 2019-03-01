@@ -98,7 +98,7 @@ view: main_table_1 {
             measurements_cta1.affected_side  AS cta1_affected_side,
             measurements_cta1.hem_ratio  AS hem_ratio,
             measurements_aspects.affected_side  AS aspects_affected_side,
-            measurements_aspects.aspect_score  AS aspect_score,
+            measurements_aspects.aspect_score  AS aspect_score
 
             FROM public.sites  AS sites
             LEFT JOIN public.tasks  AS tasks ON tasks.site_key = sites.site_key
