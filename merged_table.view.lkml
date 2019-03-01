@@ -14,7 +14,7 @@ view: merged_table {
       manufacturer,
       manufacturer_model,
       array_to_string(array_agg(datetime_started_time ),', ') AS datetime_started_time,
-      array_to_string(array_agg(datetime_finished_time ),', ') AS datetime_finished_time,
+      array_agg(datetime_finished_time ) AS datetime_finished_time,
       array_to_string(array_agg(series_description ),', ') AS series_description,
       array_to_string(array_agg(series_datetime_time ),', ') AS series_datetime_time,
       array_to_string(array_agg(entry_id ),', ') AS entry_id,
