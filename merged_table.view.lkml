@@ -85,9 +85,9 @@ view: merged_table {
     drill_fields: [detail*]
   }
 
-  dimension: site_rapid_patient_id {
+  dimension: rapid_patient_id {
     type: number
-    sql: ${TABLE}.site_rapid_patient_id ;;
+    sql: ${TABLE}.rapid_patient_id ;;
   }
 
   dimension: patient_age {
@@ -247,7 +247,7 @@ view: merged_table {
 
   set: detail {
     fields: [
-      site_rapid_patient_id,
+      rapid_patient_id,
       patient_age,
       patient_gender,
       module_name,
