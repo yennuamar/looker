@@ -56,3 +56,5 @@ explore: sites {
     sql_on: ${measurements_aspects.task_key} = ${tasks.task_key} ;;
   }
 }
+
+explore: merged_table {}
