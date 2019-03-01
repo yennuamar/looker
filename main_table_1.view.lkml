@@ -58,9 +58,9 @@ view: main_table_1 {
             total_processing_time_since_delivery,
             username,
             n_slabs,
-            array_to_string(array_agg(parameter_name order by task_key),', ') AS parameter_name,
-            array_to_string(array_agg(threshold order by task_key),', ') AS threshold,
-            array_to_string(array_agg(volume order by task_key),', ') AS volume,
+            array_to_string(array_agg(parameter_name),', ') AS parameter_name,
+            array_to_string(array_agg(threshold),', ') AS threshold,
+            array_to_string(array_agg(volume),', ') AS volume,
             cta1_affected_side,
             hem_ratio,
             aspects_affected_side,
@@ -99,7 +99,7 @@ view: main_table_1 {
             measurements_cta1.hem_ratio  AS hem_ratio,
             measurements_aspects.affected_side  AS aspects_affected_side,
             measurements_aspects.aspect_score  AS aspect_score,
-            tasks.task_key AS task_key
+
             FROM public.sites  AS sites
             LEFT JOIN public.tasks  AS tasks ON tasks.site_key = sites.site_key
             LEFT JOIN public.series  AS series ON series.task_key = tasks.task_key
@@ -108,7 +108,7 @@ view: main_table_1 {
             LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
             WHERE (((tasks.datetime_finished ) >= ((SELECT (DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL))) AND (tasks.datetime_finished ) < ((SELECT ((DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL) + (3 || ' month')::INTERVAL)))))
-            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
             ORDER BY entry_id ASC
             ) AS table1
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,30,31,32
