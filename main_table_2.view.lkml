@@ -111,10 +111,10 @@ view: main_table_2 {
             ORDER BY entry_id ASC
             ) AS table1
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,30,31,32
-      ORDER BY entry_id ASC
+
       ) AS table2
   GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
-  ORDER BY task_id ASC
+
  )
 SELECT
   main_table_1.rapid_patient_id  AS "rapid_patient_id",
