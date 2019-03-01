@@ -58,9 +58,9 @@ view: main_table_1 {
             total_processing_time_since_delivery,
             username,
             n_slabs,
-            array_to_string(array_agg(parameter_name),', ') AS parameter_name,
-            array_to_string(array_agg(threshold),', ') AS threshold,
-            array_to_string(array_agg(volume),', ') AS volume,
+            array_to_string(array_agg(parameter_name order by entry_id),', ') AS parameter_name,
+            array_to_string(array_agg(threshold order by entry_id),', ') AS threshold,
+            array_to_string(array_agg(volume order by entry_id),', ') AS volume,
             cta1_affected_side,
             hem_ratio,
             aspects_affected_side,
@@ -106,7 +106,7 @@ view: main_table_1 {
             LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
             LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-            WHERE (sites.site_name = 'stanford_3dlab') AND (((tasks.datetime_finished ) >= ((SELECT (DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL))) AND (tasks.datetime_finished ) < ((SELECT ((DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL) + (3 || ' month')::INTERVAL)))))
+            WHERE (((tasks.datetime_finished ) >= ((SELECT (DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL))) AND (tasks.datetime_finished ) < ((SELECT ((DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL) + (3 || ' month')::INTERVAL)))))
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
             ORDER BY entry_id ASC
             ) AS table1
