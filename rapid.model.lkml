@@ -58,3 +58,4 @@ explore: sites {
 }
 
 explore: merged_table {}
+explore: main_table {}
