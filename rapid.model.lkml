@@ -59,3 +59,4 @@ explore: sites {
 
 
 explore: main_table_1 {}
+explore: main_table_2 {}
