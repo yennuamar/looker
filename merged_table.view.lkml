@@ -48,7 +48,7 @@ view: merged_table {
       series.manufacturer  AS manufacturer,
       series.manufacturer_model  AS manufacturer_model,
       TO_CHAR(tasks.datetime_started , 'YYYY-MM-DD HH24:MI:SS') AS datetime_started_time,
-      ((timestamp tasks.datetime_finished) AT TIME ZONE 'PST') AS datetime_finished_time,
+      (TO_TIMESTAMP(tasks.datetime_finished , 'YYYY-MM-DD HH24:MI:SS') AT TIME ZONE 'PST') AS datetime_finished_time,
       series.series_description  AS series_description,
       TO_CHAR(series.series_datetime , 'YYYY-MM-DD HH24:MI:SS') AS series_datetime_time,
       tasks.entry_id  AS entry_id,
