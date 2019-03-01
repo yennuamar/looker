@@ -48,7 +48,7 @@ view: merged_table {
       series.manufacturer  AS manufacturer,
       series.manufacturer_model  AS manufacturer_model,
       TO_CHAR(tasks.datetime_started , 'YYYY-MM-DD HH24:MI:SS') AS datetime_started_time,
-      to_timestamp(tasks.datetime_finished, 'YYYY-MM-DD hh24:mi:ss')::timestamp without time zone at time zone 'Etc/UTC' AS datetime_finished_time,
+      TO_CHAR(tasks.datetime_finished, 'YYYY-MM-DD hh24:mi:ss') AS datetime_finished_time,
       series.series_description  AS series_description,
       TO_CHAR(series.series_datetime , 'YYYY-MM-DD HH24:MI:SS') AS series_datetime_time,
       tasks.entry_id  AS entry_id,
@@ -75,6 +75,7 @@ view: merged_table {
 
       WHERE   (((tasks.datetime_finished ) >= ((SELECT (DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL))) AND (tasks.datetime_finished ) < ((SELECT ((DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL) + (3 || ' month')::INTERVAL)))))
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
+      ORDER BY 1,18,19
       ) AS table1
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
        ;;
