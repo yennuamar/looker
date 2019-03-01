@@ -57,5 +57,5 @@ explore: sites {
   }
 }
 
-explore: merged_table {}
-explore: main_table {}
+
+explore: main_table_1 {}
