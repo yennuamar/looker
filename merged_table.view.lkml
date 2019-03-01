@@ -1,6 +1,6 @@
 view: merged_table {
   derived_table: {
-    sql: SELECT site_rapid_patient_id,
+    sql: SELECT rapid_patient_id,
       patient_age,
       patient_gender,
       module_name,
@@ -34,7 +34,7 @@ view: merged_table {
       array_to_string(array_agg(aspect_score),', ') AS aspect_score
       FROM (
       SELECT
-      series.site_rapid_patient_id  AS site_rapid_patient_id,
+      series.site_rapid_patient_id  AS rapid_patient_id,
       series.patient_age  AS patient_age,
       series.patient_gender  AS patient_gender,
       tasks.module_name  AS module_name,
