@@ -81,7 +81,7 @@ view: main_table_2 {
             series.manufacturer  AS manufacturer,
             series.manufacturer_model  AS manufacturer_model,
             TO_CHAR(tasks.datetime_started , 'YYYY-MM-DD HH24:MI:SS') AS datetime_started_time,
-            tasks.datetime_finished AS datetime_finished_time,
+            TO_CHAR(tasks.datetime_finished , 'YYYY-MM-DD HH24:MI:SS') AS datetime_finished_time,
             series.series_description  AS series_description,
             TO_CHAR(series.series_datetime , 'YYYY-MM-DD HH24:MI:SS') AS series_datetime_time,
             tasks.entry_id  AS entry_id,
@@ -106,7 +106,7 @@ view: main_table_2 {
             LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
             LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-            WHERE  (((tasks.datetime_finished ) >= ((SELECT (DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL))) AND (tasks.datetime_finished ) < ((SELECT ((DATE_TRUNC('month', DATE_TRUNC('day', CURRENT_TIMESTAMP)) + (-2 || ' month')::INTERVAL) + (3 || ' month')::INTERVAL)))))
+            (((tasks.datetime_finished ) >= (TIMESTAMP '2019-02-01 00:00') AND (tasks.datetime_finished ) < (TIMESTAMP '2019-03-01 23:58')))
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
             ORDER BY entry_id ASC
             ) AS table1
