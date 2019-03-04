@@ -10,6 +10,18 @@ datagroup: rapid_default_datagroup {
 
 persist_with: rapid_default_datagroup
 
+explore: measurements_aspects {}
+
+explore: measurements_cta1 {}
+
+explore: techinfo_cta {}
+
+explore: techinfo_dwi {}
+
+explore: techinfo_ncct {}
+
+explore: techinfo_perf {}
+
 explore: series {
   join: techinfo_cta{
     type: left_outer
