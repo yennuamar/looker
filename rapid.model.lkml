@@ -10,19 +10,31 @@ datagroup: rapid_default_datagroup {
 
 persist_with: rapid_default_datagroup
 
-explore: measurements_aspects {}
+explore: series {
+  join: techinfo_cta{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_cta.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_dwi{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_dwi.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_ncct{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_ncct.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_perf{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
+  }
 
-explore: measurements_cta1 {}
+}
 
-explore: series {}
 
-explore: techinfo_cta {}
-
-explore: techinfo_dwi {}
-
-explore: techinfo_ncct {}
-
-explore: techinfo_perf {}
 
 explore: tasks {}
 
