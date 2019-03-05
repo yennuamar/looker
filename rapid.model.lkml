@@ -28,6 +28,30 @@ explore: techinfo_perf {}
 
 explore: tasks {}
 
+explore: series {
+  join: techinfo_cta{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_cta.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_dwi{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_dwi.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_ncct{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_ncct.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_perf{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
+  }
+
+}
+
 explore: sites {
   join: tasks  {
     type: left_outer
@@ -57,31 +81,10 @@ explore: sites {
     relationship: one_to_one
     sql_on: ${measurements_aspects.task_key} = ${tasks.task_key} ;;
   }
+  extends: [series]
 }
 
-explore: series {
-  join: techinfo_cta{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_cta.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_dwi{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_dwi.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_ncct{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_ncct.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_perf{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
-  }
 
-}
 
 
 explore: main_table_1 {}
