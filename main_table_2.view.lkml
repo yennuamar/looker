@@ -108,7 +108,7 @@ view: main_table_2 {
 
             WHERE (((tasks.datetime_finished ) >= (TIMESTAMP '2019-01-01 00:00') AND (tasks.datetime_finished ) < (TIMESTAMP '2019-02-01 00:00')))
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32
-            ORDER BY entry_id ASC
+            ORDER BY entry_id DESC
             ) AS table1
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,29,30,31,32
       ORDER BY entry_id ASC
