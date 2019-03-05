@@ -17,7 +17,7 @@ view: main_table_2 {
         array_agg(datetime_finished_time order by entry_id DESC) AS datetime_finished_time,
         array_agg(series_description order by entry_id DESC) AS series_description,
         array_agg(series_datetime_time order by entry_id DESC) AS series_datetime_time,
-        array_agg(entry_id order by entry_id) DESC AS entry_id,
+        array_agg(entry_id order by entry_id DESC) AS entry_id,
         array_agg(task_id order by entry_id DESC) AS task_id,
         array_agg(task_processing_type order by entry_id DESC) AS task_processing_type,
         array_agg(task_result order by entry_id DESC) AS task_result,
