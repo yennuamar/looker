@@ -108,4 +108,13 @@ view: tasks {
     type: count
     drill_fields: [task_id, username, module_name]
   }
+  measure: total_processing_time{
+    description: "This is the total"
+    type: sum
+    sql:  total_processing_time_since_delivery ;;
+  }
+
+
+
+
 }
