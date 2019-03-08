@@ -32,6 +32,13 @@ view: series {
     sql: ${TABLE}.patient_age ;;
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [0, 18,40, 50]
+    style: integer # the default value, could be excluded
+    sql: ${patient_age} ;;
+  }
+
   dimension: patient_gender {
     type: string
     sql: ${TABLE}.patient_gender ;;
