@@ -18,6 +18,15 @@ view: sites {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: country_clean {
+    description: "Clean data"
+    type: string
+    map_layer_name: countries
+    sql: case when ${country} = 'USA' or ${country} = 'US' then 'USA'
+         else  ${country}
+         end;;
+  }
+
   dimension_group: last_modified {
     type: time
     timeframes: [
