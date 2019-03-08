@@ -53,6 +53,9 @@ explore: series {
 }
 
 explore: sites {
+  label: "Scans Analytics"
+  group_label: "iSchema Internal Analytics"
+  description: "Explore used with Looker consultant to build dashboards during trial"
   join: tasks  {
     type: left_outer
     relationship: one_to_one
