@@ -10,47 +10,17 @@ datagroup: rapid_default_datagroup {
 
 persist_with: rapid_default_datagroup
 
-explore: measurements_aspects {}
-
-explore: measurements_cta1 {}
-
-explore: techinfo_cta {}
-
-explore: techinfo_dwi {}
-
-explore: techinfo_ncct {}
-
-explore: techinfo_perf {}
-
-
-
-
-
-explore: tasks {}
-
-explore: series {
-  join: techinfo_cta{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_cta.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_dwi{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_dwi.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_ncct{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_ncct.series_key} = ${series.series_key} ;;
-  }
-  join: techinfo_perf{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
-  }
-
-}
+# explore: measurements_aspects {}
+#
+# explore: measurements_cta1 {}
+#
+# explore: techinfo_cta {}
+#
+# explore: techinfo_dwi {}
+#
+# explore: techinfo_ncct {}
+#
+# explore: techinfo_perf {}
 
 explore: sites {
   label: "Scans Analytics"
@@ -89,9 +59,28 @@ explore: sites {
 
 
 
+# explore: tasks {}
 
-explore: main_table_1 {}
-explore: main_table_2 {}
-explore: merged_table{}
-explore: main_table {}
-explore: final_table {}
+explore: series {
+  join: techinfo_cta{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_cta.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_dwi{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_dwi.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_ncct{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_ncct.series_key} = ${series.series_key} ;;
+  }
+  join: techinfo_perf{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
+  }
+
+}
