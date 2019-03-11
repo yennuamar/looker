@@ -86,3 +86,4 @@ explore: series {
 }
 
 explore: final_table {}
+explore: final_table2 {}
