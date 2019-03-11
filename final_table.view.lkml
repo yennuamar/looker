@@ -298,17 +298,17 @@ view: final_table {
   }
 
   dimension: series_datetime {
-    type: date_time
+    type: string
     sql: ${TABLE}.series_datetime ;;
   }
 
   dimension: datetime_started {
-    type: date_time
+    type: string
     sql: ${TABLE}.datetime_started ;;
   }
 
   dimension: datetime_finished {
-    type: date_time
+    type: string
     sql: ${TABLE}.datetime_finished ;;
   }
 
