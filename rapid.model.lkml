@@ -84,3 +84,5 @@ explore: series {
   }
 
 }
+
+explore: final_table {}
