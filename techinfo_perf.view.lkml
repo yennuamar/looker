@@ -202,6 +202,7 @@ view: techinfo_perf {
   }
 
   dimension: series_key {
+    primary_key:yes
     type: number
     sql: ${TABLE}.series_key ;;
   }

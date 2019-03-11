@@ -62,6 +62,7 @@ view: measurements_aspects {
   }
 
   dimension: task_key {
+    primary_key:yes
     type: number
     sql: ${TABLE}.task_key ;;
   }

@@ -12,6 +12,7 @@ view: measurements_cta1 {
   }
 
   dimension: task_key {
+    primary_key:yes
     type: number
     sql: ${TABLE}.task_key ;;
   }
