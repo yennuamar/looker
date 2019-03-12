@@ -91,6 +91,11 @@ view: techinfo_perf {
     sql: ${TABLE}.exposure_time ;;
   }
 
+  measure: exposure_time_avg {
+    type: average
+    sql: ${TABLE}.exposure_time ;;
+  }
+
   dimension: input_slice_nx {
     type: number
     sql: ${TABLE}.input_slice_nx ;;
