@@ -177,7 +177,7 @@ view: richard_view {
 
   dimension: manufacturer {
     type: string
-    sql: ${TABLE}.manufacturer ;;
+    sql: ${TABLE}.manufacturer;;
   }
 
   dimension: manufacturer_model {
