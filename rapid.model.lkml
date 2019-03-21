@@ -93,5 +93,7 @@ explore: final_table2 {}
 explore: main_table_1 {}
 explore: count {
   label: "Pre Final Table"
+  description: "This is the pre final table"
+  group_label: "Amarnath"
   persist_with: 24hr_caching
 }
