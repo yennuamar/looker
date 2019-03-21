@@ -154,7 +154,11 @@ view: final_table2 {
                       series.site_rapid_patient_id  AS Rapid_Patient_ID,
                       series.patient_age  AS Patient_Age,
                       series.patient_gender  AS Patient_Gender,
-                      tasks.module_name  AS Module_Name,
+                      case when tasks.module_name = 'angio' then 'Angio'
+                           when tasks.module_name = 'hemorrhage' then 'Hemorrhage'
+                           when tasks.module_name = 'NCCT' then 'ASPECTS'
+                           when tasks.module_name = 'Octopus' then 'ASPECTS'
+                           else tasks.module_name end AS Module_Name,
                       tasks.modality  AS Modality,
                       sites.site_name  AS Site_Name,
                       sites.city  AS City,
@@ -186,7 +190,7 @@ view: final_table2 {
                       tasks.entry_id  AS Entry_ID,
                       tasks.task_id  AS Task_ID,
                       tasks.task_processing_type  AS Task_Processing_Type,
-                      tasks.task_result  AS Task_Result,
+                      case when tasks.task_result = '0' then 'Successful' else 'Unsuccessful' end AS Task_Result,
                       tasks.processing_time_in_module  AS Processing_Time_In_Module,
                       tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                       tasks.username  AS Username,
