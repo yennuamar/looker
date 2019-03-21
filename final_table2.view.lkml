@@ -405,7 +405,7 @@ view: final_table2 {
   }
 
   dimension: task_result {
-    type: number
+    type: string
     sql: ${TABLE}.task_result ;;
   }
 
