@@ -1,7 +1,7 @@
 view: count {
   derived_table: {
-    datagroup_trigger: 24hr_caching
-    indexes: ["Task_ID"]
+   # datagroup_trigger: 24hr_caching
+   # indexes: ["Task_ID"]
     sql: SELECT
           Rapid_Patient_ID,
           Patient_Age,
@@ -188,7 +188,7 @@ view: count {
                       tasks.entry_id  AS Entry_ID,
                       tasks.task_id  AS Task_ID,
                       tasks.task_processing_type  AS Task_Processing_Type,
-                      tasks.task_result end AS Task_Result,
+                      case when tasks.task_result = "0" then "Successful" else "Unsuccessful" end AS Task_Result,
                       tasks.processing_time_in_module  AS Processing_Time_In_Module,
                       tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                       tasks.username  AS Username,
@@ -404,7 +404,7 @@ view: count {
   }
 
   dimension: task_result {
-    type: number
+    type: string
     sql: ${TABLE}.task_result ;;
   }
 

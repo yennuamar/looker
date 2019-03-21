@@ -8,7 +8,7 @@ datagroup: rapid_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-persist_with: rapid_default_datagroup
+#persist_with: rapid_default_datagroup
 
 # explore: measurements_aspects {}
 #
@@ -23,10 +23,10 @@ persist_with: rapid_default_datagroup
 # explore: techinfo_perf {}
 
 
-datagroup: 24hr_caching {
-  max_cache_age: "24 hours"
-  sql_trigger: select current_date ;;
-}
+#datagroup: 24hr_caching {
+ # max_cache_age: "24 hours"
+ #sql_trigger: select current_date ;;
+#}
 
 # explore: tasks {}
 
@@ -91,9 +91,8 @@ explore: richard_view2 {}
 explore: final_table {}
 explore: final_table2 {}
 explore: main_table_1 {}
-explore: count {
-  label: "Pre Final Table"
-  description: "This is the pre final table"
-  group_label: "Amarnath"
-  persist_with: 24hr_caching
-}
+explore: count {}
+ # label: "Pre Final Table"
+ #description: "This is the pre final table"
+ # group_label: "Amarnath"
+  #persist_with: 24hr_caching
