@@ -92,5 +92,6 @@ explore: final_table {}
 explore: final_table2 {}
 explore: main_table_1 {}
 explore: count {
+  label: "Pre Final Table"
   persist_with: 24hr_caching
 }
