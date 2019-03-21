@@ -156,7 +156,11 @@ view: count {
                       series.site_rapid_patient_id  AS Rapid_Patient_ID,
                       series.patient_age  AS Patient_Age,
                       series.patient_gender  AS Patient_Gender,
-                      case when tasks.module_name = 'angio' then 'Angio' else tasks.module_name end AS Module_Name,
+                      case when tasks.module_name = 'angio' then 'Angio'
+                           when tasks.module_name = 'hemorrhage' then 'Hemorrhage'
+                           when tasks.module_name = 'NCCT' then 'ASPECTS'
+                           when tasks.module_name = 'Octopus' then 'ASPECTS'
+                           else tasks.module_name end AS Module_Name,
                       tasks.modality  AS Modality,
                       sites.site_name  AS Site_Name,
                       sites.city  AS City,
