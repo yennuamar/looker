@@ -186,7 +186,7 @@ view: count {
                       tasks.entry_id  AS Entry_ID,
                       tasks.task_id  AS Task_ID,
                       tasks.task_processing_type  AS Task_Processing_Type,
-                      tasks.task_result  AS Task_Result,
+                      case when tasks.task_result = 0 then 'successful' else "unsuccessful" end AS Task_Result,
                       tasks.processing_time_in_module  AS Processing_Time_In_Module,
                       tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                       tasks.username  AS Username,
