@@ -152,11 +152,12 @@ view: count {
                   Hemi_Ratio,
                   Aspects_Affected_Side,
                   Aspect_Score,
-                  case when ((table1.Perf_Acquisition_Type is null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
-                           when ((table1.Perf_Acquisition_Type is not null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                           when ((table1.Perf_Acquisition_Type is not null) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'CTP'
-                           when ((table1.Perf_Acquisition_Type is null) and (table1.Module_Name = 'Angio')) then 'CTA'
-                           when ((table1.Perf_Acquisition_Type is null) and (table1.Module_Name = 'ASPECTS')) then 'NCCT'
+                  case when ((Parameter_Name[array_upper(Parameter_Name, 1)] = 'ADC') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
+                           when ((Parameter_Name[array_upper(Parameter_Name, 1)] != 'ADC') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                           when ((Number_Of_Slabs = 1) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'Single Slab CTP'
+                           when ((Number_Of_Slabs = 2) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'Dual Slab CTP'
+                           when (table1.Module_Name = 'Angio') then 'CTA'
+                           when (table1.Module_Name = 'ASPECTS') then 'NCCT'
                            else null end AS Scan_type
                   FROM (
 
