@@ -152,8 +152,8 @@ view: count {
                   Hemi_Ratio,
                   Aspects_Affected_Side,
                   Aspect_Score,
-                  case when ((Parameter_Name LIKE 'ADC') and (Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                           when ((Parameter_Name LIKE 'ADC') and not (Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
+                  case when ((table1.Parameter_Name LIKE 'ADC') and (table1.Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                           when ((table1.Parameter_Name LIKE 'ADC') and not (table1.Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
                            when ((Number_Of_Slabs = 1) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'Single Slab CTP'
                            when ((Number_Of_Slabs = 2) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'Dual Slab CTP'
                            when (table1.Module_Name = 'Angio') then 'CTA'
