@@ -152,11 +152,11 @@ view: count {
                   Hemi_Ratio,
                   Aspects_Affected_Side,
                   Aspect_Score,
-                  case when ((table1.Perf_Acquisition_Type = null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
-                           when ((table1.Perf_Acquisition_Type != null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                           when ((table1.Perf_Acquisition_Type != null) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'CTP'
-                           when ((table1.Perf_Acquisition_Type = null) and (table1.Module_Name = 'Angio')) then 'CTA'
-                           when ((table1.Perf_Acquisition_Type = null) and (table1.Module_Name = 'ASPECTS')) then 'NCCT'
+                  case when ((table1.Perf_Acquisition_Type is null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
+                           when ((table1.Perf_Acquisition_Type is not null) and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                           when ((table1.Perf_Acquisition_Type is not null) and (table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'CTP'
+                           when ((table1.Perf_Acquisition_Type is null) and (table1.Module_Name = 'Angio')) then 'CTA'
+                           when ((table1.Perf_Acquisition_Type is null) and (table1.Module_Name = 'ASPECTS')) then 'NCCT'
                            else null end AS Scan_type
                   FROM (
 
