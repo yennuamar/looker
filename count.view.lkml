@@ -49,7 +49,8 @@ view: count {
           Cta_Affected_Side[array_upper(Cta_Affected_Side, 1)] AS Cta_Affected_Side,
           Hemi_Ratio[array_upper(Hemi_Ratio, 1)] AS Hemi_Ratio,
           Aspects_Affected_Side[array_upper(Aspects_Affected_Side, 1)] AS Aspects_Affected_Side,
-          Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score
+          Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score,
+          Scan_type[array_upper(Scan_type, 1)] AS Scan_type
           FROM (
 
             SELECT
@@ -99,7 +100,8 @@ view: count {
               array_agg(Cta_Affected_Side ORDER BY Task_ID) AS Cta_Affected_Side,
               array_agg(Hemi_Ratio ORDER BY Task_ID) AS Hemi_Ratio,
               array_agg(Aspects_Affected_Side ORDER BY Task_ID) AS Aspects_Affected_Side,
-              array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score
+              array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score,
+              array_agg(Scan_type ORDER BY Task_ID) AS Scan_type
               FROM (
 
                 SELECT
@@ -149,7 +151,8 @@ view: count {
                   Cta_Affected_Side,
                   Hemi_Ratio,
                   Aspects_Affected_Side,
-                  Aspect_Score
+                  Aspect_Score,
+                  Scan_type
                   FROM (
 
                     SELECT
@@ -203,7 +206,16 @@ view: count {
                       measurements_cta1.affected_side  AS Cta_Affected_Side,
                       measurements_cta1.hem_ratio  AS Hemi_Ratio,
                       measurements_aspects.affected_side  AS Aspects_Affected_Side,
-                      measurements_aspects.aspect_score  AS Aspect_Score
+                      measurements_aspects.aspect_score  AS Aspect_Score,
+                      case when ((Perf_Acquisition_Type = null) and (Modality = 'MR') and (Module_Name = 'Mismatch')) then 'DWI'
+                           when ((Perf_Acquisition_Type != null) and (Modality = 'MR') and (Module_Name = 'Mismatch')) then 'PWI&DWI'
+                           when ((Perf_Acquisition_Type != null) and (Modality = 'CT') and (Module_Name = 'Mismatch')) then 'CTP'
+                           when ((Perf_Acquisition_Type = null) and (Module_Name = 'Angio')) then 'CTA'
+                           when ((Perf_Acquisition_Type = null) and (Module_Name = 'ASPECTS')) then 'NCCT'
+                           else null end AS Scan_type
+
+
+
                     FROM public.sites  AS sites
                     LEFT JOIN public.tasks  AS tasks ON tasks.site_key = sites.site_key
                     LEFT JOIN public.series  AS series ON series.task_key = tasks.task_key
@@ -215,13 +227,13 @@ view: count {
                     LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
                     LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,47
+                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,47,48
                     ) AS table1
-                GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,27,28,29,30,31,32,34,35,36,39,40,41,42,43,44,45,46,47
+                GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,27,28,29,30,31,32,34,35,36,39,40,41,42,43,44,45,46,47,48
                 ) AS table2
             GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13
             ) AS table3
-        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47
+        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
         ORDER BY table3.Rapid_Patient_ID DESC
        ;;
 
@@ -466,6 +478,10 @@ view: count {
     type: number
     sql: ${TABLE}.aspect_score ;;
   }
+  dimension: Scan_type {
+    type: string
+    sql: ${TABLE}.Scan_type ;;
+  }
 
   set: detail {
     fields: [
@@ -515,7 +531,8 @@ view: count {
       cta_affected_side,
       hemi_ratio,
       aspects_affected_side,
-      aspect_score
+      aspect_score,
+      Scan_type
     ]
   }
 }
