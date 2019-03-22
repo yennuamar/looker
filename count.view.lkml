@@ -13,6 +13,62 @@ view: count {
           Country,
           ISV_Site_ID,
           Institution_Name,
+          Station_name,
+          Manufacturer,
+          Manufacturer_Model,
+          Series_Description,
+          Series_Datetime,
+          Datetime_Started,
+          Datetime_Finished,
+          Perf_Acquisition_Type,
+          Perf_Number_Of_Slices,
+          Perf_Slice_Thickness,
+          Perf_Coverage_z,
+          Perf_Scan_Duration,
+          Perf_Series_Type,
+          Dwi_Number_Of_Slices,
+          Dwi_Slice_Thickness,
+          Dwi_Series_Type,
+          Ncct_Number_Of_slices,
+          Ncct_Slice_Thickness,
+          Ncct_Series_Type,
+          Cta_Number_Of_Slices,
+          Cta_Slice_Thickness,
+          Cta_Series_Type,
+          Entry_ID,
+          Task_ID,
+          Task_Processing_Type,
+          Task_Result,
+          Processing_Time_In_Module,
+          Total_Processing_Time_Since_Delivery,
+          Username,
+          Number_Of_Slabs,
+          Parameter_Name,
+          Threshold,
+          Volume,
+          Cta_Affected_Side,
+          Hemi_Ratio,
+          Aspects_Affected_Side,
+          Aspect_Score,
+          case when ((table4.Parameter_Name LIKE 'TMAX') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
+               when ((table4.Parameter_Name LIKE 'ADC') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+               when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
+               when (table4.Module_Name = 'Angio') then 'CTA'
+               when (table4.Module_Name = 'ASPECTS') then 'NCCT'
+               else null end AS Scan_type
+    FROM (
+
+    SELECT
+          Rapid_Patient_ID,
+          Patient_Age,
+          Patient_Gender,
+          Module_Name,
+          Modality,
+          Site_Name,
+          City,
+          Country,
+          ISV_Site_ID,
+          Institution_Name,
           Station_name[array_upper(Station_name, 1)] AS Station_name,
           Manufacturer,
           Manufacturer_Model,
@@ -49,9 +105,8 @@ view: count {
           Cta_Affected_Side[array_upper(Cta_Affected_Side, 1)] AS Cta_Affected_Side,
           Hemi_Ratio[array_upper(Hemi_Ratio, 1)] AS Hemi_Ratio,
           Aspects_Affected_Side[array_upper(Aspects_Affected_Side, 1)] AS Aspects_Affected_Side,
-          Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score,
-          Scan_type[array_upper(Scan_type, 1)] AS Scan_type
-          FROM (
+          Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score
+
 
             SELECT
               Rapid_Patient_ID,
@@ -151,13 +206,8 @@ view: count {
                   Cta_Affected_Side,
                   Hemi_Ratio,
                   Aspects_Affected_Side,
-                  Aspect_Score,
-                  array_agg(case when ((table1.Parameter_Name LIKE 'ADC')  and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
-                           when ((table1.Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                           when ((table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'CTP'
-                           when (table1.Module_Name = 'Angio') then 'CTA'
-                           when (table1.Module_Name = 'ASPECTS') then 'NCCT'
-                           else null end ORDER BY Entry_ID DESC) AS Scan_type
+                  Aspect_Score
+
                   FROM (
 
                     SELECT
@@ -231,8 +281,11 @@ view: count {
                 ) AS table2
             GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13
             ) AS table3
-        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
+        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47
         ORDER BY table3.Rapid_Patient_ID DESC
+        ) AS table4
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
+      ORDER BY table4.Rapid_Patient_ID DESC
        ;;
 
   }
