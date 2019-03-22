@@ -57,6 +57,8 @@ view: count {
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
                else null end AS Scan_type
 
+        FROM (
+
 
         SELECT
               Rapid_Patient_ID,
@@ -106,6 +108,7 @@ view: count {
               Hemi_Ratio[array_upper(Hemi_Ratio, 1)] AS Hemi_Ratio,
               Aspects_Affected_Side[array_upper(Aspects_Affected_Side, 1)] AS Aspects_Affected_Side,
               Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score
+              FROM (
 
 
                 SELECT
@@ -155,8 +158,8 @@ view: count {
                   array_agg(Cta_Affected_Side ORDER BY Task_ID) AS Cta_Affected_Side,
                   array_agg(Hemi_Ratio ORDER BY Task_ID) AS Hemi_Ratio,
                   array_agg(Aspects_Affected_Side ORDER BY Task_ID) AS Aspects_Affected_Side,
-                  array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score,
-                  array_agg(Scan_type ORDER BY Task_ID) AS Scan_type
+                  array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score
+
                   FROM (
 
                     SELECT
