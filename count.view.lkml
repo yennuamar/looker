@@ -476,9 +476,9 @@ view: count {
     type: number
     sql: ${TABLE}.aspect_score ;;
   }
-  dimension: Scan_type {
+  dimension: scan_type {
     type: string
-    sql: ${TABLE}.Scan_type ;;
+    sql: ${TABLE}.scan_type ;;
   }
 
   set: detail {
@@ -530,7 +530,7 @@ view: count {
       hemi_ratio,
       aspects_affected_side,
       aspect_score,
-      Scan_type
+      scan_type
     ]
   }
 }
