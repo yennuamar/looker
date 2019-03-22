@@ -124,7 +124,7 @@ view: count {
                   Country,
                   ISV_Site_ID,
                   Institution_Name,
-                  case when ((Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[0])) or (Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[array_upper(lead (Series_Datetime), 1)]))) then array_agg(Station_name ORDER BY Task_ID) else Station_name end AS Station_name,
+                  case when ((Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[0])) or (Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[array_upper(lead (Series_Datetime), 1)]))) then array_agg(Station_name) over (ORDER BY Task_ID) else Station_name end AS Station_name,
                   Manufacturer,
                   Manufacturer_Model,
                   case when ((Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[0])) or (Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[array_upper(lead (Series_Datetime), 1)]))) then array_agg(Series_Description[array_upper(Series_Description, 1)] ORDER BY Task_ID) else Series_Description[array_upper(Series_Description, 1)] end AS Series_Description,
