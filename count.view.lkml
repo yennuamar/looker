@@ -129,7 +129,7 @@ view: count {
                   Manufacturer_Model,
                   array_agg(Series_Description[array_upper(Series_Description, 1)] ORDER BY Task_ID) AS Series_Description,
                   array_agg(Series_Datetime[array_upper(Series_Datetime, 1)] ORDER BY Task_ID)
-                    FILTER (where ((Series_Datetime[array_upper(Series_Datetime, 1)] = lead(Series_Datetime[0])) or
+                    FILTER (where ((Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[0])) or
                     (Series_Datetime[array_upper(Series_Datetime, 1)] = lead (Series_Datetime[array_upper(lead (Series_Datetime), 1)])))) AS Series_Datetime,
                   array_agg(Datetime_Started ORDER BY Task_ID) AS Datetime_Started,
                   array_agg(Datetime_Finished ORDER BY Task_ID) AS Datetime_Finished,
