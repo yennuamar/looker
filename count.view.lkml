@@ -50,8 +50,8 @@ view: count {
           Hemi_Ratio,
           Aspects_Affected_Side,
           Aspect_Score,
-          case when ((table4.Parameter_Name LIKE '_TMAX_') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
-               when ((table4.Parameter_Name LIKE '_ADC_') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+          case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
+               when ((table4.Parameter_Name LIKE 'ADC%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
                when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                when (table4.Module_Name = 'Angio') then 'CTA'
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
