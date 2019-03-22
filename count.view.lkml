@@ -152,12 +152,12 @@ view: count {
                   Hemi_Ratio,
                   Aspects_Affected_Side,
                   Aspect_Score,
-                  case when ((table1.Parameter_Name LIKE 'ADC')  and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
+                  array_agg(case when ((table1.Parameter_Name LIKE 'ADC')  and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'DWI'
                            when ((table1.Parameter_Name LIKE 'TMAX') and (table1.Modality = 'MR') and (table1.Module_Name = 'Mismatch')) then 'PWI&DWI'
                            when ((table1.Modality = 'CT') and (table1.Module_Name = 'Mismatch')) then 'CTP'
                            when (table1.Module_Name = 'Angio') then 'CTA'
                            when (table1.Module_Name = 'ASPECTS') then 'NCCT'
-                           else null end AS Scan_type
+                           else null end ORDER BY Entry_ID DESC) AS Scan_type
                   FROM (
 
                     SELECT
