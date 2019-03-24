@@ -38,7 +38,7 @@ view: count {
           Entry_ID,
           Task_ID,
           Task_Processing_Type,
-          Task_Result,
+          case when table4.Task_Result = 0 then 'Successful' else 'Unsuccessful' end AS Task_Result,
           Processing_Time_In_Module,
           Total_Processing_Time_Since_Delivery,
           Username,
@@ -290,14 +290,14 @@ view: count {
                           tasks.entry_id  AS Entry_ID,
                           tasks.task_id  AS Task_ID,
                           tasks.task_processing_type  AS Task_Processing_Type,
-                          case when tasks.task_result = '0' then 'Successful' else 'Unsuccessful' end AS Task_Result,
+                          tasks.task_result AS Task_Result,
                           tasks.processing_time_in_module  AS Processing_Time_In_Module,
                           tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                           tasks.username  AS Username,
                           measurements_mismatch.n_slabs  AS Number_Of_Slabs,
-                          array_to_string(array_agg(measurements_mismatch.parameter_name ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ') AS Parameter_Name,
-                          array_to_string(array_agg(measurements_mismatch.threshold ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ') AS Threshold,
-                          array_to_string(array_agg(measurements_mismatch.volume ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ')  AS Volume,
+                          array_to_string(array_agg(measurements_mismatch.parameter_name ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',') AS Parameter_Name,
+                          array_to_string(array_agg(measurements_mismatch.threshold ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',') AS Threshold,
+                          array_to_string(array_agg(measurements_mismatch.volume ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',')  AS Volume,
                           measurements_cta1.affected_side  AS Cta_Affected_Side,
                           measurements_cta1.hem_ratio  AS Hemi_Ratio,
                           measurements_aspects.affected_side  AS Aspects_Affected_Side,
@@ -511,7 +511,7 @@ view: count {
   }
 
   dimension: task_result {
-    type: string
+    type: number
     sql: ${TABLE}.task_result ;;
   }
 
