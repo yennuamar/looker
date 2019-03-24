@@ -59,9 +59,35 @@ view: count {
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
                else null end AS Scan_type,
 
-          case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR')) then (string_to_array(table4.Volume, ',')::float[])[3]
-               when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'CT')) then (string_to_array(table4.Volume, ',')::float[])[9]
-               else null end AS TMAX_volume_ml
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[2] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[2] = 4 ) then (string_to_array(table4.Volume, ',')::float[])[2]
+               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[8] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[8] = 4 ) then (string_to_array(table4.Volume, ',')::float[])[8]
+               else null end AS tmax4_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[3] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[3] = 6 ) then (string_to_array(table4.Volume, ',')::float[])[3]
+               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[9] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[9] = 6 ) then (string_to_array(table4.Volume, ',')::float[])[9]
+               else null end AS tmax6_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[4] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[4] = 8 ) then (string_to_array(table4.Volume, ',')::float[])[4]
+               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[10] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[10] = 8 ) then (string_to_array(table4.Volume, ',')::float[])[10]
+               else null end AS tmax8_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[5] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[5] = 10 ) then (string_to_array(table4.Volume, ',')::float[])[5]
+               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[11] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[11] = 10 ) then (string_to_array(table4.Volume, ',')::float[])[11]
+               else null end AS tmax10_volume_ml,
+
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[1] = 'ADC') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[1] = 620 ) then (string_to_array(table4.Volume, ',')::float[])[1]
+               else null end AS ADC_lessthan_620_volume_ml,
+
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[1] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[1] = 0.200000003 ) then (string_to_array(table4.Volume, ',')::float[])[1]
+               else null end AS CBF_lessthan_20percent_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[2] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012 ) then (string_to_array(table4.Volume, ',')::float[])[2]
+               else null end AS CBF_lessthan_30percent_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[3] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[3] = 0.340000004 ) then (string_to_array(table4.Volume, ',')::float[])[3]
+               else null end AS CBF_lessthan_34percent_volume_ml,
+          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[4] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[4] = 0.379999995 ) then (string_to_array(table4.Volume, ',')::float[])[4]
+               else null end AS CBF_lessthan_38percent_volume_ml
+
+
+
+
+
         FROM (
 
 
@@ -542,9 +568,49 @@ view: count {
     sql: ${TABLE}.scan_type ;;
   }
 
-  dimension: TMAX_volume_ml {
+  dimension: tmax4_volume_ml {
     type: number
-    sql: ${TABLE}.TMAX_volume_ml ;;
+    sql: ${TABLE}.tmax4_volume_ml ;;
+  }
+
+  dimension: tmax6_volume_ml {
+    type: number
+    sql: ${TABLE}.tmax6_volume_ml ;;
+  }
+
+  dimension: tmax8_volume_ml {
+    type: number
+    sql: ${TABLE}.tmax8_volume_ml ;;
+  }
+
+  dimension: tmax10_volume_ml {
+    type: number
+    sql: ${TABLE}.tmax10_volume_ml ;;
+  }
+
+  dimension: ADC_lessthan_620_volume_ml {
+    type: number
+    sql: ${TABLE}.ADC_lessthan_620_volume_ml ;;
+  }
+
+  dimension: CBF_lessthan_20percent_volume_ml {
+    type: number
+    sql: ${TABLE}.CBF_lessthan_20percent_volume_ml ;;
+  }
+
+  dimension: CBF_lessthan_30percent_volume_ml {
+    type: number
+    sql: ${TABLE}.CBF_lessthan_30percent_volume_ml ;;
+  }
+
+  dimension: CBF_lessthan_34percent_volume_ml {
+    type: number
+    sql: ${TABLE}.CBF_lessthan_34percent_volume_ml ;;
+  }
+
+  dimension: CBF_lessthan_38percent_volume_ml {
+    type: number
+    sql: ${TABLE}.CBF_lessthan_38percent_volume_ml ;;
   }
 
 
@@ -599,7 +665,15 @@ view: count {
       aspects_affected_side,
       aspect_score,
       scan_type,
-      TMAX_volume_ml
+      tmax4_volume_ml,
+      tmax6_volume_ml,
+      tmax8_volume_ml,
+      tmax10_volume_ml,
+      ADC_lessthan_620_volume_ml,
+      CBF_lessthan_20percent_volume_ml,
+      CBF_lessthan_30percent_volume_ml,
+      CBF_lessthan_34percent_volume_ml,
+      CBF_lessthan_38percent_volume_ml,
     ]
   }
 }
