@@ -57,8 +57,11 @@ view: count {
                when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                when (table4.Module_Name = 'Angio') then 'CTA'
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
-               else null end AS Scan_type
+               else null end AS Scan_type,
 
+          case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR')) then (string_to_array(table4.Volume, ',')::int[]))[2]
+               when ((table4.Parameter_Name LIKE '%CBF%') and (table4.Modality = 'MR')) then (string_to_array(table4.Volume, ',')::int[]))[7]
+               else null end AS TMAX_volume_ml
         FROM (
 
 
@@ -539,6 +542,13 @@ view: count {
     sql: ${TABLE}.scan_type ;;
   }
 
+  dimension: TMAX_volume_ml {
+    type: number
+    sql: ${TABLE}.TMAX_volume_ml ;;
+  }
+
+
+
   set: detail {
     fields: [
       rapid_patient_id,
@@ -588,7 +598,8 @@ view: count {
       hemi_ratio,
       aspects_affected_side,
       aspect_score,
-      scan_type
+      scan_type,
+      TMAX_volume_ml
     ]
   }
 }
