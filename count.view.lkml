@@ -93,12 +93,12 @@ view: count {
           case when ( ((string_to_array(table4.Threshold, ',')::float[])[3] = 6) and ((string_to_array(table4.Volume, ',')::float[])[3] is not null) and
                       ((string_to_array(table4.Threshold, ',')::float[])[1] = 620) and ((string_to_array(table4.Volume, ',')::float[])[1] is not null)) then ((string_to_array(table4.Volume, ',')::float[])[3]-(string_to_array(table4.Volume, ',')::float[])[1])
                when ( ((string_to_array(table4.Threshold, ',')::float[])[9] = 6) and ((string_to_array(table4.Volume, ',')::float[])[9] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null) then ((string_to_array(table4.Volume, ',')::float[])[3]-(string_to_array(table4.Volume, ',')::float[])[1]) else null end as mismatch_volume,
+                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null)) then ((string_to_array(table4.Volume, ',')::float[])[9]-(string_to_array(table4.Volume, ',')::float[])[2]) else null end as mismatch_volume,
 
           case when ( ((string_to_array(table4.Threshold, ',')::float[])[3] = 6) and ((string_to_array(table4.Volume, ',')::float[])[3] is not null) and
                       ((string_to_array(table4.Threshold, ',')::float[])[1] = 620) and ((string_to_array(table4.Volume, ',')::float[])[1] is not null)) then ((string_to_array(table4.Volume, ',')::float[])[3]/(string_to_array(table4.Volume, ',')::float[])[1])
                when ( ((string_to_array(table4.Threshold, ',')::float[])[9] = 6) and ((string_to_array(table4.Volume, ',')::float[])[9] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null) then ((string_to_array(table4.Volume, ',')::float[])[3]/(string_to_array(table4.Volume, ',')::float[])[1]) else null end as mismatch_ratio
+                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null)) then ((string_to_array(table4.Volume, ',')::float[])[9]/(string_to_array(table4.Volume, ',')::float[])[2]) else null end as mismatch_ratio
 
         FROM (
 
