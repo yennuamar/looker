@@ -38,7 +38,7 @@ view: count {
           Entry_ID,
           Task_ID,
           Task_Processing_Type,
-          case when table4.Task_Result = 0 then 'Successful' else 'Unsuccessful' end AS Task_Result,
+          case when table4.Task_Result = '0' then 'Successful' else 'Unsuccessful' end AS Task_Result,
           Processing_Time_In_Module,
           Total_Processing_Time_Since_Delivery,
           Username,
@@ -511,7 +511,7 @@ view: count {
   }
 
   dimension: task_result {
-    type: number
+    type: string
     sql: ${TABLE}.task_result ;;
   }
 
