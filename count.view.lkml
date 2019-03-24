@@ -59,8 +59,8 @@ view: count {
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
                else null end AS Scan_type,
 
-          case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR')) then (string_to_array(table4.Volume, ',')::float[])[2]
-               when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'CT')) then (string_to_array(table4.Volume, ',')::float[])[7]
+          case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR')) then (string_to_array(table4.Volume, ',')::float[])[3]
+               when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'CT')) then (string_to_array(table4.Volume, ',')::float[])[9]
                else null end AS TMAX_volume_ml
         FROM (
 
