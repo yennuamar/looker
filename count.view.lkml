@@ -88,8 +88,13 @@ view: count {
                else null end AS CBF_lessthan_34percent_volume_ml,
 
           case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[4] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[4] = 0.379999995 ) then (string_to_array(table4.Volume, ',')::float[])[4]
-               else null end AS CBF_lessthan_38percent_volume_ml
+               else null end AS CBF_lessthan_38percent_volume_ml,
 
+          case when ( (ADC_lessthan_620_volume_ml is not null) and (tmax6_volume_ml is not null)) then (tmax6_volume_ml - ADC_lessthan_620_volume_ml)
+               when ( (CBF_lessthan_30percent_volume_ml is not null) and (tmax6_volume_ml is not null)) then (tmax6_volume_ml - ADC_lessthan_620_volume_ml) else null end as mismatch_volume,
+
+          case when ( (ADC_lessthan_620_volume_ml is not null) and (tmax6_volume_ml is not null)) then (tmax6_volume_ml/ADC_lessthan_620_volume_ml)
+               when ( (CBF_lessthan_30percent_volume_ml is not null) and (tmax6_volume_ml is not null)) then (tmax6_volume_ml/ADC_lessthan_620_volume_ml) else null end as mismatch_ratio
 
 
 
@@ -619,6 +624,16 @@ view: count {
     sql: ${TABLE}.CBF_lessthan_38percent_volume_ml ;;
   }
 
+  dimension: mismatch_volume {
+    type: number
+    sql: ${TABLE}.mismatch_volume ;;
+  }
+
+  dimension: mismatch_ratio {
+    type: number
+    sql: ${TABLE}.mismatch_ratio ;;
+  }
+
 
 
   set: detail {
@@ -679,7 +694,9 @@ view: count {
       CBF_lessthan_20percent_volume_ml,
       CBF_lessthan_30percent_volume_ml,
       CBF_lessthan_34percent_volume_ml,
-      CBF_lessthan_38percent_volume_ml
+      CBF_lessthan_38percent_volume_ml,
+      mismatch_volume,
+      mismatch_ratio
     ]
   }
 }
