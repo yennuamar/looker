@@ -98,7 +98,7 @@ view: count {
 
       case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
            when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
-           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
+           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
            else null end AS mismatch_ratio
 
       FROM (
@@ -144,9 +144,9 @@ view: count {
           ROUND((Total_Processing_Time_Since_Delivery)::numeric,2) as Total_Processing_Time_Since_Delivery,
           Username,
           Number_Of_Slabs,
-          string_to_array(table4.Parameter_Name, ', ')::varchar[] as Parameter_Name,
-          string_to_array(table4.Threshold, ', ')::float[] as Threshold,
-          string_to_array(table4.Volume, ', ')::float[] as Volume,
+          (string_to_array(table4.Parameter_Name, ', ')::varchar[]) as Parameter_Name,
+          (string_to_array(table4.Threshold, ', ')::float[]) as Threshold,
+          (string_to_array(table4.Volume, ', ')::float[]) as Volume,
           Cta_Affected_Side,
           ROUND((Hemi_Ratio)::numeric,2) as Hemi_Ratio,
           Aspects_Affected_Side,
