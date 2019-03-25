@@ -492,7 +492,7 @@ view: count {
   }
 
   dimension: datetime_started {
-    type: date_month_name
+    type: date_time
     sql: ${TABLE}.datetime_started ;;
   }
 
