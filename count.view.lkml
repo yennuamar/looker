@@ -423,7 +423,7 @@ view: count {
 
   dimension: datetime_requested {
     type: date_time
-    sql: ${TABLE}.datetime_started ;;
+    sql: ${TABLE}.datetime_requested ;;
   }
   dimension: datetime_started {
     type: date_time
