@@ -3,6 +3,106 @@ view: count {
    # datagroup_trigger: 24hr_caching
    # indexes: ["Task_ID"]
     sql: SELECT
+      Rapid_Patient_ID,
+      Patient_Age,
+      Patient_Gender,
+      Module_Name,
+      Modality,
+      Site_Name,
+      City,
+      Country,
+      ISV_Site_ID,
+      Institution_Name,
+      Station_name,
+      Manufacturer,
+      Manufacturer_Model,
+      Series_Description,
+      Series_Datetime,
+      Datetime_Requested,
+      Datetime_Started,
+      Datetime_Finished,
+      Perf_Acquisition_Type,
+      Perf_Number_Of_Slices,
+      Perf_Slice_Thickness,
+      Perf_Coverage_z,
+      Perf_Scan_Duration ,
+      Perf_Series_Type,
+      Dwi_Number_Of_Slices,
+      Dwi_Slice_Thickness,
+      Dwi_Series_Type,
+      Ncct_Number_Of_slices,
+      Ncct_Slice_Thickness,
+      Ncct_Series_Type,
+      Cta_Number_Of_Slices,
+      Cta_Slice_Thickness,
+      Cta_Series_Type,
+      Entry_ID,
+      Task_ID,
+      Task_Processing_Type,
+      Task_Result,
+      Processing_Time_In_Module,
+      Total_Processing_Time_Since_Delivery,
+      Username,
+      Number_Of_Slabs,
+      Parameter_Name,
+      Threshold,
+      Volume,
+      Cta_Affected_Side,
+      Hemi_Ratio,
+      Aspects_Affected_Side,
+      Aspect_Score,
+      Scan_type,
+
+      case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
+           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+           when ( (table5.Parameter_Name[7] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
+           else null end AS tmax4_volume_ml,
+
+      case when ( (table5.Parameter_Name[3] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[3] = 6 ) ) then ROUND((table5.Volume)[3]::numeric,2)
+           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[9] = 6 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[8] = 6 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+           else null end AS tmax6_volume_ml,
+
+      case when ( (table5.Parameter_Name[4] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[4] = 8 ) ) then ROUND((table5.Volume)[4]::numeric,2)
+           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[10] = 8 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[9] = 8 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+           else null end AS tmax8_volume_ml,
+
+      case when ( (table5.Parameter_Name[5] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[5] = 10 ) ) then ROUND((table5.Volume)[5]::numeric,2)
+           when ( (table5.Parameter_Name[11] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[11] = 10 ) ) then ROUND((table5.Volume)[11]::numeric,2)
+           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[10] = 10 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+           else null end AS tmax10_volume_ml,
+
+      case when ( (table5.Parameter_Name[1] = 'ADC') and (table5.Modality = 'MR') and (table5.Threshold[1] = 620) ) then ROUND(table5.Volume[1]::numeric,2)
+           else null end AS ADC_lessthan_620_volume_ml,
+
+      case when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[1] = 0.200000003 ) ) then ROUND(table5.Volume[1]::numeric,2)
+           else null end AS CBF_lessthan_20percent_volume_ml,
+
+      case when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[2] =  0.300000012 ) ) then ROUND(table5.Volume[2]::numeric,2)
+           when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[1] =  0.300000012 ) ) then ROUND(table5.Volume[1]::numeric,2)
+           else null end AS CBF_lessthan_30percent_volume_ml,
+
+      case when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[3] =  0.340000004 ) ) then ROUND(table5.Volume[3]::numeric,2)
+           when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[2] =  0.340000004 ) ) then ROUND(table5.Volume[2]::numeric,2)
+           else null end AS CBF_lessthan_34percent_volume_ml,
+
+      case when ( (table5.Parameter_Name[4] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[4] = 0.379999995 ) ) then ROUND(table5.Volume[4]::numeric,2)
+           when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[3] = 0.379999995 ) ) then ROUND(table5.Volume[3]::numeric,2)
+           else null end AS CBF_lessthan_38percent_volume_ml,
+
+      case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[3]-table5.Volume[1])::numeric,2)
+           when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) ) then ROUND((table5.Volume[9]-table5.Volume[2])::numeric,2)
+           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
+           else null end AS mismatch_volume,
+
+      case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
+           when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
+           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
+           else null end AS mismatch_ratio
+
+      FROM (
+
           Rapid_Patient_ID,
           Patient_Age,
           Patient_Gender,
@@ -44,9 +144,9 @@ view: count {
           ROUND((Total_Processing_Time_Since_Delivery)::numeric,2) as Total_Processing_Time_Since_Delivery,
           Username,
           Number_Of_Slabs,
-          Parameter_Name,
-          Threshold,
-          Volume,
+          string_to_array(table4.Parameter_Name, ', ')::varchar[] as Parameter_Name,
+          string_to_array(table4.Threshold, ', ')::float[] as Threshold,
+          string_to_array(table4.Volume, ', ')::float[] as Volume,
           Cta_Affected_Side,
           ROUND((Hemi_Ratio)::numeric,2) as Hemi_Ratio,
           Aspects_Affected_Side,
@@ -58,48 +158,8 @@ view: count {
                when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                when (table4.Module_Name = 'Angio') then 'CTA'
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
-               else null end AS Scan_type,
+               else null end AS Scan_type
 
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[2] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[2] = 4 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[2])::numeric,2)
-               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[8] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[8] = 4 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[8])::numeric,2)
-               else null end AS tmax4_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[3] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[3] = 6 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[3])::numeric,2)
-               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[9] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[9] = 6 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[9])::numeric,2)
-               else null end AS tmax6_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[4] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[4] = 8 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[4])::numeric,2)
-               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[10] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[10] = 8 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[10])::numeric,2)
-               else null end AS tmax8_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[5] = 'TMAX') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[5] = 10 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[5])::numeric,2)
-               when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[11] = 'TMAX') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[11] = 10 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[11])::numeric,2)
-               else null end AS tmax10_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[1] = 'ADC') and (table4.Modality = 'MR') and (string_to_array(table4.Threshold, ',')::float[])[1] = 620 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[1])::numeric,2)
-               else null end AS ADC_lessthan_620_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[1] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[1] = 0.200000003 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[1])::numeric,2)
-               else null end AS CBF_lessthan_20percent_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[2] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[2])::numeric,2)
-               else null end AS CBF_lessthan_30percent_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[3] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[3] = 0.340000004 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[3])::numeric,2)
-               else null end AS CBF_lessthan_34percent_volume_ml,
-
-          case when (((string_to_array(table4.Parameter_Name, ',')::varchar[])[4] = 'CBF') and (table4.Modality = 'CT') and (string_to_array(table4.Threshold, ',')::float[])[4] = 0.379999995 ) then ROUND(((string_to_array(table4.Volume, ',')::float[])[4])::numeric,2)
-               else null end AS CBF_lessthan_38percent_volume_ml,
-
-          case when ( ((string_to_array(table4.Threshold, ',')::float[])[3] = 6) and ((string_to_array(table4.Volume, ',')::float[])[3] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[1] = 620) and ((string_to_array(table4.Volume, ',')::float[])[1] is not null)) then ROUND((((string_to_array(table4.Volume, ',')::float[])[3]-(string_to_array(table4.Volume, ',')::float[])[1]))::numeric,2)
-               when ( ((string_to_array(table4.Threshold, ',')::float[])[9] = 6) and ((string_to_array(table4.Volume, ',')::float[])[9] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null)) then ROUND((((string_to_array(table4.Volume, ',')::float[])[9]-(string_to_array(table4.Volume, ',')::float[])[2]))::numeric,2) else null end as mismatch_volume,
-
-          case when ( ((string_to_array(table4.Threshold, ',')::float[])[3] = 6) and ((string_to_array(table4.Volume, ',')::float[])[3] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[1] = 620) and ((string_to_array(table4.Volume, ',')::float[])[1] is not null) and ((string_to_array(table4.Volume, ',')::float[])[1] !=0)) then ROUND((((string_to_array(table4.Volume, ',')::float[])[3]/(string_to_array(table4.Volume, ',')::float[])[1]))::numeric,2)
-               when ( ((string_to_array(table4.Threshold, ',')::float[])[9] = 6) and ((string_to_array(table4.Volume, ',')::float[])[9] is not null) and
-                      ((string_to_array(table4.Threshold, ',')::float[])[2] = 0.300000012) and ((string_to_array(table4.Volume, ',')::float[])[2] is not null) and ((string_to_array(table4.Volume, ',')::float[])[2] !=0)) then ROUND((((string_to_array(table4.Volume, ',')::float[])[9]/(string_to_array(table4.Volume, ',')::float[])[2]))::numeric,2) else null end as mismatch_ratio
 
         FROM (
 
@@ -306,9 +366,9 @@ view: count {
                           tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                           tasks.username  AS Username,
                           measurements_mismatch.n_slabs  AS Number_Of_Slabs,
-                          array_to_string(array_agg(measurements_mismatch.parameter_name ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',') AS Parameter_Name,
-                          array_to_string(array_agg(measurements_mismatch.threshold ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',') AS Threshold,
-                          array_to_string(array_agg(measurements_mismatch.volume ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),',')  AS Volume,
+                          array_to_string(array_agg(measurements_mismatch.parameter_name ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ') AS Parameter_Name,
+                          array_to_string(array_agg(measurements_mismatch.threshold ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ') AS Threshold,
+                          array_to_string(array_agg(measurements_mismatch.volume ORDER BY measurements_mismatch.parameter_name, measurements_mismatch.threshold ),', ')  AS Volume,
                           measurements_cta1.affected_side  AS Cta_Affected_Side,
                           measurements_cta1.hem_ratio  AS Hemi_Ratio,
                           measurements_aspects.affected_side  AS Aspects_Affected_Side,
@@ -335,8 +395,11 @@ view: count {
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
             ORDER BY table3.Rapid_Patient_ID DESC
             ) AS table4
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49
       ORDER BY table4.Rapid_Patient_ID DESC
+      ) AS table5
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60
+    ORDER BY table4.Rapid_Patient_ID DESC
        ;;
 
   }
