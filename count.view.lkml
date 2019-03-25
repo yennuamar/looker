@@ -24,7 +24,7 @@ view: count {
           Perf_Number_Of_Slices,
           Perf_Slice_Thickness,
           Perf_Coverage_z,
-          ROUND(Perf_Scan_Duration,2) as Perf_Scan_Duration ,
+          ROUND((Perf_Scan_Duration)::numeric,2) as Perf_Scan_Duration ,
           Perf_Series_Type,
           Dwi_Number_Of_Slices,
           Dwi_Slice_Thickness,
