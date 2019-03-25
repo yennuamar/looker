@@ -18,6 +18,7 @@ view: count {
           Manufacturer_Model,
           Series_Description,
           Series_Datetime,
+          Datetime_Requested,
           Datetime_Started,
           Datetime_Finished,
           Perf_Acquisition_Type,
@@ -47,7 +48,7 @@ view: count {
           Threshold,
           Volume,
           Cta_Affected_Side,
-          Hemi_Ratio,
+          ROUND((Hemi_Ratio)::numeric,2) as Hemi_Ratio,
           Aspects_Affected_Side,
           Aspect_Score,
           case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
@@ -119,6 +120,7 @@ view: count {
               Manufacturer_Model,
               Series_Description[array_upper(Series_Description, 1)] AS Series_Description,
               Series_Datetime[array_upper(Series_Datetime, 1)] AS Series_Datetime,
+              Datetime_Requested[array_upper(Datetime_Requested, 1)] AS Datetime_Requested,
               Datetime_Started[array_upper(Datetime_Started, 1)] AS Datetime_Started,
               Datetime_Finished[array_upper(Datetime_Finished, 1)] AS Datetime_Finished,
               Perf_Acquisition_Type[array_upper(Perf_Acquisition_Type, 1)] AS Perf_Acquisition_Type,
@@ -170,6 +172,7 @@ view: count {
                   Manufacturer_Model,
                   array_agg(Series_Description[array_upper(Series_Description, 1)] ORDER BY Task_ID) AS Series_Description,
                   array_agg(Series_Datetime[array_upper(Series_Datetime, 1)] ORDER BY Task_ID) AS Series_Datetime,
+                  array_agg(Datetime_Requested ORDER BY Task_ID) AS Datetime_Requested,
                   array_agg(Datetime_Started ORDER BY Task_ID) AS Datetime_Started,
                   array_agg(Datetime_Finished ORDER BY Task_ID) AS Datetime_Finished,
                   array_agg(Perf_Acquisition_Type[array_upper(Perf_Acquisition_Type, 1)] ORDER BY Task_ID) AS Perf_Acquisition_Type,
@@ -221,6 +224,7 @@ view: count {
                       Manufacturer_Model,
                       array_agg(Series_Description ORDER BY Entry_ID DESC) AS Series_Description,
                       array_agg(Series_Datetime ORDER BY Entry_ID DESC) AS Series_Datetime,
+                      Datetime_Requested,
                       Datetime_Started,
                       Datetime_Finished,
                       array_agg(Perf_Acquisition_Type ORDER BY Entry_ID DESC) AS Perf_Acquisition_Type,
@@ -276,6 +280,7 @@ view: count {
                           series.manufacturer_model  AS Manufacturer_Model,
                           series.series_description  AS Series_Description,
                           series.series_datetime  AS Series_Datetime,
+                          tasks.datetime_requested AS Datetime_Requested,
                           tasks.datetime_started AS Datetime_Started,
                           tasks.datetime_finished  AS Datetime_Finished,
                           techinfo_perf.acquisition_type  AS Perf_Acquisition_Type,
@@ -321,16 +326,16 @@ view: count {
                         LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
                         LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-                        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,47
+                        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,47,48
                         ) AS table1
-                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,27,28,29,30,31,32,34,35,36,39,40,41,42,43,44,45,46,47
+                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,17,18,28,29,30,31,32,33,34,36,37,40,41,42,43,44,45,46,47,48
                     ) AS table2
                 GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13
                 ) AS table3
-            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
             ORDER BY table3.Rapid_Patient_ID DESC
             ) AS table4
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58
       ORDER BY table4.Rapid_Patient_ID DESC
        ;;
 
@@ -416,6 +421,10 @@ view: count {
     sql: ${TABLE}.series_datetime ;;
   }
 
+  dimension: datetime_requested {
+    type: date_time
+    sql: ${TABLE}.datetime_started ;;
+  }
   dimension: datetime_started {
     type: date_time
     sql: ${TABLE}.datetime_started ;;
@@ -654,6 +663,7 @@ view: count {
       manufacturer_model,
       series_description,
       series_datetime,
+      datetime_requested,
       datetime_started,
       datetime_finished,
       perf_acquisition_type,
