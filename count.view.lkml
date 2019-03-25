@@ -727,7 +727,7 @@ view: count {
   }
 
   dimension: datetime_finished_date_month {
-    type: date_month_name
+    type: date_month
     sql: ${TABLE}.datetime_finished_date_month ;;
   }
 
