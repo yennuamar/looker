@@ -53,24 +53,24 @@ view: count {
       Aspect_Score,
       Scan_type,
 
-      case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
-           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
-           when ( (table5.Parameter_Name[7] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
+      case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
+           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+           when ( (table5.Parameter_Name[7] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
            else null end AS tmax4_volume_ml,
 
-      case when ( (table5.Parameter_Name[3] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[3] = 6 ) ) then ROUND((table5.Volume)[3]::numeric,2)
-           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[9] = 6 ) ) then ROUND((table5.Volume)[9]::numeric,2)
-           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[8] = 6 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+      case when ( (table5.Parameter_Name[3] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[3] = 6 ) ) then ROUND((table5.Volume)[3]::numeric,2)
+           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[9] = 6 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+           when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[8] = 6 ) ) then ROUND((table5.Volume)[8]::numeric,2)
            else null end AS tmax6_volume_ml,
 
-      case when ( (table5.Parameter_Name[4] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[4] = 8 ) ) then ROUND((table5.Volume)[4]::numeric,2)
-           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[10] = 8 ) ) then ROUND((table5.Volume)[10]::numeric,2)
-           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[9] = 8 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+      case when ( (table5.Parameter_Name[4] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[4] = 8 ) ) then ROUND((table5.Volume)[4]::numeric,2)
+           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[10] = 8 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+           when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[9] = 8 ) ) then ROUND((table5.Volume)[9]::numeric,2)
            else null end AS tmax8_volume_ml,
 
-      case when ( (table5.Parameter_Name[5] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[5] = 10 ) ) then ROUND((table5.Volume)[5]::numeric,2)
-           when ( (table5.Parameter_Name[11] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[11] = 10 ) ) then ROUND((table5.Volume)[11]::numeric,2)
-           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[10] = 10 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+      case when ( (table5.Parameter_Name[5] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[5] = 10 ) ) then ROUND((table5.Volume)[5]::numeric,2)
+           when ( (table5.Parameter_Name[11] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[11] = 10 ) ) then ROUND((table5.Volume)[11]::numeric,2)
+           when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[10] = 10 ) ) then ROUND((table5.Volume)[10]::numeric,2)
            else null end AS tmax10_volume_ml,
 
       case when ( (table5.Parameter_Name[1] = 'ADC') and (table5.Modality = 'MR') and (table5.Threshold[1] = 620) ) then ROUND(table5.Volume[1]::numeric,2)
