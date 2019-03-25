@@ -103,7 +103,8 @@ view: count {
            else null end AS mismatch_ratio,
 
       table5.Datetime_Finished as Datetime_Finished_date,
-      table5.Datetime_Finished as Datetime_Finished_date_month
+      table5.Datetime_Finished as Datetime_Finished_date_month,
+      Site_Description
 
 
       FROM (
@@ -165,7 +166,9 @@ view: count {
                when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                when (table4.Module_Name = 'Angio') then 'CTA'
                when (table4.Module_Name = 'ASPECTS') then 'NCCT'
-               else null end AS Scan_type
+               else null end AS Scan_type,
+
+          Site_Description
 
 
         FROM (
@@ -219,7 +222,8 @@ view: count {
               Cta_Affected_Side[array_upper(Cta_Affected_Side, 1)] AS Cta_Affected_Side,
               Hemi_Ratio[array_upper(Hemi_Ratio, 1)] AS Hemi_Ratio,
               Aspects_Affected_Side[array_upper(Aspects_Affected_Side, 1)] AS Aspects_Affected_Side,
-              Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score
+              Aspect_Score[array_upper(Aspect_Score, 1)] AS Aspect_Score,
+              Site_Description
               FROM (
 
 
@@ -271,8 +275,8 @@ view: count {
                   array_agg(Cta_Affected_Side ORDER BY Task_ID) AS Cta_Affected_Side,
                   array_agg(Hemi_Ratio ORDER BY Task_ID) AS Hemi_Ratio,
                   array_agg(Aspects_Affected_Side ORDER BY Task_ID) AS Aspects_Affected_Side,
-                  array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score
-
+                  array_agg(Aspect_Score ORDER BY Task_ID) AS Aspect_Score,
+                  Site_Description
                   FROM (
 
                     SELECT
@@ -323,7 +327,8 @@ view: count {
                       Cta_Affected_Side,
                       Hemi_Ratio,
                       Aspects_Affected_Side,
-                      Aspect_Score
+                      Aspect_Score,
+                      Site_Description
 
                       FROM (
 
@@ -379,7 +384,8 @@ view: count {
                           measurements_cta1.affected_side  AS Cta_Affected_Side,
                           measurements_cta1.hem_ratio  AS Hemi_Ratio,
                           measurements_aspects.affected_side  AS Aspects_Affected_Side,
-                          measurements_aspects.aspect_score  AS Aspect_Score
+                          measurements_aspects.aspect_score  AS Aspect_Score,
+                          sites.site_description AS Site_Description
 
 
                         FROM public.sites  AS sites
@@ -393,19 +399,19 @@ view: count {
                         LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
                         LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-                        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,45,46,47,48
+                        GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,45,46,47,48,49
                         ) AS table1
-                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,18,28,29,30,31,32,33,35,36,37,40,41,42,43,44,45,46,47,48
+                    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,18,28,29,30,31,32,33,35,36,37,40,41,42,43,44,45,46,47,48,49
                     ) AS table2
-                GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13
+                GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13,49
                 ) AS table3
-            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49
             ORDER BY table3.Rapid_Patient_ID DESC
             ) AS table4
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50
       ORDER BY table4.Rapid_Patient_ID DESC
       ) AS table5
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63
     ORDER BY table5.Rapid_Patient_ID DESC
        ;;
 
@@ -736,6 +742,11 @@ view: count {
     sql: ${TABLE}.datetime_finished_date ;;
   }
 
+  dimension: site_description {
+    type: string
+    sql: ${TABLE}.site_description ;;
+  }
+
 
   set: detail {
     fields: [
@@ -800,7 +811,8 @@ view: count {
       mismatch_volume,
       mismatch_ratio,
       datetime_finished_date_month,
-      datetime_finished_date
+      datetime_finished_date,
+      site_description
     ]
   }
 }
