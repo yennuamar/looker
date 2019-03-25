@@ -637,6 +637,7 @@ view: count {
 
   dimension: hemi_ratio {
     type: number
+    label: "Vessel_Density_Ratio"
     sql: ${TABLE}.hemi_ratio ;;
   }
 
@@ -656,46 +657,55 @@ view: count {
 
   dimension: tmax4_volume_ml {
     type: number
+    label: "TMAX>4 Volume ml"
     sql: ${TABLE}.tmax4_volume_ml ;;
   }
 
   dimension: tmax6_volume_ml {
     type: number
+    label: "TMAX>6 Volume ml"
     sql: ${TABLE}.tmax6_volume_ml ;;
   }
 
   dimension: tmax8_volume_ml {
     type: number
+    label: "TMAX>8 Volume ml"
     sql: ${TABLE}.tmax8_volume_ml ;;
   }
 
   dimension: tmax10_volume_ml {
     type: number
+    label: "TMAX>10 Volume ml"
     sql: ${TABLE}.tmax10_volume_ml ;;
   }
 
   dimension: ADC_lessthan_620_volume_ml {
     type: number
+    label: "ADC<620 Volume ml"
     sql: ${TABLE}.ADC_lessthan_620_volume_ml ;;
   }
 
   dimension: CBF_lessthan_20percent_volume_ml {
     type: number
+    label: "CBF<20% Volume ml"
     sql: ${TABLE}.CBF_lessthan_20percent_volume_ml ;;
   }
 
   dimension: CBF_lessthan_30percent_volume_ml {
     type: number
+    label: "CBF<30% Volume ml"
     sql: ${TABLE}.CBF_lessthan_30percent_volume_ml ;;
   }
 
   dimension: CBF_lessthan_34percent_volume_ml {
     type: number
+    label: "CBF<34% Volume ml"
     sql: ${TABLE}.CBF_lessthan_34percent_volume_ml ;;
   }
 
   dimension: CBF_lessthan_38percent_volume_ml {
     type: number
+    label: "CBF<38% Volume ml"
     sql: ${TABLE}.CBF_lessthan_38percent_volume_ml ;;
   }
 
