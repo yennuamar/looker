@@ -52,6 +52,9 @@ view: count {
       Aspects_Affected_Side,
       Aspect_Score,
       Scan_type,
+      Datetime_Finished as Datetime_Finished_date,
+      Datetime_Finished as Datetime_Finished_date_month
+
 
       case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
            when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
@@ -99,7 +102,9 @@ view: count {
       case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
            when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
            when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
-           else null end AS mismatch_ratio
+           else null end AS mismatch_ratio,
+
+
 
       FROM (
 
@@ -492,7 +497,7 @@ view: count {
   }
 
   dimension: datetime_started {
-    type: date_month
+    type: date_time
     sql: ${TABLE}.datetime_started ;;
   }
 
@@ -721,6 +726,15 @@ view: count {
     sql: ${TABLE}.mismatch_ratio ;;
   }
 
+  dimension: datetime_finished_date_month {
+    type: date_month_name
+    sql: ${TABLE}.datetime_finished_date_month ;;
+  }
+
+  dimension: datetime_finished_date {
+    type: date
+    sql: ${TABLE}.datetime_finished_date ;;
+  }
 
 
   set: detail {
@@ -784,7 +798,9 @@ view: count {
       CBF_lessthan_34percent_volume_ml,
       CBF_lessthan_38percent_volume_ml,
       mismatch_volume,
-      mismatch_ratio
+      mismatch_ratio,
+      datetime_finished_date_month,
+      datetime_finished_date
     ]
   }
 }
