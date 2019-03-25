@@ -454,6 +454,7 @@ view: count {
 
   dimension: city {
     type: string
+    label: "City/State"
     sql: ${TABLE}.city ;;
   }
 
