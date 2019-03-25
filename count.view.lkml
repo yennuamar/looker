@@ -53,7 +53,7 @@ view: count {
       Aspect_Score,
       Scan_type,
 
-      case when ( ((table5.Parameter_Name)[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
+      case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold_Name[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
            when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
            when ( (table5.Parameter_Name[7] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold_Name[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
            else null end AS tmax4_volume_ml,
@@ -102,6 +102,8 @@ view: count {
            else null end AS mismatch_ratio
 
       FROM (
+
+      SELECT
 
           Rapid_Patient_ID,
           Patient_Age,
