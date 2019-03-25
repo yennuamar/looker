@@ -52,8 +52,6 @@ view: count {
       Aspects_Affected_Side,
       Aspect_Score,
       Scan_type,
-      Datetime_Finished as Datetime_Finished_date,
-      Datetime_Finished as Datetime_Finished_date_month
 
 
       case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
@@ -104,6 +102,8 @@ view: count {
            when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
            else null end AS mismatch_ratio,
 
+      table5.Datetime_Finished as Datetime_Finished_date,
+      table5.Datetime_Finished as Datetime_Finished_date_month
 
 
       FROM (
@@ -405,7 +405,7 @@ view: count {
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49
       ORDER BY table4.Rapid_Patient_ID DESC
       ) AS table5
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62
     ORDER BY table5.Rapid_Patient_ID DESC
        ;;
 
