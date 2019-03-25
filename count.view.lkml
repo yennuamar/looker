@@ -632,6 +632,7 @@ view: count {
 
   dimension: cta_affected_side {
     type: string
+    label: "CTA_Affected_Side"
     sql: ${TABLE}.cta_affected_side ;;
   }
 
