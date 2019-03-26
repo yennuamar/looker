@@ -50,7 +50,7 @@ view: count {
       case when ((table5.Cta_Affected_Side = '7') and (table5.Hemi_Ratio <= 0.8)) then 'L'
            when ((table5.Cta_Affected_Side = '8') and (table5.Hemi_Ratio <= 0.8)) then 'R'
            when ((table5.Cta_Affected_Side = '8') and (table5.Hemi_Ratio > 0.8)) then 'N'
-           else table5.Cta_Affected_Side as Cta_Affected_Side,
+           else table5.Cta_Affected_Side end as Cta_Affected_Side,
       Hemi_Ratio,
       Aspects_Affected_Side,
       Aspect_Score,
