@@ -47,8 +47,11 @@ view: count {
       Parameter_Name,
       Threshold,
       Volume,
-      Cta_Affected_Side,
-      Hemi_Ratio,
+      case when ((Cta_Affected_Side = '7') and (Hemi_Ratio <= 0.8)) then 'L'
+           when ((Cta_Affected_Side = '8') and (Hemi_Ratio <= 0.8)) then 'R'
+           when (Hemi_Ratio > 0.8) then 'U'
+           else  Cta_Affected_Side as Cta_Affected_Side
+
       Aspects_Affected_Side,
       Aspect_Score,
       Scan_type,
