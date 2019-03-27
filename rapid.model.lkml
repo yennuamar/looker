@@ -86,11 +86,9 @@ explore: sites {
   }
   extends: [series]
 }
-explore: richard_view {}
-explore: richard_view2 {}
-explore: final_table {}
+
 explore: final_table2 {}
-explore: main_table_1 {}
+
 explore: count {
   label: "count"
   description: "Ascension related table"
