@@ -30,6 +30,7 @@ datagroup: 6hr_caching {
 
 # explore: tasks {}
 
+
 explore: series {
   join: techinfo_cta{
     type: left_outer
@@ -89,21 +90,15 @@ explore: sites {
 
 explore: final_table2 {}
 
+
 explore: count {
   label: "count"
   description: "Ascension related table"
   group_label: "Amarnath"
   persist_with: 6hr_caching
   join: ascension_spreadsheet {
-    type: full_outer
-    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
-    relationship: many_to_many
-  }
-}
-explore: ascension_spreadsheet {
-  join: count {
-    type: full_outer
-    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
+    type: left_outer
     relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
   }
 }

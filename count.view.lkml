@@ -1,7 +1,7 @@
 view: count {
   derived_table: {
-    datagroup_trigger: 6hr_caching
-    indexes: ["Task_ID"]
+   datagroup_trigger: 6hr_caching
+   indexes: ["Task_ID"]
     sql: SELECT
       Rapid_Patient_ID,
       Patient_Age,

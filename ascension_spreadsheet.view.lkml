@@ -3,43 +3,43 @@ view: ascension_spreadsheet {
 
   dimension: cta {
     type: string
-    sql: ${TABLE}.CTA ;;
+    sql: ${TABLE}.cta ;;
   }
 
   dimension: ctp {
     type: string
-    sql: ${TABLE}.CTP ;;
+    sql: ${TABLE}.ctp ;;
   }
 
-  dimension: go_live_date {
+  dimension: golivedate {
     type: string
-    sql: ${TABLE}.GoLiveDate ;;
+    sql: ${TABLE}.golivedate ;;
   }
 
   dimension: ministry {
     type: string
-    sql: ${TABLE}.Ministry ;;
+    sql: ${TABLE}.ministry ;;
   }
 
   dimension: old_site_id {
     type: string
-    sql: ${TABLE}.Old_Site_ID ;;
+    sql: ${TABLE}.old_site_id ;;
   }
 
   dimension: rapid_site_name {
     type: string
-    sql: ${TABLE}.RAPID_Site_Name ;;
+    sql: ${TABLE}.rapid_site_name ;;
   }
 
   dimension: site_id {
     type: string
     # hidden: yes
-    sql: ${TABLE}.Site_ID ;;
+    sql: ${TABLE}.site_id ;;
   }
 
   dimension: site_name_address {
     type: string
-    sql: ${TABLE}.Site_Name_Address ;;
+    sql: ${TABLE}.site_name_address ;;
   }
 
   measure: count {
