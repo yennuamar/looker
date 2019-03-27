@@ -94,4 +94,16 @@ explore: count {
   description: "Ascension related table"
   group_label: "Amarnath"
   persist_with: 6hr_caching
+  join: ascension_spreadsheet {
+    type: full_outer
+    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
+    relationship: many_to_many
+  }
+}
+explore: ascension_spreadsheet {
+  join: count {
+    type: full_outer
+    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
+    relationship: many_to_one
+  }
 }
