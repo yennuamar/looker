@@ -109,7 +109,9 @@ view: count {
       table5.Datetime_Finished as Datetime_Finished_date,
       table5.Datetime_Finished as Datetime_Finished_date_month,
       Site_Description,
-      Task_Result_Code
+      Task_Result_Code,
+      case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as ascension_image,
+      case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as isv_image
 
 
       FROM (
@@ -423,7 +425,7 @@ view: count {
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51
       ORDER BY table4.Rapid_Patient_ID DESC
       ) AS table5
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66
     ORDER BY table5.Rapid_Patient_ID DESC
        ;;
 
@@ -763,20 +765,16 @@ view: count {
     type: number
     sql: ${TABLE}.task_result_code ;;
   }
-  dimension: looker_image {
-    type: string
-    sql: ${TABLE}.homepage_url;;
-    html: <img src="https://logo-core.clearbit.com/looker.com" /> ;;
-  }
+
   dimension: isv_image {
     type: string
-    sql: ${TABLE}.homepage_url;;
-    html: <img src="http://www.i-rapid.com/assets/images/site/logo-isv-gray.svg" /> ;;
+    sql: ${TABLE}.isv_image;;
+    html: <img src="http://www.i-rapid.com/assets/images/site/logo-isv-gray.svg" width=“100%“/> ;;
   }
   dimension: ascension_image {
     type: string
-    sql: ${TABLE}.homepage_url;;
-    html: <img src="https://healthcare.ascension.org/ui/healthcare/assets/images/core/ascension-logo.svg" /> ;;
+    sql: ${TABLE}.ascension_image;;
+    html: <img src="https://healthcare.ascension.org/ui/healthcare/assets/images/core/ascension-logo.svg" width=“100%“ /> ;;
   }
 
   set: detail {
@@ -845,7 +843,6 @@ view: count {
       datetime_finished_date,
       site_description,
       task_result_code,
-      looker_image,
       ascension_image,
       isv_site_id
     ]
