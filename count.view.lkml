@@ -763,6 +763,21 @@ view: count {
     type: number
     sql: ${TABLE}.task_result_code ;;
   }
+  dimension: looker_image {
+    type: string
+    sql: ${TABLE}.homepage_url;;
+    html: <img src="https://logo-core.clearbit.com/looker.com" /> ;;
+  }
+  dimension: isv_image {
+    type: string
+    sql: ${TABLE}.homepage_url;;
+    html: <img src="http://www.i-rapid.com/assets/images/site/logo-isv-gray.svg" /> ;;
+  }
+  dimension: ascension_image {
+    type: string
+    sql: ${TABLE}.homepage_url;;
+    html: <img src="https://healthcare.ascension.org/ui/healthcare/assets/images/core/ascension-logo.svg" /> ;;
+  }
 
   set: detail {
     fields: [
