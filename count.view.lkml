@@ -101,9 +101,12 @@ view: count {
            when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
            else null end AS mismatch_volume,
 
-      case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
-           when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
-           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
+      case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::string,2)
+           when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::string,2)
+           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::string,2)
+           when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Volume[3] is != 0) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 'infinite'
+           when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Volume[9] is != 0) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] = 0) ) then 'infinite'
+           when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Volume[8] is != 0) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 'infinite'
            else null end AS mismatch_ratio,
 
       table5.Datetime_Finished as Datetime_Finished_date,
@@ -743,7 +746,7 @@ view: count {
   }
 
   dimension: mismatch_ratio {
-    type: number
+    type: string
     sql: ${TABLE}.mismatch_ratio ;;
   }
 
