@@ -844,7 +844,10 @@ view: count {
       datetime_finished_date_month,
       datetime_finished_date,
       site_description,
-      task_result_code
+      task_result_code,
+      looker_image,
+      ascension_image,
+      isv_site_id
     ]
   }
 }
