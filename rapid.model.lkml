@@ -102,3 +102,15 @@ explore: count {
     sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
   }
 }
+
+explore: count2 {
+  label: "count2"
+  description: "Ascension related table2"
+  group_label: "Amarnath2"
+  persist_with: 6hr_caching
+  join: ascension_spreadsheet {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${count2.isv_site_id} ;;
+  }
+}
