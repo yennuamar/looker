@@ -97,7 +97,7 @@ explore: count {
   group_label: "Amarnath"
   persist_with: 6hr_caching
   join: ascension_spreadsheet {
-    type: left_outer
+    type: full_outer
     relationship: many_to_one
     sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
   }
