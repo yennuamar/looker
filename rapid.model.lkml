@@ -92,7 +92,7 @@ explore: final_table2 {}
 
 
 explore: count {
-  label: "count"
+  label: "BIDB"
   description: "Ascension related table"
   group_label: "Amarnath"
   persist_with: 6hr_caching
