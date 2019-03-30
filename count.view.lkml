@@ -777,7 +777,7 @@ view: count {
   dimension: ascension_image {
     type: string
     sql: ${TABLE}.ascension_image;;
-    html: <img src="https://healthcare.ascension.org/ui/healthcare/assets/images/core/ascension-logo.svg" width=“100%“ /> ;;
+    html: <img src="https://ascension.org/-/media/Images/Ascension/AscensionLogoHeader.svg?la=en&hash=6BFA6C1C0891AD2C8A07130BAFC410EBEF281850" width=“100%“ /> ;;
   }
 
   set: detail {
