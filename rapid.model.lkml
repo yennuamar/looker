@@ -28,6 +28,7 @@ persist_with: rapid_default_datagroup
 # explore: tasks {}
 
 explore: series {
+  fields: [ALL_FIELDS*, -techinfo_perf.count_filtered]
   join: techinfo_cta{
     type: left_outer
     relationship: one_to_one
@@ -49,10 +50,12 @@ explore: series {
     sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
   }
 
+
 }
 
 explore: sites {
-
+    fields: [ALL_FIELDS*]
+  sql_always_where: ${techinfo_perf.aif_peak_val} IS NOT NULL ;;
   join: tasks  {
     type: left_outer
     relationship: one_to_one

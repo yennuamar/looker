@@ -15,13 +15,14 @@ view: series {
   dimension: manufacturer {
     type: string
     sql: CASE
-    WHEN ${TABLE}.manufacturer LIKE '%general%' THEN 'GE Medical'
-    WHEN ${TABLE}.manufacturer LIKE '%ge%' THEN 'GE Medical'
-    WHEN ${TABLE}.manufacturer LIKE '%hitachi%' THEN 'Hitachi'
-    WHEN ${TABLE}.manufacturer LIKE '%iscv%' THEN 'iSchemaView'
-    WHEN ${TABLE}.manufacturer LIKE '%ischemaview%' THEN 'iSchemaView'
-    WHEN ${TABLE}.manufacturer LIKE '%phillips%' THEN 'Phillips'
-    WHEN ${TABLE}.manufacturer LIKE '%siemens%' THEN 'Siemens'
+    WHEN ${TABLE}.manufacturer ILIKE '%general%' THEN 'GE Medical'
+    WHEN ${TABLE}.manufacturer ILIKE '%ge%' THEN 'GE Medical'
+    WHEN ${TABLE}.manufacturer ILIKE '%hitachi%' THEN 'Hitachi'
+    WHEN ${TABLE}.manufacturer ILIKE '%iscv%' THEN 'iSchemaView'
+    WHEN ${TABLE}.manufacturer ILIKE '%ischemaview%' THEN 'iSchemaView'
+    WHEN ${TABLE}.manufacturer ILIKE '%neurologica%' THEN 'Neurologica'
+    WHEN ${TABLE}.manufacturer ILIKE '%philips%' THEN 'Philips'
+    WHEN ${TABLE}.manufacturer ILIKE '%siemens%' THEN 'Siemens'
     ELSE ${TABLE}.manufacturer
     END ;;
   }
