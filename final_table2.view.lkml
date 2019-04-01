@@ -11,7 +11,7 @@ view: final_table2 {
           Country,
           ISV_Site_ID,
           Institution_Name,
-          Station_name,
+          Station_name[array_upper(Station_name, 1)] AS Station_name,
           Manufacturer,
           Manufacturer_Model,
           Series_Description[array_upper(Series_Description, 1)] AS Series_Description,
@@ -61,7 +61,7 @@ view: final_table2 {
               Country,
               ISV_Site_ID,
               Institution_Name,
-              Station_name,
+              array_agg(Station_name ORDER BY Task_ID) AS Station_name,
               Manufacturer,
               Manufacturer_Model,
               array_agg(Series_Description[array_upper(Series_Description, 1)] ORDER BY Task_ID) AS Series_Description,
@@ -154,7 +154,11 @@ view: final_table2 {
                       series.site_rapid_patient_id  AS Rapid_Patient_ID,
                       series.patient_age  AS Patient_Age,
                       series.patient_gender  AS Patient_Gender,
-                      tasks.module_name  AS Module_Name,
+                      case when tasks.module_name = 'angio' then 'Angio'
+                           when tasks.module_name = 'hemorrhage' then 'Hemorrhage'
+                           when tasks.module_name = 'NCCT' then 'ASPECTS'
+                           when tasks.module_name = 'Octopus' then 'ASPECTS'
+                           else tasks.module_name end AS Module_Name,
                       tasks.modality  AS Modality,
                       sites.site_name  AS Site_Name,
                       sites.city  AS City,
@@ -186,7 +190,7 @@ view: final_table2 {
                       tasks.entry_id  AS Entry_ID,
                       tasks.task_id  AS Task_ID,
                       tasks.task_processing_type  AS Task_Processing_Type,
-                      tasks.task_result  AS Task_Result,
+                      case when tasks.task_result = '0' then 'Successful' else 'Unsuccessful' end AS Task_Result,
                       tasks.processing_time_in_module  AS Processing_Time_In_Module,
                       tasks.total_processing_time_since_delivery  AS Total_Processing_Time_Since_Delivery,
                       tasks.username  AS Username,
@@ -213,7 +217,7 @@ view: final_table2 {
                     ) AS table1
                 GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,27,28,29,30,31,32,34,35,36,39,40,41,42,43,44,45,46,47
                 ) AS table2
-            GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13
+            GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13
             ) AS table3
         GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47
         ORDER BY table3.Rapid_Patient_ID DESC
@@ -401,7 +405,7 @@ view: final_table2 {
   }
 
   dimension: task_result {
-    type: number
+    type: string
     sql: ${TABLE}.task_result ;;
   }
 

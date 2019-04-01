@@ -8,7 +8,7 @@ datagroup: rapid_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-persist_with: rapid_default_datagroup
+#persist_with: rapid_default_datagroup
 
 # explore: measurements_aspects {}
 #
@@ -23,9 +23,13 @@ persist_with: rapid_default_datagroup
 # explore: techinfo_perf {}
 
 
-
+datagroup: 6hr_caching {
+  max_cache_age: "6 hours"
+  sql_trigger: select current_date ;;
+}
 
 # explore: tasks {}
+
 
 explore: series {
   fields: [ALL_FIELDS*, -techinfo_perf.count_filtered]
@@ -86,7 +90,30 @@ explore: sites {
   }
   extends: [series]
 }
-explore: richard_view {}
-explore: richard_view2 {}
-explore: final_table {}
+
 explore: final_table2 {}
+
+
+explore: count {
+  label: "BIDB"
+  description: "Ascension related table"
+  group_label: "Amarnath"
+  persist_with: 6hr_caching
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
+  }
+}
+
+explore: count2 {
+  label: "count2"
+  description: "Ascension related table2"
+  group_label: "Amarnath2"
+  persist_with: 6hr_caching
+  join: ascension_spreadsheet {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${count2.isv_site_id} ;;
+  }
+}
