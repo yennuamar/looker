@@ -115,7 +115,8 @@ view: count {
       Site_Description,
       Task_Result_Code,
       case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as ascension_image,
-      case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as isv_image
+      case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as isv_image,
+      case when (table5.Site_Name LIKE '%lifebridge%') then table5.Site_Name else null end as lifebridge_image
 
 
       FROM (
@@ -429,7 +430,7 @@ view: count {
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51
       ORDER BY table4.Rapid_Patient_ID DESC
       ) AS table5
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68
     ORDER BY table5.Rapid_Patient_ID DESC
        ;;
 
@@ -781,6 +782,12 @@ view: count {
     html: <img src="https://ascension.org/-/media/Images/Ascension/AscensionLogoHeader.svg?la=en&hash=6BFA6C1C0891AD2C8A07130BAFC410EBEF281850" width=“100%“ /> ;;
   }
 
+  dimension: lifebridge_image {
+    type: string
+    sql: ${TABLE}.lifebridge_image;;
+    html: <img src="https://media.glassdoor.com/sqll/21518/lifebridge-health-squarelogo-1537384350237.png" /> ;;
+  }
+
   dimension: case_id {
     type: string
     sql: ${TABLE}.case_id ;;
@@ -854,7 +861,7 @@ view: count {
       site_description,
       task_result_code,
       ascension_image,
-      isv_site_id
+      case_id
     ]
   }
 }
