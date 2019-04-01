@@ -142,7 +142,7 @@ view: merged_table {
 
   dimension: manufacturer {
     type: string
-    sql: ${TABLE}.manufacturer ;;
+    sql: ${manufacturer} ;;
   }
 
   dimension: manufacturer_model {

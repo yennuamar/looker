@@ -14,7 +14,17 @@ view: series {
 
   dimension: manufacturer {
     type: string
-    sql: ${TABLE}.manufacturer ;;
+    sql: CASE
+    WHEN ${TABLE}.manufacturer ILIKE '%general%' THEN 'GE Medical'
+    WHEN ${TABLE}.manufacturer ILIKE '%ge%' THEN 'GE Medical'
+    WHEN ${TABLE}.manufacturer ILIKE '%hitachi%' THEN 'Hitachi'
+    WHEN ${TABLE}.manufacturer ILIKE '%iscv%' THEN 'iSchemaView'
+    WHEN ${TABLE}.manufacturer ILIKE '%ischemaview%' THEN 'iSchemaView'
+    WHEN ${TABLE}.manufacturer ILIKE '%neurologica%' THEN 'Neurologica'
+    WHEN ${TABLE}.manufacturer ILIKE '%philips%' THEN 'Philips'
+    WHEN ${TABLE}.manufacturer ILIKE '%siemens%' THEN 'Siemens'
+    ELSE ${TABLE}.manufacturer
+    END ;;
   }
 
   dimension: manufacturer_model {

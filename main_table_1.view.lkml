@@ -181,7 +181,7 @@ view: main_table_1 {
 
   dimension: manufacturer {
     type: string
-    sql: ${TABLE}.manufacturer ;;
+    sql: ${manufacturer} ;;
   }
 
   dimension: manufacturer_model {

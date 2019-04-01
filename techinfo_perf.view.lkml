@@ -1,3 +1,7 @@
+
+# Todd has added to this model - Buckets - also called tiers - for each tech param.
+
+
 view: techinfo_perf {
   sql_table_name: public.techinfo_perf ;;
 
@@ -5,6 +9,8 @@ view: techinfo_perf {
     type: number
     sql: ${TABLE}.acquisition_type ;;
   }
+
+  # AIF Peak
 
   dimension: aif_peak_seconds {
     type: number
@@ -14,6 +20,20 @@ view: techinfo_perf {
   dimension: aif_peak_val {
     type: number
     sql: ${TABLE}.aif_peak_val ;;
+  }
+
+  dimension: aif_peak_buckets {
+    type: tier
+    tiers: [ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340 ]
+    style: classic
+    sql: ${aif_peak_val} ;;
+  }
+
+  dimension: aif_low {
+    type: tier
+    tiers: [ 0, 50, 300]
+    style: classic
+    sql: ${aif_peak_val} ;;
   }
 
   dimension: aif_rise_time_seconds {
@@ -26,45 +46,71 @@ view: techinfo_perf {
     sql: ${TABLE}.aif_vof_shape_correl ;;
   }
 
+
+  # Baseline seconds
+
   dimension: baseline_seconds {
     type: number
     sql: ${TABLE}.baseline_seconds ;;
   }
+
+  dimension: baseline_seconds_buckets {
+    type: tier
+    tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
+    style: integer
+    sql: ${baseline_seconds};;
+  }
+
+    # Baseline TP
 
   dimension: baseline_tp {
     type: number
     sql: ${TABLE}.baseline_tp ;;
   }
 
+  # Bolus arrival AIF
+
   dimension: bolus_arrival_aif_seconds {
     type: number
     sql: ${TABLE}.bolus_arrival_aif_seconds ;;
   }
+
+  # Bolus arrival tissue
 
   dimension: bolus_arrival_tissue_seconds {
     type: number
     sql: ${TABLE}.bolus_arrival_tissue_seconds ;;
   }
 
+  # Bolus FWHM AIF
+
   dimension: bolus_fwhm_aif_seconds {
     type: number
     sql: ${TABLE}.bolus_fwhm_aif_seconds ;;
   }
+
+  # Bolus FWHM Tissue
 
   dimension: bolus_fwhm_tissue_seconds {
     type: number
     sql: ${TABLE}.bolus_fwhm_tissue_seconds ;;
   }
 
+  # Bolus FWHM VOF
+
   dimension: bolus_fwhm_vof_seconds {
     type: number
     sql: ${TABLE}.bolus_fwhm_vof_seconds ;;
   }
 
+  # CDTI Vol
+
   dimension: cdti_vol {
     type: number
     sql: ${TABLE}.cdti_vol ;;
   }
+
+  # Coverage Z
 
   dimension: coverage_z {
     type: number
@@ -76,105 +122,147 @@ view: techinfo_perf {
     sql: ${TABLE}.device_serial_nr ;;
   }
 
+  # Echo Time
+
   dimension: echo_time {
     type: number
     sql: ${TABLE}.echo_time ;;
   }
+
+  # Exposure
 
   dimension: exposure {
     type: number
     sql: ${TABLE}.exposure ;;
   }
 
+  # Exposure time
+
   dimension: exposure_time {
     type: number
     sql: ${TABLE}.exposure_time ;;
   }
+
+  # Exposure time avg
 
   measure: exposure_time_avg {
     type: average
     sql: ${TABLE}.exposure_time ;;
   }
 
+  # Input Slice NX
+
   dimension: input_slice_nx {
     type: number
     sql: ${TABLE}.input_slice_nx ;;
   }
+
+  # Input Slice NY
 
   dimension: input_slice_ny {
     type: number
     sql: ${TABLE}.input_slice_ny ;;
   }
 
+  # Input Slice PX
+
   dimension: input_slice_px {
     type: number
     sql: ${TABLE}.input_slice_px ;;
   }
+
+  #Input Slice PY
 
   dimension: input_slice_py {
     type: number
     sql: ${TABLE}.input_slice_py ;;
   }
 
+  # KVP
+
   dimension: kvp {
     type: number
     sql: ${TABLE}.kvp ;;
   }
+
+  # Magnet Strength
 
   dimension: magnet_strength {
     type: number
     sql: ${TABLE}.magnet_strength ;;
   }
 
+  # Maxmotion Rotate X
+
   dimension: maxmotion_rot_x {
     type: number
     sql: ${TABLE}.maxmotion_rot_x ;;
   }
+
+  # Maxmotion Rotate Y
 
   dimension: maxmotion_rot_y {
     type: number
     sql: ${TABLE}.maxmotion_rot_y ;;
   }
 
+  # Maxmotion Rotate Z
+
   dimension: maxmotion_rot_z {
     type: number
     sql: ${TABLE}.maxmotion_rot_z ;;
   }
+
+  # Maxmotion Trans X
 
   dimension: maxmotion_trans_x {
     type: number
     sql: ${TABLE}.maxmotion_trans_x ;;
   }
 
+  # Maxmotion Trans Y
+
   dimension: maxmotion_trans_y {
     type: number
     sql: ${TABLE}.maxmotion_trans_y ;;
   }
+
+  # Maxmotion Trans Z
 
   dimension: maxmotion_trans_z {
     type: number
     sql: ${TABLE}.maxmotion_trans_z ;;
   }
 
+  # Number Excluded Points
+
   dimension: number_excluded_points {
     type: number
     sql: ${TABLE}.number_excluded_points ;;
   }
+
+  # Number of Echoes
 
   dimension: number_of_echoes {
     type: number
     sql: ${TABLE}.number_of_echoes ;;
   }
 
+  # Number of Slices
+
   dimension: number_of_slices {
     type: number
     sql: ${TABLE}.number_of_slices ;;
   }
 
+  # Number of Timepoints
+
   dimension: number_of_timepoints {
     type: number
     sql: ${TABLE}.number_of_timepoints ;;
   }
+
+  # Reconstruction Diameter
 
   dimension: reconstruction_diameter {
     type: number
@@ -204,6 +292,13 @@ view: techinfo_perf {
   dimension: scan_duration {
     type: number
     sql: ${TABLE}.scan_duration ;;
+  }
+
+  dimension: scan_duration_buckets {
+    type: tier
+    tiers: [ 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160, 165, 170, 175, 180, 185, 190, 195, 200]
+    style: classic
+    sql: ${scan_duration} ;;
   }
 
   dimension: series_key {
@@ -292,8 +387,19 @@ view: techinfo_perf {
     sql: ${TABLE}.xray_tube_current ;;
   }
 
+  # Measure counts
+
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: count_filtered {
+    type: count
+    drill_fields: []
+    filters: {
+      field: sites.sites_bool
+      value: "yes"
+    }
   }
 }
