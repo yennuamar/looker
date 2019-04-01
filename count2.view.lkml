@@ -1,8 +1,9 @@
-view: count2{
+view: count2 {
   derived_table: {
     datagroup_trigger: 6hr_caching
     indexes: ["Task_ID"]
     sql: SELECT
+      concat(table5.ISV_Site_ID,'_',table5.Rapid_Patient_ID::text,'_',table5.Task_ID::text) as Case_ID,
       Rapid_Patient_ID,
       Patient_Age,
       Patient_Gender,
@@ -428,7 +429,7 @@ view: count2{
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51
       ORDER BY table4.Rapid_Patient_ID DESC
       ) AS table5
-    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66
+    GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67
     ORDER BY table5.Rapid_Patient_ID DESC
        ;;
 
@@ -777,11 +778,17 @@ view: count2{
     dimension: ascension_image {
       type: string
       sql: ${TABLE}.ascension_image;;
-      html: <img src="https://healthcare.ascension.org/ui/healthcare/assets/images/core/ascension-logo.svg" width=“100%“ /> ;;
+      html: <img src="https://ascension.org/-/media/Images/Ascension/AscensionLogoHeader.svg?la=en&hash=6BFA6C1C0891AD2C8A07130BAFC410EBEF281850" width=“100%“ /> ;;
+    }
+
+    dimension: case_id {
+      type: string
+      sql: ${TABLE}.case_id ;;
     }
 
     set: detail {
       fields: [
+        case_id,
         rapid_patient_id,
         patient_age,
         patient_gender,
