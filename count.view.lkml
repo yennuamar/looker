@@ -850,10 +850,7 @@ view: count {
       mismatch_volume,
       mismatch_ratio,
       datetime_finished_date_month,
-      datetime_finished_date,
-      isv_image,
-      ascension_image,
-      lifebridge_image
+      datetime_finished_date
 
     ]
   }
