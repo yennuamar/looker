@@ -29,6 +29,7 @@ datagroup: 6hr_caching {
 }
 
 # explore: tasks {}
+explore: image_quality_perfusion {}
 
 
 explore: series {
