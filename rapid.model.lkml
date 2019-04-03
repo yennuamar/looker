@@ -113,9 +113,9 @@ explore: count {
 }
 
 explore: count2 {
-  label: "count2"
+  label: "BIDB2"
   description: "Ascension related table2"
-  group_label: "Amarnath2"
+  group_label: "Amarnath"
   persist_with: 3hr_caching
   join: ascension_spreadsheet {
     type: full_outer
