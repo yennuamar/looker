@@ -8,6 +8,7 @@ view: tasks {
   }
 
   dimension_group: datetime_finished {
+    label: ""
     type: time
     timeframes: [
       raw,
