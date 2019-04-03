@@ -23,8 +23,8 @@ datagroup: rapid_default_datagroup {
 # explore: techinfo_perf {}
 
 
-datagroup: 6hr_caching {
-  max_cache_age: "6 hours"
+datagroup: 3hr_caching {
+  max_cache_age: "3 hours"
   sql_trigger: select current_date ;;
 }
 
@@ -98,7 +98,7 @@ explore: count {
   label: "BIDB"
   description: "Ascension related table"
   group_label: "Amarnath"
-  persist_with: 6hr_caching
+  persist_with: 3hr_caching
   join: ascension_spreadsheet {
     type: left_outer
     relationship: many_to_one
@@ -116,7 +116,7 @@ explore: count2 {
   label: "count2"
   description: "Ascension related table2"
   group_label: "Amarnath2"
-  persist_with: 6hr_caching
+  persist_with: 3hr_caching
   join: ascension_spreadsheet {
     type: full_outer
     relationship: many_to_one

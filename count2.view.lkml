@@ -1,6 +1,6 @@
 view: count2 {
   derived_table: {
-    datagroup_trigger: 6hr_caching
+    datagroup_trigger: 3hr_caching
     indexes: ["Task_ID"]
     sql: SELECT
       concat(table5.ISV_Site_ID,'_',table5.Rapid_Patient_ID::text,'_',table5.Task_ID::text) as Case_ID,
