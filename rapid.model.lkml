@@ -92,7 +92,6 @@ explore: sites {
   extends: [series]
 }
 
-explore: final_table2 {}
 
 
 explore: count {
