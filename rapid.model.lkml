@@ -29,6 +29,7 @@ datagroup: 6hr_caching {
 }
 
 # explore: tasks {}
+explore: image_quality_perfusion {}
 
 
 explore: series {
@@ -104,6 +105,12 @@ explore: count {
     relationship: many_to_one
     sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
   }
+  join: image_quality_perfusion {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${image_quality_perfusion.isv_site_id} = ${count.isv_site_id} ;;
+  }
+
 }
 
 explore: count2 {

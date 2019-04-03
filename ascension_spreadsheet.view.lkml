@@ -34,7 +34,7 @@ view: ascension_spreadsheet {
   dimension: site_id {
     type: string
     # hidden: yes
-    sql: ${TABLE}.site_id ;;
+    sql: case when ${TABLE}.site_id = '766h' then '779d' else ${TABLE}.site_id end;;
   }
 
   dimension: site_name_address {
