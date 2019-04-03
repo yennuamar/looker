@@ -5,6 +5,7 @@ view: sites {
 
   filter: sites_filter {
     type: string
+    label: "Site name"
     suggest_dimension: sites.site_description
     suggest_explore: sites
   }
