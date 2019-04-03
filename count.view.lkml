@@ -816,24 +816,14 @@ view: count {
       datetime_requested,
       datetime_started,
       datetime_finished,
-      perf_acquisition_type,
-      perf_number_of_slices,
-      perf_slice_thickness,
-      perf_coverage_z,
       perf_scan_duration,
-      perf_series_type,
-      entry_id,
       task_id,
-      task_processing_type,
       task_result,
       task_result_code,
       processing_time_in_module,
       total_processing_time_since_delivery,
       username,
       number_of_slabs,
-      parameter_name,
-      threshold,
-      volume,
       cta_affected_side,
       hemi_ratio,
       aspects_affected_side,
@@ -848,9 +838,7 @@ view: count {
       CBF_lessthan_34percent_volume_ml,
       CBF_lessthan_38percent_volume_ml,
       mismatch_volume,
-      mismatch_ratio,
-      datetime_finished_date_month,
-      datetime_finished_date
+      mismatch_ratio
 
     ]
   }
