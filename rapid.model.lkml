@@ -20,7 +20,10 @@ datagroup: rapid_default_datagroup {
 #
 # explore: techinfo_ncct {}
 #
-# explore: techinfo_perf {}
+
+explore: techinfo_perf {
+  fields: [ALL_FIELDS*, -techinfo_perf.count_filtered]
+}
 
 
 datagroup: 6hr_caching {
@@ -29,7 +32,23 @@ datagroup: 6hr_caching {
 }
 
 # explore: tasks {}
-explore: image_quality_perfusion {}
+
+
+explore: image_quality_perfusion {
+  join: sites {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${image_quality_perfusion.isv_site_id} = ${sites.isv_site_id} ;;
+  }
+
+  join: techinfo_perf {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${image_quality_perfusion.isv_site_id} = ${sites.isv_site_id} ;;
+  }
+
+}
+
 
 
 explore: series {
