@@ -124,5 +124,10 @@ explore: count2 {
   }
 }
 explore: thrombectomy {
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy.isv_site_id} ;;
+  }
   persist_with: 3hr_caching
 }
