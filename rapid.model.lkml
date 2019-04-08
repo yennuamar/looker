@@ -123,3 +123,6 @@ explore: count2 {
     sql_on: ${ascension_spreadsheet.site_id} = ${count2.isv_site_id} ;;
   }
 }
+explore: thrombectomy {
+  persist_with: 3hr_caching
+}
