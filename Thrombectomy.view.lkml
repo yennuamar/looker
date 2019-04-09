@@ -325,11 +325,11 @@ view: thrombectomy {
                         Country,
                         ISV_Site_ID,
                         Institution_Name,
-                        array_agg(Station_name ORDER BY Task_ID) AS Station_name,
+                        array_agg(Station_name ORDER BY Task_ID) as Station_name,
                         Manufacturer,
                         Manufacturer_Model,
-                        array_agg(Series_Description ORDER BY Task_ID) AS Series_Description,
-                        array_agg(Series_Datetime ORDER BY Task_ID) AS Series_Datetime,
+                        Series_Description AS Series_Description,
+                        Series_Datetime AS Series_Datetime,
                         array_agg(Datetime_Requested ORDER BY Task_ID) AS Datetime_Requested,
                         array_agg(Datetime_Started ORDER BY Task_ID) AS Datetime_Started,
                         array_agg(Datetime_Finished ORDER BY Task_ID) AS Datetime_Finished,
@@ -381,32 +381,32 @@ view: thrombectomy {
                             Station_name,
                             Manufacturer,
                             Manufacturer_Model,
-                            array_to_string(array_agg(Series_Description ORDER BY Entry_ID ),', ') AS Series_Description,
-                            array_to_string(array_agg(Series_Datetime ORDER BY Entry_ID ),', ') AS Series_Datetime,
+                            array_agg(Series_Description ORDER BY Series_Datetime) AS Series_Description,
+                            array_agg(Series_Datetime ORDER BY Series_Datetime) AS Series_Datetime,
                             Datetime_Requested,
                             Datetime_Started,
                             Datetime_Finished,
-                            array_agg(Perf_Acquisition_Type ORDER BY Entry_ID) AS Perf_Acquisition_Type,
-                            array_agg(Perf_Number_Of_Slices ORDER BY Entry_ID) AS Perf_Number_Of_Slices,
-                            array_agg(Perf_Slice_Thickness ORDER BY Entry_ID) AS Perf_Slice_Thickness,
-                            array_agg(Perf_Coverage_z ORDER BY Entry_ID) AS Perf_Coverage_z,
-                            array_agg(Perf_Scan_Duration ORDER BY Entry_ID) AS Perf_Scan_Duration,
-                            array_agg(Perf_Series_Type ORDER BY Entry_ID) AS Perf_Series_Type,
-                            array_agg(Dwi_Number_Of_Slices ORDER BY Entry_ID) AS Dwi_Number_Of_Slices,
-                            array_agg(Dwi_Slice_Thickness ORDER BY Entry_ID) AS Dwi_Slice_Thickness,
-                            array_agg(Dwi_Series_Type ORDER BY Entry_ID) AS Dwi_Series_Type,
+                            array_agg(Perf_Acquisition_Type ORDER BY Series_Datetime) AS Perf_Acquisition_Type,
+                            array_agg(Perf_Number_Of_Slices ORDER BY Series_Datetime) AS Perf_Number_Of_Slices,
+                            array_agg(Perf_Slice_Thickness ORDER BY Series_Datetime) AS Perf_Slice_Thickness,
+                            array_agg(Perf_Coverage_z ORDER BY Series_Datetime) AS Perf_Coverage_z,
+                            array_agg(Perf_Scan_Duration ORDER BY Series_Datetime) AS Perf_Scan_Duration,
+                            array_agg(Perf_Series_Type ORDER BY Series_Datetime) AS Perf_Series_Type,
+                            array_agg(Dwi_Number_Of_Slices ORDER BY Series_Datetime) AS Dwi_Number_Of_Slices,
+                            array_agg(Dwi_Slice_Thickness ORDER BY Series_Datetime) AS Dwi_Slice_Thickness,
+                            array_agg(Dwi_Series_Type ORDER BY Series_Datetime) AS Dwi_Series_Type,
                             Ncct_Number_Of_slices,
                             Ncct_Slice_Thickness,
                             Ncct_Series_Type,
                             Cta_Number_Of_Slices,
                             Cta_Slice_Thickness,
                             Cta_Series_Type,
-                            array_agg(Entry_ID ORDER BY Entry_ID) AS Entry_ID,
+                            array_agg(Entry_ID ORDER BY Series_Datetime) AS Entry_ID,
                             Task_ID,
                             Task_Processing_Type,
                             Task_Result,
-                            array_agg(Processing_Time_In_Module ORDER BY Entry_ID) AS Processing_Time_In_Module,
-                            array_agg(Total_Processing_Time_Since_Delivery ORDER BY Entry_ID) AS Total_Processing_Time_Since_Delivery,
+                            array_agg(Processing_Time_In_Module ORDER BY Series_Datetime) AS Processing_Time_In_Module,
+                            array_agg(Total_Processing_Time_Since_Delivery ORDER BY Series_Datetime) AS Total_Processing_Time_Since_Delivery,
                             Username,
                             Number_Of_Slabs,
                             Parameter_Name,
@@ -493,7 +493,7 @@ view: thrombectomy {
                               ) AS table1
                           GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,18,28,29,30,31,32,33,35,36,37,40,41,42,43,44,45,46,47,48,49,50
                           ) AS table2
-                      GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13,49
+                      GROUP BY 1,2,3,4,5,6,7,8,9,10,12,13,14,15,49
                       ) AS table3
                   GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50
                   ORDER BY table3.Rapid_Patient_ID DESC
@@ -587,7 +587,7 @@ view: thrombectomy {
     }
 
     dimension: series_datetime {
-      type: string
+      type: date_time
       sql: ${TABLE}.series_datetime ;;
     }
 
