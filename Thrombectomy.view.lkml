@@ -66,11 +66,13 @@ view: thrombectomy {
         mismatch_ratio,
         Datetime_Finished_date,
         Datetime_Finished_date_month,
+        table6.Datetime_Finished AS Datetime_Finished_date_fiscal_quarter_of_year,
+        table6.Datetime_Finished AS Datetime_Finished_date_fiscal_year,
         Site_Description,
         Task_Result_Code,
-        case when ( (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Yes' else 'No' end as defuse3_thrombectomy_qualified,
-        case when ( (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Yes' else 'No' end as extend_1a_thrombectomy_qualified,
-        case when ( (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Yes' else 'No' end as swift_prime_thrombectomy_qualified,
+        case when ( (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Eligible' else 'Ineligible' end as defuse3_thrombectomy_qualified,
+        case when ( (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Eligible' else 'Ineligible' end as extend_1a_thrombectomy_qualified,
+        case when ( (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Eligible' else 'Ineligible' end as swift_prime_thrombectomy_qualified,
         ascension_image,
         isv_image,
         lifebridge_image
@@ -509,7 +511,7 @@ view: thrombectomy {
           GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68
           ORDER BY table5.Rapid_Patient_ID DESC
       ) AS table6
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73
       ORDER BY table6.Rapid_Patient_ID DESC
              ;;
 
@@ -834,6 +836,16 @@ view: thrombectomy {
     dimension: datetime_finished_date_month {
       type: date_month
       sql: ${TABLE}.datetime_finished_date_month ;;
+    }
+
+    dimension: datetime_finished_date_fiscal_year {
+      type: date_fiscal_year
+      sql: ${TABLE}.datetime_finished_date_fiscal_year ;;
+    }
+
+    dimension: datetime_finished_date_fiscal_quarter_of_year {
+      type: date_fiscal_quarter_of_year
+      sql: ${TABLE}.datetime_finished_date_fiscal_quarter_of_year ;;
     }
 
     dimension: datetime_finished_date {
