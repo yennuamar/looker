@@ -403,7 +403,7 @@ view: final_table {
   }
 
   dimension: task_result {
-    type: number
+    type: string
     sql: ${TABLE}.task_result ;;
   }
 
@@ -423,7 +423,7 @@ view: final_table {
   }
 
   dimension: number_of_slabs {
-    type: number
+    type: string
     sql: ${TABLE}.number_of_slabs ;;
   }
 
