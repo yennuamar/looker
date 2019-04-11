@@ -96,7 +96,7 @@ explore: sites {
 
 explore: count {
   label: "BIDB"
-  description: "Ascension related table"
+  description: "MVP Monthly Reporting For Sites"
   group_label: "Amarnath"
   persist_with: 3hr_caching
   join: ascension_spreadsheet {
@@ -113,7 +113,7 @@ explore: count {
 }
 
 explore: count2 {
-  label: "BIDB2"
+  label: "BIDB2 for Ascension"
   description: "Ascension related table2"
   group_label: "Amarnath"
   persist_with: 3hr_caching
@@ -124,10 +124,20 @@ explore: count2 {
   }
 }
 explore: thrombectomy {
+  label: "Thromectomy Eligibility"
+  description: "For Market Intel Project"
+  group_label: "Amarnath"
   join: ascension_spreadsheet {
     type: left_outer
     relationship: many_to_one
     sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy.isv_site_id} ;;
   }
+  persist_with: 3hr_caching
+}
+
+explore: final_table2 {
+  label: "Testing View"
+  description: "Testing Table"
+  group_label: "Amarnath"
   persist_with: 3hr_caching
 }

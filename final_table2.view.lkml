@@ -1,5 +1,7 @@
 view: final_table2 {
   derived_table: {
+    datagroup_trigger: 3hr_caching
+    indexes: ["Task_ID"]
     sql:  SELECT
               Rapid_Patient_ID,
               Patient_Age,
