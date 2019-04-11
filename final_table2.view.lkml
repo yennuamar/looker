@@ -43,7 +43,7 @@ view: final_table2 {
               array_to_string(array_agg(Total_Processing_Time_Since_Delivery ORDER BY Task_ID),': ') AS Total_Processing_Time_Since_Delivery,
               array_to_string(array_agg(Username ORDER BY Task_ID),': ') AS Username,
               array_to_string(array_agg(Number_Of_Slabs ORDER BY Task_ID),': ') AS Number_Of_Slabs,
-              array_to_string(array_agg(Parameter_Name ORDER BY Task_ID),': '),': ') AS Parameter_Name,
+              array_to_string(array_agg(Parameter_Name ORDER BY Task_ID),': ') AS Parameter_Name,
               array_to_string(array_agg(Threshold ORDER BY Task_ID),': ') AS Threshold,
               array_to_string(array_agg(Volume ORDER BY Task_ID),': ') AS Volume,
               array_to_string(array_agg(Cta_Affected_Side ORDER BY Task_ID),': ') AS Cta_Affected_Side,
