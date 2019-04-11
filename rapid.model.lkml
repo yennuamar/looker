@@ -135,9 +135,8 @@ explore: thrombectomy {
   persist_with: 3hr_caching
 }
 
-explore: final_table2 {
+explore: final_table {
   label: "Testing View"
-  description: "Testing Table"
   group_label: "Amarnath"
   persist_with: 3hr_caching
 }

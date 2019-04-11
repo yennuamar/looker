@@ -1,5 +1,7 @@
 view: final_table {
   derived_table: {
+    datagroup_trigger: 3hr_caching
+    indexes: ["Task_ID"]
     sql: SELECT
           Rapid_Patient_ID,
           Patient_Age,
@@ -14,9 +16,9 @@ view: final_table {
           Station_name,
           Manufacturer,
           Manufacturer_Model,
-          Series_Description[array_upper(Series_Description, 1)] AS Series_Description,
-          Series_Datetime[array_upper(Series_Datetime, 1)] AS Series_Datetime,
-          Datetime_Started[array_upper(Datetime_Started, 1)] AS Datetime_Started,
+          Series_Description AS Series_Description,
+          Series_Datetime AS Series_Datetime,
+          Datetime_Started AS Datetime_Started,
           Datetime_Finished[array_upper(Datetime_Finished, 1)] AS Datetime_Finished,
           Perf_Acquisition_Type[array_upper(Perf_Acquisition_Type, 1)] AS Perf_Acquisition_Type,
           Perf_Number_Of_Slices[array_upper(Perf_Number_Of_Slices, 1)] AS Perf_Number_Of_Slices,
@@ -33,17 +35,17 @@ view: final_table {
           Cta_Number_Of_Slices[array_upper(Cta_Number_Of_Slices, 1)] AS Cta_Number_Of_Slices,
           Cta_Slice_Thickness[array_upper(Cta_Slice_Thickness, 1)] AS Cta_Slice_Thickness,
           Cta_Series_Type[array_upper(Cta_Series_Type, 1)] AS Cta_Series_Type,
-          Entry_ID[array_upper(Entry_ID, 1)] AS Entry_ID,
-          Task_ID[array_upper(Task_ID, 1)] AS Task_ID,
+          Entry_ID AS Entry_ID,
+          Task_ID AS Task_ID,
           Task_Processing_Type[array_upper(Task_Processing_Type, 1)] AS Task_Processing_Type,
-          Task_Result[array_upper(Task_Result, 1)] AS Task_Result,
+          Task_Result AS Task_Result,
           Processing_Time_In_Module[array_upper(Processing_Time_In_Module, 1)] AS Processing_Time_In_Module,
           Total_Processing_Time_Since_Delivery[array_upper(Total_Processing_Time_Since_Delivery, 1)] AS Total_Processing_Time_Since_Delivery,
-          Username[array_upper(Username, 1)] AS Username,
-          Number_Of_Slabs[array_upper(Number_Of_Slabs, 1)] AS Number_Of_Slabs,
-          Parameter_Name[array_upper(Parameter_Name, 1)] AS Parameter_Name,
-          Threshold[array_upper(Threshold, 1)] AS Threshold,
-          Volume[array_upper(Volume, 1)] AS Volume,
+          Username AS Username,
+          Number_Of_Slabs AS Number_Of_Slabs,
+          Parameter_Name AS Parameter_Name,
+          Threshold AS Threshold,
+          Volume AS Volume,
           Cta_Affected_Side[array_upper(Cta_Affected_Side, 1)] AS Cta_Affected_Side,
           Hemi_Ratio[array_upper(Hemi_Ratio, 1)] AS Hemi_Ratio,
           Aspects_Affected_Side[array_upper(Aspects_Affected_Side, 1)] AS Aspects_Affected_Side,
@@ -167,7 +169,7 @@ view: final_table {
                       series.series_description  AS Series_Description,
                       TO_CHAR(series.series_datetime , 'YYYY-MM-DD HH24:MI:SS') AS Series_Datetime,
                       TO_CHAR(tasks.datetime_started , 'YYYY-MM-DD HH24:MI:SS') AS Datetime_Started,
-                      TO_CHAR(tasks.datetime_finished , 'YYYY-MM-DD HH24:MI:SS') AS Datetime_Finished,
+                      tasks.datetime_finished AS Datetime_Finished,
                       techinfo_perf.acquisition_type  AS Perf_Acquisition_Type,
                       techinfo_perf.number_of_slices  AS Perf_Number_Of_Slices,
                       techinfo_perf.slice_thickness  AS Perf_Slice_Thickness,
@@ -209,8 +211,6 @@ view: final_table {
                     LEFT JOIN public.measurements_cta1  AS measurements_cta1 ON measurements_cta1.task_key = tasks.task_key
                     LEFT JOIN public.measurements_aspects  AS measurements_aspects ON measurements_aspects.task_key = tasks.task_key
 
-                    WHERE
-                      (((tasks.datetime_finished ) >= (TIMESTAMP '2019-01-01 00:00') AND (tasks.datetime_finished ) < (TIMESTAMP '2019-01-31 23:59')))
                     GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,44,45,46,47
                     ) AS table1
                 GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,16,17,27,28,29,30,31,32,34,35,36,39,40,41,42,43,44,45,46,47
@@ -308,7 +308,7 @@ view: final_table {
   }
 
   dimension: datetime_finished {
-    type: string
+    type: date_time
     sql: ${TABLE}.datetime_finished ;;
   }
 
@@ -388,12 +388,12 @@ view: final_table {
   }
 
   dimension: entry_id {
-    type: number
+    type: string
     sql: ${TABLE}.entry_id ;;
   }
 
   dimension: task_id {
-    type: number
+    type: string
     sql: ${TABLE}.task_id ;;
   }
 
