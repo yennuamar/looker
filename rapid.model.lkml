@@ -140,3 +140,15 @@ explore: final_table {
   group_label: "Amarnath"
   persist_with: 3hr_caching
 }
+
+explore: thrombectomy2 {
+  label: "DEFUSE 3 Thromectomy Eligibility"
+  description: "For Market Intel Project"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy2.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
