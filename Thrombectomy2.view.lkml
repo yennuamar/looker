@@ -154,7 +154,9 @@ view: thrombectomy2 {
             Rapid_Patient_ID,
             Patient_Age,
             Patient_Gender,
-            Module_Name,
+            case when ((Module_Name = 'Mismatch') and (Scan_type = 'DWI')) then 'Mismatch_DWI'
+                 when ((Module_Name = 'Mismatch') and (Scan_type = 'PWI')) then 'Mismatch_PWI'
+                 else Module_Name end AS Module_Name,
             Modality,
             Site_Name,
             City,
