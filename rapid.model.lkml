@@ -124,8 +124,8 @@ explore: count2 {
   }
 }
 explore: thrombectomy {
-  label: "Thromectomy Eligibility"
-  description: "For Market Intel Project"
+  label: "MVP v1.2"
+  description: "MVP Monthly Reporting For Sites"
   group_label: "Amarnath"
   join: ascension_spreadsheet {
     type: left_outer
@@ -143,7 +143,7 @@ explore: final_table {
 
 explore: thrombectomy2 {
   label: "DEFUSE 3 Thromectomy Eligibility"
-  description: "For Market Intel Project"
+  description: "Market Intel Project"
   group_label: "Amarnath"
   join: ascension_spreadsheet {
     type: left_outer
