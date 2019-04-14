@@ -135,6 +135,19 @@ explore: thrombectomy {
   persist_with: 3hr_caching
 }
 
+explore: thrombectomy_ascension {
+  label: "MVP v1.2 Ascension"
+  description: "MVP Monthly Reporting For Ascension"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy_ascension.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
+
+
 explore: final_table {
   label: "Testing View"
   group_label: "Amarnath"
@@ -142,7 +155,7 @@ explore: final_table {
 }
 
 explore: thrombectomy2 {
-  label: "DEFUSE 3 Thromectomy Eligibility"
+  label: "Market Intel Project"
   description: "Market Intel Project"
   group_label: "Amarnath"
   join: ascension_spreadsheet {
