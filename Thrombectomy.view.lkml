@@ -844,7 +844,7 @@ view: thrombectomy {
     }
 
     dimension: datetime_finished_date_fiscal_quarter_of_year {
-      type: date_fiscal_quarter_of_year
+      type: date_fiscal_quarter
       sql: ${TABLE}.datetime_finished_date_fiscal_quarter_of_year ;;
     }
 
