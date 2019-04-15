@@ -916,7 +916,7 @@ ORDER BY 1 DESC
     }
 
     dimension: datetime_finished_date_fiscal_quarter_of_year {
-      type: date_fiscal_quarter_of_year
+      type: date_fiscal_quarter
       sql: ${TABLE}.datetime_finished_date_fiscal_quarter_of_year ;;
     }
 
