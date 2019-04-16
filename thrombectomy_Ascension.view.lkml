@@ -81,7 +81,7 @@ view: thrombectomy_ascension {
         FROM (
 
         SELECT
-            concat(table5.ISV_Site_ID,'_',table5.Rapid_Patient_ID::text,'_',table5.Task_ID::text) as Case_ID,
+            concat(table5.ISV_Site_ID,'_',table5.Rapid_Patient_ID::text) as Case_ID,
             Rapid_Patient_ID,
             Patient_Age,
             Patient_Gender,
