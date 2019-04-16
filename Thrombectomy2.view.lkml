@@ -594,22 +594,17 @@ ORDER BY 1 DESC
       drill_fields: [detail*]
     }
 
-    measure: average {
+    measure: total_processing_time_since_delivery_average {
       type: average
-      drill_fields: [detail*]
+      drill_fields: [total_processing_time_since_delivery]
+      sql: ${total_processing_time_since_delivery} ;;
     }
-    measure: min {
-      type: min
-      drill_fields: [detail*]
+    measure: processing_time_in_module_average {
+      type: average
+      drill_fields: [processing_time_in_module]
+      sql: ${processing_time_in_module}  ;;
     }
-    measure: max {
-      type: max
-      drill_fields: [detail*]
-    }
-    measure: sum {
-      type: sum
-      drill_fields: [detail*]
-    }
+
 
     dimension: rapid_patient_id {
       type: number
