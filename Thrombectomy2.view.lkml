@@ -594,6 +594,23 @@ ORDER BY 1 DESC
       drill_fields: [detail*]
     }
 
+    measure: average {
+      type: average
+      drill_fields: [detail*]
+    }
+    measure: min {
+      type: min
+      drill_fields: [detail*]
+    }
+    measure: max {
+      type: max
+      drill_fields: [detail*]
+    }
+    measure: sum {
+      type: sum
+      drill_fields: [detail*]
+    }
+
     dimension: rapid_patient_id {
       type: number
       sql: ${TABLE}.rapid_patient_id ;;
