@@ -596,12 +596,12 @@ ORDER BY 1 DESC
 
     measure: total_processing_time_since_delivery_average {
       type: average
-      drill_fields: [total_processing_time_since_delivery]
+      drill_fields: [detail*]
       sql: ${total_processing_time_since_delivery} ;;
     }
     measure: processing_time_in_module_average {
       type: average
-      drill_fields: [processing_time_in_module]
+      drill_fields: [detail*]
       sql: ${processing_time_in_module}  ;;
     }
 
