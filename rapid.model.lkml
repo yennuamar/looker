@@ -165,3 +165,15 @@ explore: thrombectomy2 {
   }
   persist_with: 3hr_caching
 }
+
+explore: thrombectomy3 {
+  label: "Patients"
+  description: "Only_Patients_View"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy3.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
