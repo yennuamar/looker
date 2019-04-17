@@ -530,14 +530,14 @@ view: thrombectomy {
     }
 
     measure: total_processing_time_since_delivery_average {
-      label: "Processing Time In RAPID Server Average (Seconds)"
+      label: "Total Processing Time Since Scan Delivery Average (Seconds)"
       type: average
       value_format: "0"
       drill_fields: [detail*]
       sql: ${total_processing_time_since_delivery} ;;
     }
     measure: processing_time_in_module_average {
-      label: "Total Processing Time Since Scan Delivery Average (Seconds)"
+      label: "Processing Time In RAPID Server Average (Seconds)"
       type: average
       value_format: "0"
       drill_fields: [detail*]
