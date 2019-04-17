@@ -70,6 +70,11 @@ view: thrombectomy {
         table6.Datetime_Finished AS Datetime_Finished_date_fiscal_year,
         Site_Description,
         Task_Result_Code,
+        case when table6.Task_Result_Code = 0 then 'Processed successfully without any problems'
+             when table6.Task_Result_Code < 0 then 'Processed unsuccessfully due to system problems such as file not found or disk full'
+             when table6.Task_Result_Code BETWEEN 1 AND 31 then 'Processed unsuccessfully due to data related problems such as AIF not found or no bolus or incomplete dataset'
+             when table6.Task_Result_Code BETWEEN 32 AND 34 then 'Processed unsuccessfully due to very odd datasets such as a dataset with odd VOF'
+             else null end AS Task_Result_Code_Description,
         case when ( (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Eligible' else 'Ineligible' end as defuse3_thrombectomy_qualified,
         case when ( (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Eligible' else 'Ineligible' end as extend_1a_thrombectomy_qualified,
         case when ( (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Eligible' else 'Ineligible' end as swift_prime_thrombectomy_qualified,
@@ -240,15 +245,15 @@ view: thrombectomy {
                 Task_ID,
                 Task_Processing_Type,
                 Task_Result,
-                ROUND((Processing_Time_In_Module)::numeric,2) as Processing_Time_In_Module,
-                ROUND((Total_Processing_Time_Since_Delivery)::numeric,2) as Total_Processing_Time_Since_Delivery,
+                (Processing_Time_In_Module)::integer as Processing_Time_In_Module,
+                (Total_Processing_Time_Since_Delivery)::integer as Total_Processing_Time_Since_Delivery,
                 Username,
                 Number_Of_Slabs,
                 (string_to_array(table4.Parameter_Name, ', ')::varchar[]) as Parameter_Name,
                 (string_to_array(table4.Threshold, ', ')::float[]) as Threshold,
                 (string_to_array(table4.Volume, ', ')::float[]) as Volume,
                 Cta_Affected_Side,
-                ROUND((Hemi_Ratio)::numeric,2) as Hemi_Ratio,
+                ROUND((Hemi_Ratio)::numeric,2)*100 as Hemi_Ratio,
                 Aspects_Affected_Side,
                 Aspect_Score,
                 case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
@@ -513,7 +518,7 @@ view: thrombectomy {
           GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69
           ORDER BY table5.Rapid_Patient_ID DESC
       ) AS table6
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75
       ORDER BY 1 DESC
              ;;
 
@@ -525,14 +530,16 @@ view: thrombectomy {
     }
 
     measure: total_processing_time_since_delivery_average {
-      precision: 0
+      label: "Processing Time In RAPID Server Average (Seconds)"
       type: average
+      value_format: "0"
       drill_fields: [detail*]
       sql: ${total_processing_time_since_delivery} ;;
     }
     measure: processing_time_in_module_average {
-      precision: 0
+      label: "Total Processing Time Since Scan Delivery Average (Seconds)"
       type: average
+      value_format: "0"
       drill_fields: [detail*]
       sql: ${processing_time_in_module}  ;;
     }
@@ -614,16 +621,19 @@ view: thrombectomy {
     }
 
     dimension: datetime_requested {
+      label: "RAPID Processing Request Time"
       type: date_time
       sql: ${TABLE}.datetime_requested ;;
     }
 
     dimension: datetime_started {
+      label: "RAPID Processing Start Time"
       type: date_time
       sql: ${TABLE}.datetime_started ;;
     }
 
     dimension: datetime_finished {
+      label: "RAPID Processing End Time"
       type: date_time
       sql: ${TABLE}.datetime_finished ;;
     }
@@ -649,6 +659,7 @@ view: thrombectomy {
     }
 
     dimension: perf_scan_duration {
+      label: "Pefusion Scan Duration"
       type: number
       sql: ${TABLE}.perf_scan_duration ;;
     }
@@ -709,6 +720,7 @@ view: thrombectomy {
     }
 
     dimension: task_id {
+      label: "Job Number"
       type: number
       sql: ${TABLE}.task_id ;;
     }
@@ -719,16 +731,19 @@ view: thrombectomy {
     }
 
     dimension: task_result {
+      label: "RAPID Output"
       type: string
       sql: ${TABLE}.task_result ;;
     }
 
     dimension: processing_time_in_module {
+      label: "Processing Time In RAPID Server (Seconds)"
       type: number
       sql: ${TABLE}.processing_time_in_module ;;
     }
 
     dimension: total_processing_time_since_delivery {
+      label: "Total Processing Time Since Scan Delivery (Seconds)"
       type: number
       sql: ${TABLE}.total_processing_time_since_delivery ;;
     }
@@ -760,13 +775,13 @@ view: thrombectomy {
 
     dimension: cta_affected_side {
       type: string
-      label: "CTA_Affected_Side"
+      label: "CTA Affected Side"
       sql: ${TABLE}.cta_affected_side ;;
     }
 
     dimension: hemi_ratio {
       type: number
-      label: "Vessel_Density_Ratio"
+      label: "Vessel Density Ratio (%)"
       sql: ${TABLE}.hemi_ratio ;;
     }
 
@@ -849,21 +864,25 @@ view: thrombectomy {
     }
 
     dimension: datetime_finished_date_month {
+      label: "Year-Month"
       type: date_month
       sql: ${TABLE}.datetime_finished_date_month ;;
     }
 
     dimension: datetime_finished_date_fiscal_year {
+      label: "Year"
       type: date_fiscal_year
       sql: ${TABLE}.datetime_finished_date_fiscal_year ;;
     }
 
     dimension: datetime_finished_date_fiscal_quarter_of_year {
       type: date_fiscal_quarter
+      label: "Year-Quarter"
       sql: ${TABLE}.datetime_finished_date_fiscal_quarter_of_year ;;
     }
 
     dimension: datetime_finished_date {
+      label: "Date"
       type: date
       sql: ${TABLE}.datetime_finished_date ;;
     }
@@ -873,8 +892,14 @@ view: thrombectomy {
       sql: ${TABLE}.site_description ;;
     }
     dimension: task_result_code {
+      label:"RAPID Output Code"
       type: number
       sql: ${TABLE}.task_result_code ;;
+    }
+    dimension: task_result_code_description {
+      label:"RAPID Output Description"
+      type: string
+      sql: ${TABLE}.task_result_code_description ;;
     }
     dimension: defuse3_thrombectomy_qualified {
       type: string
@@ -912,6 +937,7 @@ view: thrombectomy {
   }
 
     dimension: case_id {
+      label:"RAPID AnonID"
       type: string
       sql: ${TABLE}.case_id ;;
     }
@@ -943,6 +969,7 @@ view: thrombectomy {
         task_id,
         task_result,
         task_result_code,
+        task_result_code_description,
         processing_time_in_module,
         total_processing_time_since_delivery,
         username,
