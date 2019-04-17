@@ -525,14 +525,14 @@ view: thrombectomy {
     }
 
     measure: total_processing_time_since_delivery_average {
+      precision: 0
       type: average
-      precision: 1
       drill_fields: [detail*]
       sql: ${total_processing_time_since_delivery} ;;
     }
     measure: processing_time_in_module_average {
+      precision: 0
       type: average
-      precision: 1
       drill_fields: [detail*]
       sql: ${processing_time_in_module}  ;;
     }
