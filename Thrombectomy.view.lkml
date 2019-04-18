@@ -158,15 +158,15 @@ view: thrombectomy {
              when table6.Task_Result_Code BETWEEN 1 AND 31 then 'Processed unsuccessfully due to data related problems such as AIF not found or no bolus or incomplete dataset'
              when table6.Task_Result_Code BETWEEN 32 AND 34 then 'Processed unsuccessfully due to very odd datasets such as a dataset with odd VOF'
              else null end AS Task_Result_Code_Description,
-        case when ( (table6.Task_Result = 'Successful') and (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Imaging criteria met'
+        case when ( (table6.Task_Result = 'Successful') and (table6.mismatch_volume >= 15) and (table6.mismatch_ratio >= 1.8) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
              else 'Imaging criteria not met' end as defuse3_thrombectomy_qualified,
 
-        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Imaging criteria met'
+        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'CT') and (table6.mismatch_volume BETWEEN 10 AND 15) and (table6.mismatch_ratio BETWEEN 1.2 AND 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
              else 'Imaging criteria not met' end as extend_1a_thrombectomy_qualified,
 
-        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Imaging criteria met'
+        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'MR') and (table6.mismatch_volume BETWEEN 10 AND 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
              else 'Imaging criteria not met' end as swift_prime_thrombectomy_qualified,
 
@@ -281,9 +281,9 @@ view: thrombectomy {
             case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
                  when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
                  when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
-                 when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Volume[3] != 0) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then null
-                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Volume[9] != 0) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] = 0) ) then null
-                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Volume[8] != 0) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then null
+                 when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Volume[3] != 0) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
+                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Volume[9] != 0) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] = 0) ) then 9999
+                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Volume[8] != 0) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
                  else null end AS mismatch_ratio,
 
             table5.Datetime_Finished as Datetime_Finished_date,
