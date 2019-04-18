@@ -74,7 +74,7 @@ view: thrombectomy_ascension {
         defuse3_thrombectomy_qualified,
         extend_1a_thrombectomy_qualified,
         swift_prime_thrombectomy_qualified,
-        case when ( (table7.defuse3_thrombectomy_qualified = 'Imaging criteria not met') or (table7.extend_1a_thrombectomy_qualified = 'Imaging criteria not met') or (table7.swift_prime_thrombectomy_qualified = 'Imaging criteria not met')) then 'Imaging criteria not met'
+        case when ( (table7.defuse3_thrombectomy_qualified = 'Imaging criteria met') or (table7.extend_1a_thrombectomy_qualified = 'Imaging criteria met') or (table7.swift_prime_thrombectomy_qualified = 'Imaging criteria met')) then 'Imaging criteria met'
              when ( (table7.Task_Result = 'Unsuccessful') or ((table7.Scan_type != 'PWI&DWI') and (table7.Scan_type != 'CTP')) or (table7.Scan_type is null)) then null
              else 'Imaging criteria not met' end as defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
         ascension_image,
