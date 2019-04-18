@@ -3,6 +3,87 @@ view: thrombectomy2 {
     datagroup_trigger: 3hr_caching
     indexes: ["Task_ID"]
     sql:SELECT
+        Case_ID,
+        Rapid_Patient_ID,
+        Patient_Age,
+        Patient_Gender,
+        Module_Name,
+        Modality,
+        Site_Name,
+        City,
+        Country,
+        ISV_Site_ID,
+        Institution_Name,
+        Station_name,
+        Manufacturer,
+        Manufacturer_Model,
+        Series_Description,
+        Series_Datetime,
+        Datetime_Requested,
+        Datetime_Started,
+        Datetime_Finished,
+        Perf_Acquisition_Type,
+        Perf_Number_Of_Slices,
+        Perf_Slice_Thickness,
+        Perf_Coverage_z,
+        Perf_Scan_Duration ,
+        Perf_Series_Type,
+        Dwi_Number_Of_Slices,
+        Dwi_Slice_Thickness,
+        Dwi_Series_Type,
+        Ncct_Number_Of_slices,
+        Ncct_Slice_Thickness,
+        Ncct_Series_Type,
+        Cta_Number_Of_Slices,
+        Cta_Slice_Thickness,
+        Cta_Series_Type,
+        Entry_ID,
+        Task_ID,
+        Task_Processing_Type,
+        Task_Result,
+        Processing_Time_In_Module,
+        Total_Processing_Time_Since_Delivery,
+        Username,
+        Number_Of_Slabs,
+        Parameter_Name,
+        Threshold,
+        Volume,
+        Cta_Affected_Side,
+        Hemi_Ratio,
+        Aspects_Affected_Side,
+        Aspect_Score,
+        Scan_type,
+        tmax4_volume_ml,
+        tmax6_volume_ml,
+        tmax8_volume_ml,
+        tmax10_volume_ml,
+        ADC_lessthan_620_volume_ml,
+        CBF_lessthan_20percent_volume_ml,
+        CBF_lessthan_30percent_volume_ml,
+        CBF_lessthan_34percent_volume_ml,
+        CBF_lessthan_38percent_volume_ml,
+        mismatch_volume,
+        mismatch_ratio,
+        Datetime_Finished_date,
+        Datetime_Finished_date_month,
+        Datetime_Finished_date_fiscal_quarter_of_year,
+        Datetime_Finished_date_fiscal_year,
+        Site_Description,
+        Task_Result_Code,
+        Task_Result_Code_Description,
+        defuse3_thrombectomy_qualified,
+        extend_1a_thrombectomy_qualified,
+        swift_prime_thrombectomy_qualified,
+        case when ( (table8.defuse3_thrombectomy_qualified = 'Imaging criteria met') or (table8.extend_1a_thrombectomy_qualified = 'Imaging criteria met') or (table8.swift_prime_thrombectomy_qualified = 'Imaging criteria met')) then 'Imaging criteria met'
+             when ( (table8.Task_Result = 'Unsuccessful') or ((table8.Scan_type != 'PWI&DWI') and (table8.Scan_type != 'CTP')) or (table8.Scan_type is null)) then null
+             else 'Imaging criteria not met' end as defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
+        ascension_image,
+        isv_image,
+        lifebridge_image
+
+        FROM (
+
+        SELECT
         Case_ID[1] AS Case_ID,
         Rapid_Patient_ID,
         Patient_Age AS Patient_Age,
@@ -70,9 +151,22 @@ view: thrombectomy2 {
         table7.Datetime_Finished[1] AS Datetime_Finished_date_fiscal_year,
         Site_Description,
         Task_Result_Code[1] AS Task_Result_Code,
-        case when ( (table7.mismatch_volume[1] >= 15) and ((table7.mismatch_ratio[1] >= 1.8) or (table7.mismatch_ratio[1] is null)) and ((table7.ADC_lessthan_620_volume_ml[1] < 70) or (table7.CBF_lessthan_30percent_volume_ml[1] < 70))) then 'Eligible' else 'Ineligible' end AS defuse3_thrombectomy_qualified,
-        case when ( (table7.Modality[1] = 'CT') and (table7.mismatch_volume[1] >= 10) and (table7.mismatch_volume[1] <= 15) and (table7.mismatch_ratio[1] >= 1.2) and (table7.mismatch_ratio[1] <= 1.8) and (table7.CBF_lessthan_30percent_volume_ml[1] < 70) ) then 'Eligible' else 'Ineligible' end AS extend_1a_thrombectomy_qualified,
-        case when ( (table7.Modality[1] = 'MR') and (table7.mismatch_volume[1] >= 10) and (table7.mismatch_volume[1] <= 15) and (table7.mismatch_ratio[1] >= 1.8) and (table7.ADC_lessthan_620_volume_ml[1] < 50)) then 'Eligible' else 'Ineligible' end AS swift_prime_thrombectomy_qualified,
+        case when table7.Task_Result_Code[1] = 0 then 'Processed successfully without any problems'
+             when table7.Task_Result_Code[1] < 0 then 'Processed unsuccessfully due to system problems such as file not found or disk full'
+             when table7.Task_Result_Code[1] BETWEEN 1 AND 31 then 'Processed unsuccessfully due to data related problems such as AIF not found or no bolus or incomplete dataset'
+             when table7.Task_Result_Code[1] BETWEEN 32 AND 34 then 'Processed unsuccessfully due to very odd datasets such as a dataset with odd VOF'
+             else null end AS Task_Result_Code_Description,
+        case when ( (table7.Task_Result[1] = 'Successful') and (table7.mismatch_volume[1] >= 15) and ((table7.mismatch_ratio[1] >= 1.8) or (table7.mismatch_ratio[1] is null)) and ((table7.ADC_lessthan_620_volume_ml[1] < 70) or (table7.CBF_lessthan_30percent_volume_ml[1] < 70))) then 'Imaging criteria met'
+             when ( (table7.Task_Result[1] = 'Unsuccessful') or ((table7.Scan_type[1] != 'PWI&DWI') and (table7.Scan_type[1] != 'CTP')) or (table7.Scan_type[1] is null)) then null
+             else 'Imaging criteria not met' end as defuse3_thrombectomy_qualified,
+
+        case when ( (table7.Task_Result[1] = 'Successful') and (table7.Modality[1] = 'CT') and (table7.mismatch_volume[1] >= 10) and (table7.mismatch_volume[1] <= 15) and (table7.mismatch_ratio[1] >= 1.2) and (table7.mismatch_ratio[1] <= 1.8) and (table7.CBF_lessthan_30percent_volume_ml[1] < 70) ) then 'Imaging criteria met'
+             when ( (table7.Task_Result[1] = 'Unsuccessful') or ((table7.Scan_type[1] != 'PWI&DWI') and (table7.Scan_type[1] != 'CTP')) or (table7.Scan_type[1] is null)) then null
+             else 'Imaging criteria not met' end as extend_1a_thrombectomy_qualified,
+
+        case when ( (table7.Task_Result[1] = 'Successful') and (table7.Modality[1] = 'MR') and (table7.mismatch_volume[1] >= 10) and (table7.mismatch_volume[1] <= 15) and (table7.mismatch_ratio[1] >= 1.8) and (table7.ADC_lessthan_620_volume_ml[1] < 50)) then 'Imaging criteria met'
+             when ( (table7.Task_Result[1] = 'Unsuccessful') or ((table7.Scan_type[1] != 'PWI&DWI') and (table7.Scan_type[1] != 'CTP')) or (table7.Scan_type[1] is null)) then null
+             else 'Imaging criteria not met' end as swift_prime_thrombectomy_qualified,
         ascension_image,
         isv_image,
         lifebridge_image
@@ -141,7 +235,7 @@ view: thrombectomy2 {
         array_agg(mismatch_volume ORDER BY Task_ID) AS mismatch_volume,
         array_agg(mismatch_ratio ORDER BY Task_ID) AS mismatch_ratio,
         Site_Description,
-        array_agg(Task_Result_Code::text ORDER BY Task_ID) AS Task_Result_Code,
+        array_agg(Task_Result_Code ORDER BY Task_ID) AS Task_Result_Code,
         ascension_image,
         isv_image,
         lifebridge_image
@@ -315,7 +409,7 @@ view: thrombectomy2 {
                 (string_to_array(table4.Threshold, ', ')::float[]) as Threshold,
                 (string_to_array(table4.Volume, ', ')::float[]) as Volume,
                 Cta_Affected_Side,
-                ROUND((Hemi_Ratio)::numeric,2) as Hemi_Ratio,
+                ROUND((Hemi_Ratio)::numeric,2)*100 as Hemi_Ratio,
                 Aspects_Affected_Side,
                 Aspect_Score,
                 case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
@@ -583,7 +677,10 @@ view: thrombectomy2 {
       GROUP BY 2,3,4,5,7,10,62,64,65,66
       ORDER BY table6.Rapid_Patient_ID DESC
 ) AS table7
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74
+ORDER BY 1 DESC
+) AS table8
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75
 ORDER BY 1 DESC
              ;;
 
@@ -595,16 +692,19 @@ ORDER BY 1 DESC
     }
 
     measure: total_processing_time_since_delivery_average {
+      label: "Total Processing Time Since Scan Delivery Average (Seconds)"
       type: average
+      value_format: "0"
       drill_fields: [detail*]
       sql: ${total_processing_time_since_delivery} ;;
     }
     measure: processing_time_in_module_average {
+      label: "Processing Time In RAPID Server Average (Seconds)"
       type: average
+      value_format: "0"
       drill_fields: [detail*]
       sql: ${processing_time_in_module}  ;;
     }
-
 
     dimension: rapid_patient_id {
       type: number
@@ -683,16 +783,19 @@ ORDER BY 1 DESC
     }
 
     dimension: datetime_requested {
+      label: "RAPID Processing Request Time"
       type: date_time
       sql: ${TABLE}.datetime_requested ;;
     }
 
     dimension: datetime_started {
+      label: "RAPID Processing Start Time"
       type: date_time
       sql: ${TABLE}.datetime_started ;;
     }
 
     dimension: datetime_finished {
+      label: "RAPID Processing End Time"
       type: date_time
       sql: ${TABLE}.datetime_finished ;;
     }
@@ -718,6 +821,7 @@ ORDER BY 1 DESC
     }
 
     dimension: perf_scan_duration {
+      label: "Pefusion Scan Duration"
       type: number
       sql: ${TABLE}.perf_scan_duration ;;
     }
@@ -778,6 +882,7 @@ ORDER BY 1 DESC
     }
 
     dimension: task_id {
+      label: "Job Number"
       type: number
       sql: ${TABLE}.task_id ;;
     }
@@ -788,16 +893,19 @@ ORDER BY 1 DESC
     }
 
     dimension: task_result {
+      label: "RAPID Output"
       type: string
       sql: ${TABLE}.task_result ;;
     }
 
     dimension: processing_time_in_module {
+      label: "Processing Time In RAPID Server (Seconds)"
       type: number
       sql: ${TABLE}.processing_time_in_module ;;
     }
 
     dimension: total_processing_time_since_delivery {
+      label: "Total Processing Time Since Scan Delivery (Seconds)"
       type: number
       sql: ${TABLE}.total_processing_time_since_delivery ;;
     }
@@ -829,13 +937,13 @@ ORDER BY 1 DESC
 
     dimension: cta_affected_side {
       type: string
-      label: "CTA_Affected_Side"
+      label: "CTA Affected Side"
       sql: ${TABLE}.cta_affected_side ;;
     }
 
     dimension: hemi_ratio {
       type: number
-      label: "Vessel_Density_Ratio"
+      label: "Vessel Density Ratio (%)"
       sql: ${TABLE}.hemi_ratio ;;
     }
 
@@ -918,21 +1026,25 @@ ORDER BY 1 DESC
     }
 
     dimension: datetime_finished_date_month {
+      label: "Year-Month"
       type: date_month
       sql: ${TABLE}.datetime_finished_date_month ;;
     }
 
     dimension: datetime_finished_date_fiscal_year {
+      label: "Year"
       type: date_fiscal_year
       sql: ${TABLE}.datetime_finished_date_fiscal_year ;;
     }
 
     dimension: datetime_finished_date_fiscal_quarter_of_year {
       type: date_fiscal_quarter
+      label: "Year-Quarter"
       sql: ${TABLE}.datetime_finished_date_fiscal_quarter_of_year ;;
     }
 
     dimension: datetime_finished_date {
+      label: "Date"
       type: date
       sql: ${TABLE}.datetime_finished_date ;;
     }
@@ -942,21 +1054,36 @@ ORDER BY 1 DESC
       sql: ${TABLE}.site_description ;;
     }
     dimension: task_result_code {
+      label:"RAPID Output Code"
       type: number
       sql: ${TABLE}.task_result_code ;;
     }
+    dimension: task_result_code_description {
+      label:"RAPID Output Description"
+      type: string
+      sql: ${TABLE}.task_result_code_description ;;
+    }
     dimension: defuse3_thrombectomy_qualified {
+      label: "MT Qualified < 16 Hours (DEFUSE3)"
       type: string
       sql: ${TABLE}.defuse3_thrombectomy_qualified ;;
     }
     dimension: extend_1a_thrombectomy_qualified {
+      label: "MT Qualified < 6 Hours (EXTEND-1A)"
       type: string
       sql: ${TABLE}.extend_1a_thrombectomy_qualified ;;
     }
     dimension: swift_prime_thrombectomy_qualified {
+      label: "MT Qualified < 6 Hours (SWIFT-PRIME)"
       type: string
       sql: ${TABLE}.swift_prime_thrombectomy_qualified ;;
     }
+    dimension: defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified {
+      label: "MT Qualified (< 16 Hours, DEFUSE3) or (< 6 Hours, SWIFT-PRIME) or (< 6 Hours, EXTEND-1A)"
+      type: string
+      sql: ${TABLE}.defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified ;;
+    }
+
 
     dimension: isv_image {
       type: string
@@ -976,6 +1103,7 @@ ORDER BY 1 DESC
     }
 
     dimension: case_id {
+      label:"RAPID AnonID"
       type: string
       sql: ${TABLE}.case_id ;;
     }
@@ -1007,14 +1135,11 @@ ORDER BY 1 DESC
         task_id,
         task_result,
         task_result_code,
+        task_result_code_description,
         processing_time_in_module,
         total_processing_time_since_delivery,
         username,
         number_of_slabs,
-        cta_affected_side,
-        hemi_ratio,
-        aspects_affected_side,
-        aspect_score,
         tmax4_volume_ml,
         tmax6_volume_ml,
         tmax8_volume_ml,
@@ -1028,7 +1153,12 @@ ORDER BY 1 DESC
         mismatch_ratio,
         defuse3_thrombectomy_qualified,
         extend_1a_thrombectomy_qualified,
-        swift_prime_thrombectomy_qualified
+        swift_prime_thrombectomy_qualified,
+        defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
+        cta_affected_side,
+        hemi_ratio,
+        aspects_affected_side,
+        aspect_score
 
       ]
     }
