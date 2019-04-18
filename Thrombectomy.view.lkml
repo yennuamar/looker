@@ -66,6 +66,89 @@ view: thrombectomy {
         mismatch_ratio,
         Datetime_Finished_date,
         Datetime_Finished_date_month,
+        Datetime_Finished_date_fiscal_quarter_of_year,
+        Datetime_Finished_date_fiscal_year,
+        Site_Description,
+        Task_Result_Code,
+        Task_Result_Code_Description,
+        defuse3_thrombectomy_qualified,
+        extend_1a_thrombectomy_qualified,
+        swift_prime_thrombectomy_qualified,
+        case when ( (table7.defuse3_thrombectomy_qualified = 'Imaging criteria not met') or (table7.extend_1a_thrombectomy_qualified = 'Imaging criteria not met') or (table7.swift_prime_thrombectomy_qualified = 'Imaging criteria not met')) then 'Imaging criteria not met'
+             when ( (table7.Task_Result = 'Unsuccessful') or ((table7.Scan_type != 'PWI&DWI') and (table7.Scan_type != 'CTP')) or (table7.Scan_type is null)) then null
+             else 'Imaging criteria not met' end as defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
+        ascension_image,
+        isv_image,
+        lifebridge_image,
+        tenet_image
+
+        FROM (
+
+
+        SELECT
+        Case_ID,
+        Rapid_Patient_ID,
+        Patient_Age,
+        Patient_Gender,
+        Module_Name,
+        Modality,
+        Site_Name,
+        City,
+        Country,
+        ISV_Site_ID,
+        Institution_Name,
+        Station_name,
+        Manufacturer,
+        Manufacturer_Model,
+        Series_Description,
+        Series_Datetime,
+        Datetime_Requested,
+        Datetime_Started,
+        Datetime_Finished,
+        Perf_Acquisition_Type,
+        Perf_Number_Of_Slices,
+        Perf_Slice_Thickness,
+        Perf_Coverage_z,
+        Perf_Scan_Duration ,
+        Perf_Series_Type,
+        Dwi_Number_Of_Slices,
+        Dwi_Slice_Thickness,
+        Dwi_Series_Type,
+        Ncct_Number_Of_slices,
+        Ncct_Slice_Thickness,
+        Ncct_Series_Type,
+        Cta_Number_Of_Slices,
+        Cta_Slice_Thickness,
+        Cta_Series_Type,
+        Entry_ID,
+        Task_ID,
+        Task_Processing_Type,
+        Task_Result,
+        Processing_Time_In_Module,
+        Total_Processing_Time_Since_Delivery,
+        Username,
+        Number_Of_Slabs,
+        Parameter_Name,
+        Threshold,
+        Volume,
+        Cta_Affected_Side,
+        Hemi_Ratio,
+        Aspects_Affected_Side,
+        Aspect_Score,
+        Scan_type,
+        tmax4_volume_ml,
+        tmax6_volume_ml,
+        tmax8_volume_ml,
+        tmax10_volume_ml,
+        ADC_lessthan_620_volume_ml,
+        CBF_lessthan_20percent_volume_ml,
+        CBF_lessthan_30percent_volume_ml,
+        CBF_lessthan_34percent_volume_ml,
+        CBF_lessthan_38percent_volume_ml,
+        mismatch_volume,
+        mismatch_ratio,
+        Datetime_Finished_date,
+        Datetime_Finished_date_month,
         table6.Datetime_Finished AS Datetime_Finished_date_fiscal_quarter_of_year,
         table6.Datetime_Finished AS Datetime_Finished_date_fiscal_year,
         Site_Description,
@@ -86,6 +169,7 @@ view: thrombectomy {
         case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
              else 'Imaging criteria not met' end as swift_prime_thrombectomy_qualified,
+
         ascension_image,
         isv_image,
         lifebridge_image,
@@ -528,6 +612,9 @@ view: thrombectomy {
       ) AS table6
       GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75
       ORDER BY 1 DESC
+  ) AS table7
+  GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76
+  ORDER BY 1 DESC
              ;;
 
     }
@@ -924,6 +1011,12 @@ view: thrombectomy {
       type: string
       sql: ${TABLE}.swift_prime_thrombectomy_qualified ;;
     }
+    dimension: defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified {
+      label: "MT Qualified (DEFUSE3) or (SWIFT-PRIME) or (EXTEND-1A)"
+      type: string
+      sql: ${TABLE}.defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified ;;
+    }
+
 
     dimension: isv_image {
       type: string
@@ -941,11 +1034,11 @@ view: thrombectomy {
       sql: ${TABLE}.lifebridge_image;;
       html: <img src="https://media.glassdoor.com/sqll/21518/lifebridge-health-squarelogo-1537384350237.png" /> ;;
     }
-  dimension: tenet_image {
-    type: string
-    sql: ${TABLE}.tenet_image;;
-    html: <img src="https://www.tenethealth.com/images/default-source/default-album/tenethealth-logo.tmb-medium.png?sfvrsn=d6c62bb7_1" /> ;;
-  }
+    dimension: tenet_image {
+      type: string
+      sql: ${TABLE}.tenet_image;;
+      html: <img src="https://www.tenethealth.com/images/default-source/default-album/tenethealth-logo.tmb-medium.png?sfvrsn=d6c62bb7_1" /> ;;
+    }
 
     dimension: case_id {
       label:"RAPID AnonID"
@@ -985,10 +1078,6 @@ view: thrombectomy {
         total_processing_time_since_delivery,
         username,
         number_of_slabs,
-        cta_affected_side,
-        hemi_ratio,
-        aspects_affected_side,
-        aspect_score,
         tmax4_volume_ml,
         tmax6_volume_ml,
         tmax8_volume_ml,
@@ -1002,7 +1091,12 @@ view: thrombectomy {
         mismatch_ratio,
         defuse3_thrombectomy_qualified,
         extend_1a_thrombectomy_qualified,
-        swift_prime_thrombectomy_qualified
+        swift_prime_thrombectomy_qualified,
+        defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
+        cta_affected_side,
+        hemi_ratio,
+        aspects_affected_side,
+        aspect_score
 
       ]
     }
