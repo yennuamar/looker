@@ -1012,7 +1012,7 @@ view: thrombectomy_ascension {
       sql: ${TABLE}.swift_prime_thrombectomy_qualified ;;
     }
     dimension: defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified {
-      label: "MT Qualified (DEFUSE3) or (SWIFT-PRIME) or (EXTEND-1A)"
+      label: "MT Qualified (< 16 Hours, DEFUSE3) or (< 6 Hours, SWIFT-PRIME) or (< 6 Hours, EXTEND-1A)"
       type: string
       sql: ${TABLE}.defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified ;;
     }
