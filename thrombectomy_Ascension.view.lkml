@@ -75,17 +75,17 @@ view: thrombectomy_ascension {
              when table6.Task_Result_Code BETWEEN 1 AND 31 then 'Processed unsuccessfully due to data related problems such as AIF not found or no bolus or incomplete dataset'
              when table6.Task_Result_Code BETWEEN 32 AND 34 then 'Processed unsuccessfully due to very odd datasets such as a dataset with odd VOF'
              else null end AS Task_Result_Code_Description,
-        case when ( (table6.Task_Result = 'Successful') and (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Eligible'
+        case when ( (table6.Task_Result = 'Successful') and (table6.mismatch_volume >= 15) and ((table6.mismatch_ratio >= 1.8) or (table6.mismatch_ratio is null)) and ((table6.ADC_lessthan_620_volume_ml < 70) or (table6.CBF_lessthan_30percent_volume_ml < 70))) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
-             else 'Ineligible' end as defuse3_thrombectomy_qualified,
+             else 'Imaging criteria not met' end as defuse3_thrombectomy_qualified,
 
-        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Eligible'
+        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'CT') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.2) and (table6.mismatch_ratio <= 1.8) and (table6.CBF_lessthan_30percent_volume_ml < 70) ) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
-             else 'Ineligible' end as extend_1a_thrombectomy_qualified,
+             else 'Imaging criteria not met' end as extend_1a_thrombectomy_qualified,
 
-        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Eligible'
+        case when ( (table6.Task_Result = 'Successful') and (table6.Modality = 'MR') and (table6.mismatch_volume >= 10) and (table6.mismatch_volume <= 15) and (table6.mismatch_ratio >= 1.8) and (table6.ADC_lessthan_620_volume_ml < 50)) then 'Imaging criteria met'
              when ( (table6.Task_Result = 'Unsuccessful') or ((table6.Scan_type != 'PWI&DWI') and (table6.Scan_type != 'CTP')) or (table6.Scan_type is null)) then null
-             else 'Ineligible' end as swift_prime_thrombectomy_qualified,
+             else 'Imaging criteria not met' end as swift_prime_thrombectomy_qualified,
         ascension_image,
         isv_image,
         lifebridge_image,
