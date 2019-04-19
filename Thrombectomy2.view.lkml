@@ -79,7 +79,8 @@ view: thrombectomy2 {
              else 'Imaging criteria not met' end as defuse3_or_extend1a_or_swiftprime_thrombectomy_qualified,
         ascension_image,
         isv_image,
-        lifebridge_image
+        lifebridge_image,
+        Patient_Age as patient_age_tier
 
         FROM (
 
@@ -680,7 +681,7 @@ view: thrombectomy2 {
 GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74
 ORDER BY 1 DESC
 ) AS table8
-GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75
+GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76
 ORDER BY 1 DESC
              ;;
 
@@ -714,6 +715,13 @@ ORDER BY 1 DESC
     dimension: patient_age {
       type: number
       sql: ${TABLE}.patient_age ;;
+    }
+
+    dimension: patient_age_tier {
+      type: tier
+      tiers: [0, 20, 40, 60, 80, 100]
+      style: integer # the default value, could be excluded
+      sql: patient_age_tier ;;
     }
 
     dimension: patient_gender {
