@@ -208,42 +208,42 @@ view: thrombectomy3 {
             Scan_type,
 
 
-            case when ( (table5.Parameter_Name[2] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
-                 when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
-                 when ( (table5.Parameter_Name[7] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
+            case when ( (table5.Parameter_Name[2] ILIKE '%TMAX%') and (table5.Modality = 'MR') and (table5.Threshold[2] = 4 ) ) then ROUND((table5.Volume)[2]::numeric,2)
+                 when ( (table5.Parameter_Name[8] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[8] = 4 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+                 when ( (table5.Parameter_Name[7] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[7] = 4 ) ) then ROUND((table5.Volume)[7]::numeric,2)
                  else null end AS tmax4_volume_ml,
 
-            case when ( (table5.Parameter_Name[3] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[3] = 6 ) ) then ROUND((table5.Volume)[3]::numeric,2)
-                 when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[9] = 6 ) ) then ROUND((table5.Volume)[9]::numeric,2)
-                 when ( (table5.Parameter_Name[8] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[8] = 6 ) ) then ROUND((table5.Volume)[8]::numeric,2)
+            case when ( (table5.Parameter_Name[3] ILIKE '%TMAX%') and (table5.Modality = 'MR') and (table5.Threshold[3] = 6 ) ) then ROUND((table5.Volume)[3]::numeric,2)
+                 when ( (table5.Parameter_Name[9] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[9] = 6 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+                 when ( (table5.Parameter_Name[8] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[8] = 6 ) ) then ROUND((table5.Volume)[8]::numeric,2)
                  else null end AS tmax6_volume_ml,
 
-            case when ( (table5.Parameter_Name[4] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[4] = 8 ) ) then ROUND((table5.Volume)[4]::numeric,2)
-                 when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[10] = 8 ) ) then ROUND((table5.Volume)[10]::numeric,2)
-                 when ( (table5.Parameter_Name[9] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[9] = 8 ) ) then ROUND((table5.Volume)[9]::numeric,2)
+            case when ( (table5.Parameter_Name[4] ILIKE '%TMAX%') and (table5.Modality = 'MR') and (table5.Threshold[4] = 8 ) ) then ROUND((table5.Volume)[4]::numeric,2)
+                 when ( (table5.Parameter_Name[10] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[10] = 8 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+                 when ( (table5.Parameter_Name[9] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[9] = 8 ) ) then ROUND((table5.Volume)[9]::numeric,2)
                  else null end AS tmax8_volume_ml,
 
-            case when ( (table5.Parameter_Name[5] = 'TMAX') and (table5.Modality = 'MR') and (table5.Threshold[5] = 10 ) ) then ROUND((table5.Volume)[5]::numeric,2)
-                 when ( (table5.Parameter_Name[11] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[11] = 10 ) ) then ROUND((table5.Volume)[11]::numeric,2)
-                 when ( (table5.Parameter_Name[10] = 'TMAX') and (table5.Modality = 'CT') and (table5.Threshold[10] = 10 ) ) then ROUND((table5.Volume)[10]::numeric,2)
+            case when ( (table5.Parameter_Name[5] ILIKE '%TMAX%') and (table5.Modality = 'MR') and (table5.Threshold[5] = 10 ) ) then ROUND((table5.Volume)[5]::numeric,2)
+                 when ( (table5.Parameter_Name[11] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[11] = 10 ) ) then ROUND((table5.Volume)[11]::numeric,2)
+                 when ( (table5.Parameter_Name[10] ILIKE '%TMAX%') and (table5.Modality = 'CT') and (table5.Threshold[10] = 10 ) ) then ROUND((table5.Volume)[10]::numeric,2)
                  else null end AS tmax10_volume_ml,
 
-            case when ( (table5.Parameter_Name[1] = 'ADC') and (table5.Modality = 'MR') and (table5.Threshold[1] = 620) ) then ROUND(table5.Volume[1]::numeric,2)
+            case when ( (table5.Parameter_Name[1] ILIKE '%ADC%') and (table5.Modality = 'MR') and (table5.Threshold[1] = 620) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS ADC_lessthan_620_volume_ml,
 
-            case when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) = 0.20 ) ) then ROUND(table5.Volume[1]::numeric,2)
+            case when ( (table5.Parameter_Name[1] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) = 0.20 ) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS CBF_lessthan_20percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[2]::numeric,2)
-                 when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[1]::numeric,2)
+            case when ( (table5.Parameter_Name[2] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[2]::numeric,2)
+                 when ( (table5.Parameter_Name[1] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS CBF_lessthan_30percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[3]::numeric,2)
-                 when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[2]::numeric,2)
+            case when ( (table5.Parameter_Name[3] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[3]::numeric,2)
+                 when ( (table5.Parameter_Name[2] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[2]::numeric,2)
                  else null end AS CBF_lessthan_34percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[4] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[4]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[4]::numeric,2)
-                 when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[3]::numeric,2)
+            case when ( (table5.Parameter_Name[4] = '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[4]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[4]::numeric,2)
+                 when ( (table5.Parameter_Name[3] = '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[3]::numeric,2)
                  else null end AS CBF_lessthan_38percent_volume_ml,
 
             case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[3]-table5.Volume[1])::numeric,2)
@@ -319,7 +319,7 @@ view: thrombectomy3 {
                 Aspects_Affected_Side,
                 Aspect_Score,
                 case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                     when ((table4.Parameter_Name LIKE 'ADC%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+                     when ((table4.Parameter_Name LIKE '%ADC%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
                      when ((table4.Task_Result = 'Successful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type = 1) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI'
                      when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type = 1) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
                      when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
