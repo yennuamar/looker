@@ -258,32 +258,32 @@ view: thrombectomy {
             case when ( (table5.Parameter_Name[1] = 'ADC') and (table5.Modality = 'MR') and (table5.Threshold[1] = 620) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS ADC_lessthan_620_volume_ml,
 
-            case when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[1] = 0.200000003 ) ) then ROUND(table5.Volume[1]::numeric,2)
+            case when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) = 0.20 ) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS CBF_lessthan_20percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[2] =  0.300000012 ) ) then ROUND(table5.Volume[2]::numeric,2)
-                 when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[1] =  0.300000012 ) ) then ROUND(table5.Volume[1]::numeric,2)
+            case when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[2]::numeric,2)
+                 when ( (table5.Parameter_Name[1] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[1]::numeric,2) =  0.30 ) ) then ROUND(table5.Volume[1]::numeric,2)
                  else null end AS CBF_lessthan_30percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[3] =  0.340000004 ) ) then ROUND(table5.Volume[3]::numeric,2)
-                 when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[2] =  0.340000004 ) ) then ROUND(table5.Volume[2]::numeric,2)
+            case when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[3]::numeric,2)
+                 when ( (table5.Parameter_Name[2] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[2]::numeric,2)
                  else null end AS CBF_lessthan_34percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[4] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[4] = 0.379999995 ) ) then ROUND(table5.Volume[4]::numeric,2)
-                 when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (table5.Threshold[3] = 0.379999995 ) ) then ROUND(table5.Volume[3]::numeric,2)
+            case when ( (table5.Parameter_Name[4] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[4]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[4]::numeric,2)
+                 when ( (table5.Parameter_Name[3] = 'CBF') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[3]::numeric,2)
                  else null end AS CBF_lessthan_38percent_volume_ml,
 
             case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[3]-table5.Volume[1])::numeric,2)
-                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) ) then ROUND((table5.Volume[9]-table5.Volume[2])::numeric,2)
-                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
+                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (ROUND(table5.Threshold[2]::numeric,2) = 0.30) and (table5.Volume[2] is not null) ) then ROUND((table5.Volume[9]-table5.Volume[2])::numeric,2)
+                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (ROUND(table5.Threshold[1]::numeric,2) = 0.30) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[8]-table5.Volume[1])::numeric,2)
                  else null end AS mismatch_volume,
 
             case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[3]/table5.Volume[1])::numeric,2)
-                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
-                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
-                 when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Volume[3] != 0) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
-                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Volume[9] != 0) and (table5.Threshold[2] = 0.300000012) and (table5.Volume[2] is not null) and (table5.Volume[2] = 0) ) then 9999
-                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Volume[8] != 0) and (table5.Threshold[1] = 0.300000012) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
+                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (ROUND(table5.Threshold[2]::numeric,2) = 0.30) and (table5.Volume[2] is not null) and (table5.Volume[2] != 0) ) then ROUND((table5.Volume[9]/table5.Volume[2])::numeric,2)
+                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (ROUND(table5.Threshold[1]::numeric,2) = 0.30) and (table5.Volume[1] is not null) and (table5.Volume[1] != 0) ) then ROUND((table5.Volume[8]/table5.Volume[1])::numeric,2)
+                 when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Volume[3] != 0) and (ROUND(table5.Threshold[1]::numeric,2) = 620) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
+                 when ( (table5.Threshold[9] = 6) and (table5.Volume[9] is not null) and (table5.Volume[9] != 0) and (ROUND(table5.Threshold[2]::numeric,2) = 0.30) and (table5.Volume[2] is not null) and (table5.Volume[2] = 0) ) then 9999
+                 when ( (table5.Threshold[8] = 6) and (table5.Volume[8] is not null) and (table5.Volume[8] != 0) and (ROUND(table5.Threshold[1]::numeric,2) = 0.30) and (table5.Volume[1] is not null) and (table5.Volume[1] = 0) ) then 9999
                  else null end AS mismatch_ratio,
 
             table5.Datetime_Finished as Datetime_Finished_date,
