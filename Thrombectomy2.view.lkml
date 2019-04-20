@@ -416,12 +416,12 @@ view: thrombectomy2 {
                 case when ((table4.Parameter_Name LIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
                      when ((table4.Parameter_Name LIKE 'ADC%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
                      when ((table4.Task_Result = 'Successful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type = 1) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type = 1) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Rapid_Patient_ID is null)) then 'Unknown'
                      when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                      when (table4.Module_Name = 'Angio') then 'CTA'
                      when (table4.Module_Name = 'ASPECTS') then 'NCCT'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type = 1) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Perf_Acquisition_Type is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Rapid_Patient_ID is null)) then 'Unknown'
                      else null end AS Scan_type,
 
                 Site_Description,
