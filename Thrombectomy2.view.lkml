@@ -120,7 +120,7 @@ view: thrombectomy2 {
         Cta_Slice_Thickness[1] AS Cta_Slice_Thickness,
         Cta_Series_Type[1] AS Cta_Series_Type,
         Entry_ID[1] AS Entry_ID,
-        Task_ID AS Task_ID,
+        Task_ID[1] AS Task_ID,
         Task_Processing_Type[1] AS Task_Processing_Type,
         Task_Result[1] AS Task_Result,
         Processing_Time_In_Module[1] AS Processing_Time_In_Module,
