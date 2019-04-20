@@ -337,8 +337,8 @@ view: thrombectomy2 {
                  when ( (table5.Parameter_Name[2] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[2]::numeric,2) =  0.34 ) ) then ROUND(table5.Volume[2]::numeric,2)
                  else null end AS CBF_lessthan_34percent_volume_ml,
 
-            case when ( (table5.Parameter_Name[4] = '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[4]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[4]::numeric,2)
-                 when ( (table5.Parameter_Name[3] = '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[3]::numeric,2)
+            case when ( (table5.Parameter_Name[4] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[4]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[4]::numeric,2)
+                 when ( (table5.Parameter_Name[3] ILIKE '%CBF%') and (table5.Modality = 'CT') and (ROUND(table5.Threshold[3]::numeric,2) = 0.38 ) ) then ROUND(table5.Volume[3]::numeric,2)
                  else null end AS CBF_lessthan_38percent_volume_ml,
 
             case when ( (table5.Threshold[3] = 6) and (table5.Volume[3] is not null) and (table5.Threshold[1] = 620) and (table5.Volume[1] is not null) ) then ROUND((table5.Volume[3]-table5.Volume[1])::numeric,2)
