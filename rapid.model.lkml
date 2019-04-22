@@ -60,7 +60,6 @@ explore: series {
 
 explore: sites {
     fields: [ALL_FIELDS*]
-  sql_always_where: ${techinfo_perf.aif_peak_val} IS NOT NULL ;;
   join: tasks  {
     type: left_outer
     relationship: one_to_one
