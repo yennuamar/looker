@@ -1046,7 +1046,7 @@ view: thrombectomy {
     dimension: riverside_image {
       type: string
       sql: ${TABLE}.riverside_image;;
-      html: <img src="http://www.ajrr.net/media/zoo/images/VA-RiversideHealthSystem_54fab5cf364b7c7cc6fa846714c6499d.png" /> ;;
+      html: <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/RHS_logo.png" /> ;;
     }
 
 
