@@ -100,7 +100,6 @@ explore: series {
 
 explore: sites {
     fields: [ALL_FIELDS*]
-  sql_always_where: ${techinfo_perf.aif_peak_val} IS NOT NULL ;;
   join: tasks  {
     type: left_outer
     relationship: one_to_one
@@ -140,7 +139,7 @@ explore: sites {
 
 explore: count {
   label: "BIDB"
-  description: "Ascension related table"
+  description: "MVP Monthly Reporting For Sites"
   group_label: "Amarnath"
   persist_with: 3hr_caching
   join: ascension_spreadsheet {
@@ -157,7 +156,7 @@ explore: count {
 }
 
 explore: count2 {
-  label: "BIDB2"
+  label: "BIDB2 for Ascension"
   description: "Ascension related table2"
   group_label: "Amarnath"
   persist_with: 3hr_caching
@@ -166,4 +165,58 @@ explore: count2 {
     relationship: many_to_one
     sql_on: ${ascension_spreadsheet.site_id} = ${count2.isv_site_id} ;;
   }
+}
+explore: thrombectomy {
+  label: "MVP v1.2"
+  description: "MVP Monthly Reporting For Sites"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
+
+explore: thrombectomy_ascension {
+  label: "MVP v1.2 Ascension"
+  description: "MVP Monthly Reporting For Ascension"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: full_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy_ascension.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
+
+
+explore: final_table {
+  label: "Testing View"
+  group_label: "Amarnath"
+  persist_with: 3hr_caching
+}
+
+explore: thrombectomy2 {
+  label: "Market Intel Project"
+  description: "Market Intel Project"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy2.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
+}
+
+explore: thrombectomy3 {
+  label: "Patients"
+  description: "Only_Patients_View"
+  group_label: "Amarnath"
+  join: ascension_spreadsheet {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy3.isv_site_id} ;;
+  }
+  persist_with: 3hr_caching
 }
