@@ -413,15 +413,16 @@ view: thrombectomy2 {
                 ROUND((Hemi_Ratio)::numeric,2)*100 as Hemi_Ratio,
                 Aspects_Affected_Side,
                 Aspect_Score,
-                case when ((table4.Parameter_Name ILIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                     when ((table4.Parameter_Name ILIKE '%ADC%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
-                     when ((table4.Task_Result = 'Successful') and (table4.Number_Of_Slabs is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI'
+                case when ((table4.Parameter_Name ILIKE '%ADC%') and (table4.Parameter_Name ILIKE '%TMAX%') and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                     when ((table4.Number_Of_Slabs is null) and (table4.Perf_Scan_Duration is not null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI'
+                     when ((table4.Parameter_Name ILIKE '%ADC%') and (table4.Perf_Scan_Duration is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Perf_Scan_Duration is not null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Perf_Scan_Duration is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
+                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Rapid_Patient_ID is null)) then 'Unknown'
                      when ((table4.Modality = 'CT') and (table4.Module_Name = 'Mismatch')) then 'CTP'
                      when (table4.Module_Name = 'Angio') then 'CTA'
                      when (table4.Module_Name = 'ASPECTS') then 'NCCT'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'PWI&DWI'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Number_Of_Slabs is null) and (table4.Modality = 'MR') and (table4.Module_Name = 'Mismatch')) then 'DWI'
-                     when ((table4.Task_Result = 'Unsuccessful') and (table4.Rapid_Patient_ID is null)) then 'Unknown'
+                     when (table4.Module_Name = 'NCCT') then 'NCCT'
                      else null end AS Scan_type,
 
                 Site_Description,
@@ -598,7 +599,6 @@ view: thrombectomy2 {
                                 series.patient_gender  AS Patient_Gender,
                                 case when tasks.module_name = 'angio' then 'Angio'
                                      when tasks.module_name = 'hemorrhage' then 'Hemorrhage'
-                                     when tasks.module_name = 'NCCT' then 'ASPECTS'
                                      when tasks.module_name = 'Octopus' then 'ASPECTS'
                                      else tasks.module_name end AS Module_Name,
                                 tasks.modality  AS Modality,
