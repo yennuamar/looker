@@ -100,6 +100,11 @@ view: tasks {
     sql: ${TABLE}.total_processing_time_since_delivery ;;
   }
 
+  measure: average_processing_time_since_delivery {
+    type: average
+    sql: ${total_processing_time_since_delivery} ;;
+  }
+
   dimension: username {
     type: string
     sql: ${TABLE}.username ;;

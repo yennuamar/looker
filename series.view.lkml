@@ -30,6 +30,7 @@ view: series {
   dimension: manufacturer_model {
     type: string
     sql: ${TABLE}.manufacturer_model ;;
+
   }
 
   dimension: modality {
@@ -121,5 +122,9 @@ view: series {
   measure: count {
     type: count
     drill_fields: [site_rapid_series_id, station_name, institution_name]
+    filters: {
+      field: sites.site_description
+      value: "-NULL"
+    }
   }
 }

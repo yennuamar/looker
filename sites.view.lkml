@@ -78,6 +78,7 @@ view: sites {
   dimension: site_description {
     type: string
     sql: ${TABLE}.site_description ;;
+
   }
 
   dimension: site_key {
@@ -97,7 +98,8 @@ view: sites {
 
   measure: count {
     type: count
-    drill_fields: [isv_site_id, site_name]
-  }
+    drill_fields: [isv_site_id, site_name]#  Changed from site_name to site_descroiption
 
+  }
+#
 }
