@@ -29,6 +29,12 @@ view: sites {
     value_format_name: decimal_0
   }
 
+  measure: sites_average_aspects {
+    type: number
+    sql: 1.0 * ${measurements_aspects.count}/${sites.count_site_description} ;;
+    value_format_name: decimal_0
+  }
+
 
   dimension: isv_site_id {
     primary_key: yes
@@ -101,5 +107,4 @@ view: sites {
     drill_fields: [isv_site_id, site_name]#  Changed from site_name to site_descroiption
 
   }
-#
 }

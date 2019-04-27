@@ -1,6 +1,3 @@
-
-# Todd has added to this model - Buckets - also called tiers - for each tech param.
-
 view: techinfo_perf {
   sql_table_name: public.techinfo_perf ;;
 
@@ -347,7 +344,7 @@ view: techinfo_perf {
   dimension: acquisition_type_buckets {
     type: tier
     tiers: [5,10,15,20,25,30,35,40,45,50 ]# 5's
-    style: interval
+    style: classic
     sql: ${acquisition_type} ;;
   }
 
@@ -361,7 +358,7 @@ view: techinfo_perf {
   dimension: aif_peak_seconds_buckets {
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50 ]#5's
-    style: interval
+    style: classic
     sql: ${aif_peak_seconds} ;;
   }
 
@@ -375,7 +372,7 @@ view: techinfo_perf {
   dimension: aif_peak_val_buckets {
     type: tier
     tiers: [0,50,100,150,200,250,300,350,400,450,500,550,600,650 ]# 50's
-    style: interval
+    style: classic
     sql: ${aif_peak_val} ;;
   }
 
