@@ -11,13 +11,13 @@ datagroup: rapid_default_datagroup {
 #persist_with: rapid_default_datagroup
 
 #
-# explore: measurements_cta1 {}
+#explore: measurements_cta1 {}
 #
-# explore: techinfo_cta {}
+explore: techinfo_cta {}
 #
-# explore: techinfo_dwi {}
+explore: techinfo_dwi {}
 #
-# explore: techinfo_ncct {}
+explore: techinfo_ncct {}
 #
 # explore: tasks {}
 
@@ -158,6 +158,7 @@ explore: sites {
     relationship: one_to_one
     sql_on: ${measurements_aspects.task_key} = ${tasks.task_key} ;;
   }
+
   join: techinfo_perf{
     type: left_outer
     relationship: one_to_one
