@@ -14,23 +14,12 @@ view: series {
 
   dimension: manufacturer {
     type: string
-    sql: CASE
-    WHEN ${TABLE}.manufacturer ILIKE '%general%' THEN 'GE Medical'
-    WHEN ${TABLE}.manufacturer ILIKE '%ge%' THEN 'GE Medical'
-    WHEN ${TABLE}.manufacturer ILIKE '%hitachi%' THEN 'Hitachi'
-    WHEN ${TABLE}.manufacturer ILIKE '%iscv%' THEN 'iSchemaView'
-    WHEN ${TABLE}.manufacturer ILIKE '%ischemaview%' THEN 'iSchemaView'
-    WHEN ${TABLE}.manufacturer ILIKE '%neurologica%' THEN 'Neurologica'
-    WHEN ${TABLE}.manufacturer ILIKE '%philips%' THEN 'Philips'
-    WHEN ${TABLE}.manufacturer ILIKE '%siemens%' THEN 'Siemens'
-    ELSE ${TABLE}.manufacturer
-    END ;;
+    sql: ${TABLE}.manufacturer ;;
   }
 
   dimension: manufacturer_model {
     type: string
     sql: ${TABLE}.manufacturer_model ;;
-
   }
 
   dimension: modality {
@@ -41,13 +30,6 @@ view: series {
   dimension: patient_age {
     type: number
     sql: ${TABLE}.patient_age ;;
-  }
-
-  dimension: age_tier {
-    type: tier
-    tiers: [0, 18,40, 50]
-    style: integer # the default value, could be excluded
-    sql: ${patient_age} ;;
   }
 
   dimension: patient_gender {
@@ -121,10 +103,6 @@ view: series {
 
   measure: count {
     type: count
-    drill_fields: [site_rapid_series_id, station_name, institution_name]
-    filters: {
-      field: sites.site_description
-      value: "-NULL"
-    }
+    drill_fields: [site_rapid_series_id, institution_name, station_name]
   }
 }
