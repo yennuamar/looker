@@ -382,7 +382,7 @@ view: techinfo_perf {
   dimension: aif_low {
     type: tier
     tiers: [ 0, 50, 300]
-    style: interval
+    style: classic
     sql: ${aif_peak_val} ;;
   }
 
@@ -396,7 +396,7 @@ view: techinfo_perf {
   dimension: aif_rise_time_seconds_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ]# 1's
-    style: interval
+    style: classic
     sql: ${aif_rise_time_seconds} ;;
   }
 
@@ -410,7 +410,7 @@ view: techinfo_perf {
   dimension: aif_vof_shape_correl_buckets {
     type: tier
     tiers: [ 0,50,100,150 ]#50's
-    style: interval
+    style: classic
     sql: ${aif_vof_shape_correl} ;;
   }
 
@@ -424,7 +424,7 @@ view: techinfo_perf {
   dimension: baseline_seconds_buckets {
     type: tier
     tiers: [ 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40 ]# 2's
-    style: interval
+    style: classic
     sql: ${baseline_seconds};;
   }
 
@@ -438,7 +438,7 @@ view: techinfo_perf {
   dimension: baseline_tp_buckets {
     type: tier
     tiers: [ 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40 ]# 2's
-    style: interval
+    style: classic
     sql: ${baseline_tp};;
   }
 
@@ -452,7 +452,7 @@ view: techinfo_perf {
   dimension: bolus_arrival_aif_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50]# 2's
-    style: interval
+    style: classic
     sql: ${bolus_arrival_aif_seconds};;
   }
 
@@ -466,7 +466,7 @@ view: techinfo_perf {
   dimension: bolus_arrival_tissue_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${bolus_arrival_tissue_seconds};;
   }
 
@@ -480,7 +480,7 @@ view: techinfo_perf {
   dimension: bolus_fwhm_aif_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${bolus_fwhm_aif_seconds};;
   }
 
@@ -494,7 +494,7 @@ view: techinfo_perf {
   dimension: bolus_fwhm_tissue_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${bolus_fwhm_tissue_seconds};;
   }
 
@@ -508,7 +508,7 @@ view: techinfo_perf {
   dimension: bolus_fwhm_vof_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${bolus_fwhm_vof_seconds};;
   }
 
@@ -522,7 +522,7 @@ view: techinfo_perf {
   dimension: cdti_vol_buckets {
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100 ]# 5's
-    style: interval
+    style: classic
     sql: ${cdti_vol};;
   }
 
@@ -536,7 +536,7 @@ view: techinfo_perf {
   dimension: coverage_z_buckets {
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100 ]# 5's
-    style: interval
+    style: classic
     sql: ${coverage_z};;
   }
 
@@ -557,7 +557,7 @@ view: techinfo_perf {
   dimension: echo_time_buckets {
     type: tier
     tiers: [ 5,10,15,20,25,30,35,40 ]
-    style: interval
+    style: classic
     sql: ${echo_time};;
   }
 
@@ -571,7 +571,7 @@ view: techinfo_perf {
   dimension: exposure_buckets {
     type: tier
     tiers: [ 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300 ]# 20's
-    style: interval
+    style: classic
     sql: ${exposure};;
   }
 
@@ -585,7 +585,7 @@ view: techinfo_perf {
   dimension: exposure_time_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${exposure_time};;
   }
 
@@ -599,7 +599,7 @@ view: techinfo_perf {
   dimension: input_slice_nx_buckets {
     type: tier
     tiers: [ 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300 ]# 20's
-    style: interval
+    style: classic
     sql: ${input_slice_nx};;
   }
 
@@ -613,7 +613,7 @@ view: techinfo_perf {
   dimension: input_slice_ny_buckets {
     type: tier
     tiers: [ 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300 ]# 20's
-    style: interval
+    style: classic
     sql: ${input_slice_ny};;
   }
 
@@ -627,7 +627,7 @@ view: techinfo_perf {
   dimension: input_slice_px_buckets {
     type: tier
     tiers: [ 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300 ]# 20's
-    style: interval
+    style: classic
     sql: ${input_slice_px};;
   }
 
@@ -641,7 +641,7 @@ view: techinfo_perf {
   dimension: input_slice_py_buckets {
     type: tier
     tiers: [ 0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300 ]# 20's
-    style: interval
+    style: classic
     sql: ${input_slice_py};;
   }
 
@@ -655,7 +655,7 @@ view: techinfo_perf {
   dimension: kvp_buckets {
     type: tier
     tiers: [ 0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300 ]# 10's
-    style: interval
+    style: classic
     sql: ${kvp};;
   }
 
@@ -669,7 +669,7 @@ view: techinfo_perf {
   dimension: magnet_strength_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ] # 5's
-    style: interval
+    style: classic
     sql: ${magnet_strength};;
   }
 
@@ -684,7 +684,7 @@ view: techinfo_perf {
   dimension: maxmotion_rot_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_rot};;
   }
 
@@ -698,7 +698,7 @@ view: techinfo_perf {
   dimension: maxmotion_rot_x_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_rot_x};;
   }
 
@@ -712,7 +712,7 @@ view: techinfo_perf {
   dimension: maxmotion_rot_y_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_rot_y};;
   }
 
@@ -726,7 +726,7 @@ view: techinfo_perf {
   dimension: maxmotion_rot_z_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_rot_z};;
   }
 
@@ -740,7 +740,7 @@ view: techinfo_perf {
   dimension: maxmotion_trans_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_trans};;
   }
 
@@ -754,7 +754,7 @@ view: techinfo_perf {
   dimension: maxmotion_trans_x_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_trans_x};;
   }
 
@@ -768,7 +768,7 @@ view: techinfo_perf {
   dimension: maxmotion_trans_y_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_trans_y};;
   }
 
@@ -782,7 +782,7 @@ view: techinfo_perf {
   dimension: maxmotion_trans_z_buckets {
     type: tier
     tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
-    style: interval
+    style: classic
     sql: ${maxmotion_trans_z};;
   }
 
@@ -796,7 +796,7 @@ view: techinfo_perf {
   dimension: number_excluded_points_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${number_excluded_points};;
   }
 
@@ -810,7 +810,7 @@ view: techinfo_perf {
   dimension: number_of_echoes_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${number_of_echoes};;
   }
 
@@ -824,7 +824,7 @@ view: techinfo_perf {
   dimension: number_of_slices_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${number_of_slices};;
   }
 
@@ -852,7 +852,7 @@ view: techinfo_perf {
   dimension: reconstruction_diameter_buckets {
     type: tier
     tiers: [ 0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240,250,260,270,280,290,300 ]# 10's
-    style: interval
+    style: classic
     sql: ${reconstruction_diameter};;
   }
 
@@ -866,7 +866,7 @@ view: techinfo_perf {
   dimension: repetition_time_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${repetition_time};;
   }
 
@@ -880,7 +880,7 @@ view: techinfo_perf {
   dimension: result_code_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${result_code};;
   }
 
@@ -894,7 +894,7 @@ view: techinfo_perf {
   dimension: sampling_rate_central_slice_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${sampling_rate_central_slice};;
   }
 
@@ -908,7 +908,7 @@ view: techinfo_perf {
   dimension:sampling_step_max_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${sampling_step_max};;
   }
 
@@ -922,7 +922,7 @@ view: techinfo_perf {
   dimension: scan_duration_buckets {
     type: tier
     tiers: [ 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150]
-    style: interval
+    style: classic
     sql: ${scan_duration} ;;
   }
 
@@ -949,7 +949,7 @@ view: techinfo_perf {
   dimension:slice_thickness_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${slice_thickness};;
   }
 
@@ -963,7 +963,7 @@ view: techinfo_perf {
   dimension:snr_baseline_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${snr_baseline};;
   }
 
@@ -989,7 +989,7 @@ view: techinfo_perf {
   dimension:spacing_between_slices_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${spacing_between_slices};;
   }
 
@@ -1003,7 +1003,7 @@ view: techinfo_perf {
   dimension:tail_level_aif_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${tail_level_aif};;
   }
 
@@ -1017,7 +1017,7 @@ view: techinfo_perf {
   dimension:tail_level_tissue_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${tail_level_tissue};;
   }
 
@@ -1031,7 +1031,7 @@ view: techinfo_perf {
   dimension:tail_level_vof_buckets {
     type: tier
     tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
-    style: interval
+    style: classic
     sql: ${tail_level_vof};;
   }
 
@@ -1045,7 +1045,7 @@ view: techinfo_perf {
   dimension:tissue_peak_seconds_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${tissue_peak_seconds};;
   }
 
@@ -1059,7 +1059,7 @@ view: techinfo_perf {
   dimension:tissue_peak_val_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${tissue_peak_val};;
   }
 
@@ -1073,7 +1073,7 @@ view: techinfo_perf {
   dimension:tissue_rise_time_seconds_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25 ]# 1's
-    style: interval
+    style: classic
     sql: ${tissue_rise_time_seconds};;
   }
 
@@ -1087,7 +1087,7 @@ view: techinfo_perf {
   dimension:vof_peak_seconds_buckets {
     type: tier
     tiers: [  0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50  ]# 2's
-    style: interval
+    style: classic
     sql: ${vof_peak_seconds};;
   }
 
@@ -1101,7 +1101,7 @@ view: techinfo_perf {
   dimension:vof_peak_val_buckets {
     type: tier
     tiers: [100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000 ]# 5's
-    style: interval
+    style: classic
     sql: ${vof_peak_val};;
   }
 
@@ -1115,7 +1115,7 @@ view: techinfo_perf {
   dimension:vof_rise_time_seconds_buckets {
     type: tier
     tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ]# 1's
-    style: interval
+    style: classic
     sql: ${vof_rise_time_seconds};;
   }
 
@@ -1129,7 +1129,7 @@ view: techinfo_perf {
   dimension:xray_tube_current_buckets {
     type: tier
     tiers: [0,50,100,150,200,250,300,350,400,450,500,550,600,650,700,750,800,850,900,950,1000 ]# 50's
-    style: interval
+    style: classic
     sql: ${xray_tube_current};;
   }
 

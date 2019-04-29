@@ -13,7 +13,9 @@ datagroup: rapid_default_datagroup {
 #
 #explore: measurements_cta1 {}
 #
-explore: techinfo_cta {}
+explore: techinfo_cta {
+  fields: [ALL_FIELDS*, -techinfo_cta.count_filtered]
+}
 #
 explore: techinfo_dwi {}
 #
@@ -33,9 +35,9 @@ datagroup: 3hr_caching {
 }
 
 
-
 explore: measurements_aspects {
   fields: [ALL_FIELDS*, -measurements_aspects.count_filtered]
+
   join: sites{
     type: left_outer
     relationship: one_to_one
@@ -50,6 +52,32 @@ explore: measurements_aspects {
 }
 
 
+# Mismatch
+
+explore: measurements_mismatch{
+  fields: [ALL_FIELDS*, -measurements_mismatch.count_filtered]
+
+  join: measurements_aspects {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${measurements_aspects.task_key} = ${measurements_mismatch.task_key} ;;
+  }
+
+  join: sites{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${sites.site_key} = ${measurements_mismatch.task_key} ;;
+  }
+
+  join: techinfo_perf{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${techinfo_perf.series_key} = ${measurements_mismatch.task_key} ;;
+  }
+}
+
+
+# Image Quality Perf
 
 explore: image_quality_perfusion {
   fields: [ALL_FIELDS*]

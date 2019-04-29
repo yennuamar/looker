@@ -397,8 +397,19 @@ view: techinfo_cta {
     sql: ${xray_tube_current} ;;
   }
 
+  # Measure counts
+
   measure: count {
     type: count
     drill_fields: []
+  }
+
+  measure: count_filtered {
+    type: count
+    drill_fields: []
+    filters: {
+      field: sites.sites_bool
+      value: "yes"
+    }
   }
 }
