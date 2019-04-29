@@ -80,6 +80,7 @@ explore: measurements_mismatch{
 # Image Quality Perf
 
 explore: image_quality_perfusion {
+  group_label: "Todd"
   fields: [ALL_FIELDS*]
   sql_always_where: ${image_quality_perfusion.image_quality} IS NOT NULL ;;
 
