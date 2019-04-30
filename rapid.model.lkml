@@ -172,26 +172,3 @@ explore: thrombectomy3 {
   }
   persist_with: 3hr_caching
 }
-
-
-explore: thrombectomy_demo {
-  label: "MVP v1.2 Demo"
-  description: "MVP Monthly Reporting For Sites"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-}
-
-
-explore: thrombectomy2_demo {
-  label: "Market Intel Project Demo"
-  description: "Market Intel Project"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-}
-
-explore: thrombectomy3_demo {
-  label: "Patients Demo"
-  description: "Only_Patients_View"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-}
