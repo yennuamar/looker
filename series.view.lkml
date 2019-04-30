@@ -1,6 +1,48 @@
 view: series {
   sql_table_name: public.series ;;
 
+  # Search filter
+
+  parameter: tier_selector {
+    label: "Series Criteria"
+    type: string
+    allowed_value: {
+      label: "Patient Age"
+      value: "patient_age"
+    }
+
+    allowed_value: {
+      label: "Manufacturer"
+      value: "manufacturer"
+    }
+    allowed_value: {
+      label: "Manufacturer Model"
+      value: "manufacturer_model"
+    }
+    allowed_value: {
+      label: "Station Name"
+      value: "station_name"
+    }
+  }
+
+  dimension: dynamic_grouping_field {
+    type: string
+    sql:
+          {% if tier_selector._parameter_value == "'patient_age'" %}
+            ${patient_age_buckets}
+          {% elsif tier_selector._parameter_value == "'manufacturer'" %}
+            ${manufacturer}
+          {% elsif tier_selector._parameter_value == "'manufacturer_model'" %}
+            ${manufacturer_model}
+          {% elsif tier_selector._parameter_value == "'station_name'" %}
+            ${station_name}
+          {% else %}
+            ${manufacturer}
+          {% endif %};;
+  }
+
+
+
   dimension: site_rapid_series_id {
     primary_key: yes
     type: number
@@ -14,6 +56,7 @@ view: series {
 
   dimension: manufacturer {
     type: string
+    value_format: "0"
     sql: CASE
     WHEN ${TABLE}.manufacturer ILIKE '%general%' THEN 'GE Medical'
     WHEN ${TABLE}.manufacturer ILIKE '%ge%' THEN 'GE Medical'
@@ -30,23 +73,27 @@ view: series {
   dimension: manufacturer_model {
     type: string
     sql: ${TABLE}.manufacturer_model ;;
-
   }
+
+  # Modality
 
   dimension: modality {
     type: string
     sql: ${TABLE}.modality ;;
   }
 
+  # Patient age buckets
+
   dimension: patient_age {
     type: number
     sql: ${TABLE}.patient_age ;;
   }
 
-  dimension: age_tier {
+  dimension: patient_age_buckets {
     type: tier
-    tiers: [0, 18,40, 50]
-    style: integer # the default value, could be excluded
+    tiers: [0,10,20,30,40, 50,60,70,80,90,100]
+    style: integer
+    value_format: "0" #value_format:"$#,##0'secs'"
     sql: ${patient_age} ;;
   }
 
@@ -119,6 +166,9 @@ view: series {
     sql: ${TABLE}.task_key ;;
   }
 
+
+# Measure counts
+
   measure: count {
     type: count
     drill_fields: [site_rapid_series_id, station_name, institution_name]
@@ -127,4 +177,13 @@ view: series {
       value: "-NULL"
     }
   }
-}
+
+measure: count_filtered {
+  type: count
+  drill_fields: []
+  filters: {
+    field: sites.sites_bool
+    value: "yes"
+  }
+
+}}

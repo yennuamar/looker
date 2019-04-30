@@ -358,7 +358,8 @@ view: techinfo_perf {
   dimension: aif_peak_seconds_buckets {
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50 ]#5's
-    style: classic
+    style:integer
+    value_format:"$#,##0'secs'"
     sql: ${aif_peak_seconds} ;;
   }
 
@@ -1016,7 +1017,7 @@ view: techinfo_perf {
 
   dimension:tail_level_tissue_buckets {
     type: tier
-    tiers: [ 5, 10, 15, 20, 25, 30, 35, 40 ]
+    tiers: [ 0, 5, 10, 15, 20, 25, 30, 35, 400 ]
     style: classic
     sql: ${tail_level_tissue};;
   }
