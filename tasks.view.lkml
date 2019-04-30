@@ -8,7 +8,6 @@ view: tasks {
   }
 
   dimension_group: datetime_finished {
-    label: ""
     type: time
     timeframes: [
       raw,
@@ -100,11 +99,6 @@ view: tasks {
     sql: ${TABLE}.total_processing_time_since_delivery ;;
   }
 
-  measure: average_processing_time_since_delivery {
-    type: average
-    sql: ${total_processing_time_since_delivery} ;;
-  }
-
   dimension: username {
     type: string
     sql: ${TABLE}.username ;;
@@ -114,13 +108,4 @@ view: tasks {
     type: count
     drill_fields: [task_id, username, module_name]
   }
-  measure: total_processing_time{
-    description: "This is the total"
-    type: sum
-    sql:  total_processing_time_since_delivery ;;
-  }
-
-
-
-
 }

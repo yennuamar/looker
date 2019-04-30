@@ -68,6 +68,7 @@ view: series {
     WHEN ${TABLE}.manufacturer ILIKE '%siemens%' THEN 'Siemens'
     ELSE ${TABLE}.manufacturer
     END ;;
+
   }
 
   dimension: manufacturer_model {
@@ -171,11 +172,7 @@ view: series {
 
   measure: count {
     type: count
-    drill_fields: [site_rapid_series_id, station_name, institution_name]
-    filters: {
-      field: sites.site_description
-      value: "-NULL"
-    }
+    drill_fields: [site_rapid_series_id, institution_name, station_name]
   }
 
 measure: count_filtered {
