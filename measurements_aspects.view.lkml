@@ -92,6 +92,7 @@ view: measurements_aspects {
 
   dimension: affected_side {
     type: string
+    value_format: "0"
     sql: ${TABLE}.affected_side ;;
   }
 
@@ -105,7 +106,8 @@ view: measurements_aspects {
   dimension: aspect_score_buckets {
     type: tier
     tiers: [0,1,2,3,4,5,6,7,8,9,10,11 ]# 5's
-    style: classic
+    style: integer
+    value_format: "0"
     sql: ${aspect_score} ;;
   }
 
@@ -113,6 +115,7 @@ view: measurements_aspects {
 
   dimension: caudate {
     type: yesno
+    value_format: "0"
     sql: ${TABLE}.caudate ;;
   }
 
