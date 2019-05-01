@@ -8,7 +8,7 @@ datagroup: rapid_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-#persist_with: rapid_default_datagroup
+persist_with: rapid_default_datagroup
 
 #
 #explore: measurements_cta1 {}

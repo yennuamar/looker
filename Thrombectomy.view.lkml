@@ -81,7 +81,8 @@ view: thrombectomy {
         isv_image,
         lifebridge_image,
         tenet_image,
-        riverside_image
+        riverside_image,
+        carolinas_image
 
         FROM (
 
@@ -175,7 +176,8 @@ view: thrombectomy {
         isv_image,
         lifebridge_image,
         tenet_image,
-        riverside_image
+        riverside_image,
+        carolinas_image
 
 
         FROM (
@@ -296,7 +298,8 @@ view: thrombectomy {
             case when (table5.Site_Name LIKE '%ascension%') then table5.Site_Name else null end as isv_image,
             case when (table5.Site_Name LIKE '%lifebridge%') then table5.Site_Name else null end as lifebridge_image,
             case when (table5.Site_Name LIKE '%baptist%') then table5.Site_Name else null end as tenet_image,
-            case when (table5.Site_Name LIKE '%riverside%') then table5.Site_Name else null end as riverside_image
+            case when (table5.Site_Name LIKE '%riverside%') then table5.Site_Name else null end as riverside_image,
+            case when (table5.Site_Name LIKE '%carolinas%') then table5.Site_Name else null end as carolinas_image
 
 
 
@@ -611,13 +614,13 @@ view: thrombectomy {
             GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51
             ORDER BY table4.Rapid_Patient_ID DESC
             ) AS table5
-          GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70
+          GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71
           ORDER BY table5.Rapid_Patient_ID DESC
       ) AS table6
-      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77
       ORDER BY 1 DESC
   ) AS table7
-  GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77
+  GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78
   ORDER BY 1 DESC
              ;;
 
@@ -1048,6 +1051,12 @@ view: thrombectomy {
       sql: ${TABLE}.riverside_image;;
       html: <img src="https://upload.wikimedia.org/wikipedia/en/c/c0/RHS_logo.png" /> ;;
     }
+
+  dimension: carolinas_image {
+    type: string
+    sql: ${TABLE}.carolinas_image;;
+    html: <img src="https://lincolnherald.net/SiteImages/Article/25060a.jpg" /> ;;
+  }
 
 
     dimension: case_id {
