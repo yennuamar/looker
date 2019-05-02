@@ -2,7 +2,6 @@ view: tasks {
   sql_table_name: public.tasks ;;
 
   dimension: task_id {
-    primary_key: yes
     type: number
     sql: ${TABLE}.task_id ;;
   }
@@ -80,6 +79,7 @@ view: tasks {
   }
 
   dimension: task_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.task_key ;;
   }

@@ -10,23 +10,17 @@ datagroup: rapid_default_datagroup {
 
 persist_with: rapid_default_datagroup
 
+# explore: measurements_aspects {}
 #
-#explore: measurements_cta1 {}
+# explore: measurements_cta1 {}
 #
-explore: techinfo_cta {
-  fields: [ALL_FIELDS*, -techinfo_cta.count_filtered]
-}
+# explore: techinfo_cta {}
 #
-explore: techinfo_dwi {}
+# explore: techinfo_dwi {}
 #
-explore: techinfo_ncct {}
+# explore: techinfo_ncct {}
 #
-# explore: tasks {}
-
-
-explore: techinfo_perf {
-  fields: [ALL_FIELDS*, -techinfo_perf.count_filtered]
-}
+# explore: techinfo_perf {}
 
 
 datagroup: 3hr_caching {
@@ -35,102 +29,8 @@ datagroup: 3hr_caching {
 }
 
 
-explore: measurements_aspects {
-  fields: [ALL_FIELDS*, -measurements_aspects.count_filtered]
-
-  join: sites{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${sites.site_key} = ${measurements_aspects.task_key} ;;
-  }
-
-  join: techinfo_perf{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_perf.series_key} = ${measurements_aspects.task_key} ;;
-  }
-}
-
-
-# Mismatch
-
-explore: measurements_mismatch{
-  fields: [ALL_FIELDS*, -measurements_mismatch.count_filtered]
-
-  join: measurements_aspects {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${measurements_aspects.task_key} = ${measurements_mismatch.task_key} ;;
-  }
-
-  join: sites{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${sites.site_key} = ${measurements_mismatch.task_key} ;;
-  }
-
-  join: techinfo_perf{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_perf.series_key} = ${measurements_mismatch.task_key} ;;
-  }
-}
-
-
-# Image Quality Perf
-
-explore: image_quality_perfusion {
-  fields: [ALL_FIELDS*]
-  sql_always_where: ${image_quality_perfusion.image_quality} IS NOT NULL ;;
-
-  join: measurements_aspects {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${image_quality_perfusion.task_id} = ${series.task_key} ;;
-  }
-
-  join: series {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${image_quality_perfusion.task_id} = ${series.task_key} ;;
-  }
-
-  join: sites {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${image_quality_perfusion.isv_site_id} = ${sites.isv_site_id} ;;
-  }
-
-  join: techinfo_perf {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${image_quality_perfusion.isv_site_id} = ${sites.isv_site_id} ;;
-  }
-
-  join: tasks{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${image_quality_perfusion.task_id} = ${tasks.task_id} ;;
-  }
-
-}
-
-
 
 explore: series {
-  fields: [ALL_FIELDS*, -techinfo_perf.count_filtered]
-
-  join: measurements_aspects {
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${measurements_aspects.task_key} = ${series.series_key} ;;
-  }
-
-  join: sites{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${sites.site_key} = ${series.series_key} ;;
-  }
   join: techinfo_cta{
     type: left_outer
     relationship: one_to_one
@@ -156,7 +56,6 @@ explore: series {
 }
 
 explore: sites {
-  fields: [ALL_FIELDS*]
   join: tasks  {
     type: left_outer
     relationship: one_to_one
@@ -180,21 +79,13 @@ explore: sites {
     relationship: one_to_one
     sql_on: ${measurements_cta1.task_key} = ${tasks.task_key} ;;
   }
-
   join: measurements_aspects {
     type: left_outer
     relationship: one_to_one
     sql_on: ${measurements_aspects.task_key} = ${tasks.task_key} ;;
   }
-
-  join: techinfo_perf{
-    type: left_outer
-    relationship: one_to_one
-    sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
-  }
-
+  extends: [series]
 }
-
 
 
 explore: count {
