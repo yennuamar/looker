@@ -713,38 +713,37 @@ view: techinfo_perf {
 
     dimension: maxmotion_rot_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
-      #style: integer
-      #value_format: "$#.00;($#.00)"
-      sql: ${maxmotion_rot} * 3.33;;
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
+      style: classic
+      sql: ${maxmotion_rot};;
     }
 
     # Maxmotion Rotate X
 
     dimension: maxmotion_rot_x {
       type: number
-      sql: ${TABLE}.maxmotion_rot_x;;
+      sql: ${TABLE}.maxmotion_rot_x ;;
     }
 
     dimension: maxmotion_rot_x_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
-      #style: integer
-      #value_format: "0"
-      sql: ${maxmotion_rot_x} * 10;;
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
+      style: classic
+      sql: ${maxmotion_rot_x};;
     }
 
     # Maxmotion Rotate Y
 
     dimension: maxmotion_rot_y {
       type: number
-      sql: ${TABLE}.maxmotion_rot_y;;
+      sql: ${TABLE}.maxmotion_rot_y ;;
     }
 
     dimension: maxmotion_rot_y_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
-      sql: ${maxmotion_rot_y} * 10 ;;
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
+      style: classic
+      sql: ${maxmotion_rot_y};;
     }
 
     # Maxmotion Rotate Z
@@ -756,8 +755,9 @@ view: techinfo_perf {
 
     dimension: maxmotion_rot_z_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
-      sql: ${maxmotion_rot_z}* 10 ;;
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
+      style: classic
+      sql: ${maxmotion_rot_z};;
     }
 
     # Maxmotion Trans
@@ -769,9 +769,9 @@ view: techinfo_perf {
 
     dimension: maxmotion_trans_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
       style: classic
-      sql: ${maxmotion_trans} * 10 ;;
+      sql: ${maxmotion_trans};;
     }
 
     # Maxmotion Trans X
@@ -783,9 +783,9 @@ view: techinfo_perf {
 
     dimension: maxmotion_trans_x_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
       style: classic
-      sql: ${maxmotion_trans_x}* 10 ;;
+      sql: ${maxmotion_trans_x};;
     }
 
     # Maxmotion Trans Y
@@ -797,9 +797,9 @@ view: techinfo_perf {
 
     dimension: maxmotion_trans_y_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
       style: classic
-      sql: ${maxmotion_trans_y}* 10 ;;
+      sql: ${maxmotion_trans_y};;
     }
 
     # Maxmotion Trans Z
@@ -811,9 +811,9 @@ view: techinfo_perf {
 
     dimension: maxmotion_trans_z_buckets {
       type: tier
-      tiers: [0,1,2,3,4,5,6,7,8,9,10]
+      tiers: [ 0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5]# 0.5's
       style: classic
-      sql: ${maxmotion_trans_z}* 10 ;;
+      sql: ${maxmotion_trans_z};;
     }
 
     # Number Excluded Points

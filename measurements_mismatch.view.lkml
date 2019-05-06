@@ -37,15 +37,13 @@ view: measurements_mismatch {
 
   dimension: n_slabs {
     type: number
-    value_format: "0"
     sql: ${TABLE}.n_slabs ;;
   }
 
   dimension: n_slabs_buckets {
     type: tier
-    tiers: [ 0,1,2,3,4,5,6,7,8 ]# 1's
-    style: integer
-    value_format: "0"
+    tiers: [ 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 ]# 1's
+    style: classic
     sql: ${n_slabs} ;;
   }
 
@@ -73,9 +71,8 @@ view: measurements_mismatch {
 
   dimension: threshold_buckets {
     type: tier
-    tiers: [ 0,1,2,3,4,5,6,7,8,9,10 ]# 1's
-    style: integer
-    value_format: "0"
+    tiers: [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100 ]# 5's
+    style: classic
     sql: ${threshold};;
   }
 
@@ -89,8 +86,7 @@ view: measurements_mismatch {
   dimension: volume_buckets {
     type: tier
     tiers: [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100 ]# 5's
-    style: integer
-    value_format: "0"
+    style: classic
     sql: ${volume};;
   }
 
