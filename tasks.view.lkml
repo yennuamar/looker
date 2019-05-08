@@ -92,6 +92,12 @@ view: tasks {
 
   dimension: task_result {
     type: number
+    link: {
+      label: "Dashboard for {{ value }}"
+      url: "/dashboards/15?Site={{ value }}"
+      icon_url: "http://looker.com/favicon.ico"
+    }
+
     sql: ${TABLE}.task_result ;;
   }
 

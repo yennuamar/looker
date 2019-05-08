@@ -83,6 +83,10 @@ view: sites {
 
   dimension: site_description {
     type: string
+    link: {
+      label: "Dashboard for {{ value }}"
+      url: "/dashboards/15?Site={{ value }}"
+    }
     sql: ${TABLE}.site_description ;;
 
   }
