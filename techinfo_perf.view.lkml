@@ -387,14 +387,20 @@ view: techinfo_perf {
     }
 
     # AIF Low thresholds
-    # This is a tier only
+
+    parameter: aif_low_filter {
+      type: string
+    }
+
+    dimension: aif_low_filter_value {
+      type: string
+      sql: {% parameter aif_low_filter %} ;;
+    }
 
     dimension: aif_low {
       type: tier
-      tiers: [ 0, 50, 300]
-      style: integer
-      value_format: "0"
-      sql: ${aif_peak_val} ;;
+      tiers: [0,50,650 ]# 50's
+      sql: ${TABLE}.aif_peak_val ;;
     }
 
     # AIF Rise Time Seconds
@@ -444,9 +450,19 @@ view: techinfo_perf {
 
     # Baseline TP
 
-    dimension: baseline_tp {
-      type: number
-      sql: ${TABLE}.baseline_tp ;;
+
+  dimension: baseline_tp {
+    type: number
+    sql: ${TABLE}.baseline_tp ;;
+  }
+
+    parameter: baseline_20_filter {
+      type: string
+    }
+
+    dimension: baseline_20_filter_value {
+      type: string
+      sql: {% parameter baseline_20_filter %} ;;
     }
 
     dimension: baseline_tp_buckets {
@@ -456,6 +472,8 @@ view: techinfo_perf {
       value_format: "0"
       sql: ${baseline_tp};;
     }
+
+
 
     # Bolus arrival AIF
 

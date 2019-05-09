@@ -118,7 +118,6 @@ view: tasks {
 
   measure: count {
     type: count
-    drill_fields: [task_id, username, module_name]
   }
   measure: total_processing_time{
     description: "This is the total"
