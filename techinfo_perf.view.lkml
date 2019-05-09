@@ -451,18 +451,9 @@ view: techinfo_perf {
     # Baseline TP
 
 
-  dimension: baseline_tp {
-    type: number
-    sql: ${TABLE}.baseline_tp ;;
-  }
-
-    parameter: baseline_20_filter {
-      type: string
-    }
-
-    dimension: baseline_20_filter_value {
-      type: string
-      sql: {% parameter baseline_20_filter %} ;;
+    dimension: baseline_tp {
+      type: number
+      sql: ${TABLE}.baseline_tp ;;
     }
 
     dimension: baseline_tp_buckets {
@@ -473,6 +464,43 @@ view: techinfo_perf {
       sql: ${baseline_tp};;
     }
 
+  # Baseline TP 0-2
+
+  parameter: baseline_02_filter {
+    type: string
+  }
+
+  dimension: baseline_02_filter_value {
+    type: string
+    sql: {% parameter baseline_02_filter %} ;;
+  }
+
+  dimension: baseline_02_buckets {
+    type: tier
+    tiers: [ 0,3,200 ]# 2's
+    style: integer
+    value_format: "0"
+    sql: ${baseline_tp};;
+  }
+
+  # Baseline TP >10
+
+  parameter: baseline_10_filter {
+    type: string
+  }
+
+  dimension: baseline_10_filter_value {
+    type: string
+    sql: {% parameter baseline_10_filter %} ;;
+  }
+
+  dimension: baseline_10_buckets {
+    type: tier
+    tiers: [ 10,200 ]# 2's
+    style: integer
+    value_format: "0"
+    sql: ${baseline_tp};;
+  }
 
 
     # Bolus arrival AIF
