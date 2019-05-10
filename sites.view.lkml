@@ -29,6 +29,12 @@ view: sites {
     value_format_name: decimal_0
   }
 
+  measure: sites_average_tasks {
+    type: number
+    sql: 1.0 * ${tasks.count}/${sites.count_site_description} ;;
+    value_format_name: decimal_0
+  }
+
   measure: sites_average_aspects {
     type: number
     sql: 1.0 * ${measurements_aspects.count}/${sites.count_site_description} ;;

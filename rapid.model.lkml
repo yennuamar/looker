@@ -44,6 +44,12 @@ explore: measurements_aspects {
     sql_on: ${sites.site_key} = ${measurements_aspects.task_key} ;;
   }
 
+  join: tasks{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${tasks.task_key} = ${measurements_aspects.task_key} ;;
+  }
+
   join: techinfo_perf{
     type: left_outer
     relationship: one_to_one
@@ -67,6 +73,12 @@ explore: measurements_mismatch{
     type: left_outer
     relationship: one_to_one
     sql_on: ${sites.site_key} = ${measurements_mismatch.task_key} ;;
+  }
+
+  join: tasks{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${tasks.task_key} = ${measurements_mismatch.task_key} ;;
   }
 
   join: techinfo_perf{
@@ -131,6 +143,13 @@ explore: series {
     relationship: one_to_one
     sql_on: ${sites.site_key} = ${series.series_key} ;;
   }
+
+  join: tasks{
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${tasks.task_id} = ${series.series_key} ;;
+  }
+
   join: techinfo_cta{
     type: left_outer
     relationship: one_to_one

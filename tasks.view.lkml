@@ -1,6 +1,28 @@
 view: tasks {
   sql_table_name: public.tasks ;;
 
+
+  parameter: tier_selector {
+    label: "Task Criteria"
+    type: string
+    allowed_value: {
+      label: "Total Processing Time"
+      value: "total_processing_time_since_delivery"
+    }
+  }
+
+  dimension: dynamic_grouping_field {
+    type: string
+    sql:
+          {% if tier_selector._parameter_value == "'total_processing_time_since_delivery'" %}
+            ${total_processing_time_since_delivery_buckets}
+          {% else %}
+            ${total_processing_time_since_delivery_buckets}
+          {% endif %};;
+  }
+
+
+
   dimension: task_id {
     type: number
     sql: ${TABLE}.task_id ;;
@@ -101,15 +123,27 @@ view: tasks {
     sql: ${TABLE}.task_result ;;
   }
 
+  # Processing Time
+
   dimension: total_processing_time_since_delivery {
     type: number
     sql: ${TABLE}.total_processing_time_since_delivery ;;
+  }
+
+  dimension: total_processing_time_since_delivery_buckets {
+    type: tier
+    tiers: [0,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200 ]
+    style: integer
+    value_format: "0"
+    sql: ${total_processing_time_since_delivery} ;;
   }
 
   measure: average_processing_time_since_delivery {
     type: average
     sql: ${total_processing_time_since_delivery} ;;
   }
+
+
 
   dimension: username {
     type: string
@@ -127,5 +161,15 @@ view: tasks {
 
 
 
+  # Measure counts
 
+
+  measure: count_filtered {
+    type: count
+    drill_fields: []
+    filters: {
+      field: sites.sites_bool
+      value: "yes"
+    }
+  }
 }
