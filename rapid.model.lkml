@@ -1,6 +1,5 @@
 connection: "rapid_business2"
 
-# include all the views
 include: "*.view"
 
 datagroup: rapid_default_datagroup {
@@ -8,20 +7,14 @@ datagroup: rapid_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-#persist_with: rapid_default_datagroup
-
-#
-#explore: measurements_cta1 {}
-#
 explore: techinfo_cta {
   fields: [ALL_FIELDS*, -techinfo_cta.count_filtered]
 }
-#
+
 explore: techinfo_dwi {}
-#
+
 explore: techinfo_ncct {}
-#
-# explore: tasks {}
+
 
 
 explore: techinfo_perf {
@@ -211,91 +204,17 @@ explore: sites {
     relationship: one_to_one
     sql_on: ${techinfo_perf.series_key} = ${series.series_key} ;;
   }
-
 }
 
-
-
-explore: count {
-  label: "BIDB"
-  description: "MVP Monthly Reporting For Sites"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-  join: ascension_spreadsheet {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${count.isv_site_id} ;;
-  }
-  join: image_quality_perfusion {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${image_quality_perfusion.isv_site_id} = ${count.isv_site_id} ;;
+explore: no_tasks_30 {
+  fields: [ALL_FIELDS*]
   }
 
+
+explore: no_tasks_60 {
+  fields: [ALL_FIELDS*]
 }
 
-explore: count2 {
-  label: "BIDB2 for Ascension"
-  description: "Ascension related table2"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-  join: ascension_spreadsheet {
-    type: full_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${count2.isv_site_id} ;;
-  }
-}
-explore: thrombectomy {
-  label: "MVP v1.2"
-  description: "MVP Monthly Reporting For Sites"
-  group_label: "Amarnath"
-  join: ascension_spreadsheet {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy.isv_site_id} ;;
-  }
-  persist_with: 3hr_caching
-}
-
-explore: thrombectomy_ascension {
-  label: "MVP v1.2 Ascension"
-  description: "MVP Monthly Reporting For Ascension"
-  group_label: "Amarnath"
-  join: ascension_spreadsheet {
-    type: full_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy_ascension.isv_site_id} ;;
-  }
-  persist_with: 3hr_caching
-}
-
-
-explore: final_table {
-  label: "Testing View"
-  group_label: "Amarnath"
-  persist_with: 3hr_caching
-}
-
-explore: thrombectomy2 {
-  label: "Market Intel Project"
-  description: "Market Intel Project"
-  group_label: "Amarnath"
-  join: ascension_spreadsheet {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy2.isv_site_id} ;;
-  }
-  persist_with: 3hr_caching
-}
-
-explore: thrombectomy3 {
-  label: "Patients"
-  description: "Only_Patients_View"
-  group_label: "Amarnath"
-  join: ascension_spreadsheet {
-    type: left_outer
-    relationship: many_to_one
-    sql_on: ${ascension_spreadsheet.site_id} = ${thrombectomy3.isv_site_id} ;;
-  }
-  persist_with: 3hr_caching
+explore: no_tasks_180 {
+  fields: [ALL_FIELDS*]
 }

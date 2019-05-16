@@ -144,7 +144,6 @@ view: tasks {
   }
 
 
-
   dimension: username {
     type: string
     sql: ${TABLE}.username ;;
@@ -153,16 +152,12 @@ view: tasks {
   measure: count {
     type: count
   }
+
   measure: total_processing_time{
     description: "This is the total"
     type: sum
     sql:  total_processing_time_since_delivery ;;
   }
-
-
-
-  # Measure counts
-
 
   measure: count_filtered {
     type: count
@@ -172,4 +167,41 @@ view: tasks {
       value: "yes"
     }
   }
+
+  measure: no_tasks_count {
+    type: count
+    html: <a href="/dashboards/100">{{ value }}</a>;;
+  }
+
+  measure: no_tasks_30_days{
+    description: "No tasks in this period"
+    filters: {
+      field: datetime_finished_date
+      value: "30 days ago for 30 days"
+    }
+    type: count
+    html: <a href="/dashboards/100">{{ value }}</a>;;
+    }
+
+  measure: no_tasks_60_days{
+    description: "No tasks in this period"
+    filters: {
+      field: datetime_finished_date
+      value: "60 days ago for 60 days"
+    }
+    type: count
+    html:<a href="/dashboards/100">{{ value }}</a> ;;
+  }
+
+  measure: no_tasks_180_days{
+    description: "No tasks in this period"
+    filters: {
+      field: datetime_finished_date
+      value: "180 days ago for 180 days"
+    }
+    type: count
+    html:<a href="/dashboards/100">{{ value }}</a> ;;
+  }
+
+
 }
