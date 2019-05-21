@@ -97,6 +97,12 @@ view: sites {
 
   }
 
+  dimension: title {
+    type: string
+    sql: ${site_description} ;;
+      html: <h2>{{ site_description._rendered_value }}</h2> ;;
+  }
+
   dimension: site_key {
     type: number
     sql: ${TABLE}.site_key ;;
