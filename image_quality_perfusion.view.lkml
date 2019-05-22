@@ -18,7 +18,6 @@ view: image_quality_perfusion {
   dimension: scanner {
     type: string
     sql: ${TABLE}.series ;;
-
   }
 
   dimension: task_id {
@@ -227,10 +226,13 @@ view: image_quality_perfusion {
     sql: 1.0 * ${filtered_count_30} / ${total_count} ;;
   }
 
+  # Averages
+
   measure: average_image_quality {
     type: average
     sql: ${image_quality} ;;
   }
+
 
 
 }
