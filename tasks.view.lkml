@@ -22,9 +22,12 @@ view: tasks {
   }
 
 
-
   dimension: task_id {
     type: number
+    link: {
+      label: "See Task # {{ value }}"
+      url: "/dashboards/163?Task={{ value }}"
+    }
     sql: ${TABLE}.task_id ;;
   }
 
@@ -40,6 +43,7 @@ view: tasks {
       quarter,
       year
     ]
+    allow_fill: yes
     sql: ${TABLE}.datetime_finished ;;
   }
 
@@ -73,6 +77,10 @@ view: tasks {
 
   dimension: entry_id {
     type: number
+    link: {
+      label: "See Entry #{{ value }} for this site"
+      url: "/dashboards/163?Entry={{ value }}"
+    }
     sql: ${TABLE}.entry_id ;;
   }
 
@@ -83,11 +91,19 @@ view: tasks {
 
   dimension: modality {
     type: string
+    link: {
+      label: "See all {{ value }} tasks for this site"
+      url: "/dashboards/163?Modality={{ value }}"
+    }
     sql: ${TABLE}.modality ;;
   }
 
   dimension: module_name {
     type: string
+    link: {
+      label: "See all {{ value }} tasks for this site"
+      url: "/dashboards/163?Module_Name={{ value }}"
+    }
     sql: ${TABLE}.module_name ;;
   }
 
@@ -115,11 +131,9 @@ view: tasks {
   dimension: task_result {
     type: number
     link: {
-      label: "Dashboard for {{ value }}"
-      url: "/dashboards/15?Site={{ value }}"
-      icon_url: "http://looker.com/favicon.ico"
+      label: "See all ''{{ value }}'' result tasks for this site"
+      url: "/dashboards/163?Entry={{ value }}"
     }
-
     sql: ${TABLE}.task_result ;;
   }
 
@@ -161,12 +175,24 @@ view: tasks {
 
   measure: count_filtered {
     type: count
-    drill_fields: []
     filters: {
       field: sites.sites_bool
       value: "yes"
     }
   }
+
+
+  # AIF Low thresholds
+
+#   measure: aif_low_all_tasks {
+#     type: count_distinct
+#     sql: case when ${techinfo_perf.aif_low}=${techinfo_perf.aif_low_filter_value} then ${task_id} else null end ;;
+#   }
+#
+#   measure: aif_low_subject_task {
+#     type: count_distinct
+#     sql: case when ${techinfo_perf.aif_low}=${techinfo_perf.aif_low_filter_value} then ${task_id} else null end ;;
+#   }
 
   measure: no_tasks_count {
     type: count

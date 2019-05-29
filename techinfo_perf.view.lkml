@@ -386,7 +386,40 @@ view: techinfo_perf {
       sql: ${aif_peak_val} ;;
     }
 
+#AIF Measures
+
+    measure: count_tasks_below_50_aif {
+      type: count
+      filters: {
+        field: aif_peak_val
+        value: "<50"
+      }
+    }
+
+    # Average Test
+
+    measure: count_tasks_above_50_aif {
+      type: count
+      filters: {
+        field: aif_peak_val
+        value: ">=50"
+      }
+    }
+
+    measure: tasks_count_distinct {
+      type: count_distinct
+      sql: tasks.task_id ;;
+    }
+
+    measure: average_count_tasks_above_50_aif {
+      type: number
+      # sql: ${cost} / (${count_distinct}/${count})
+      sql: ${count_tasks_above_50_aif} / (${tasks_count_distinct} / ${count_tasks_above_50_aif});;
+    }
+
+
     # AIF Low thresholds
+
 
     parameter: aif_low_filter {
       type: string
@@ -464,43 +497,86 @@ view: techinfo_perf {
       sql: ${baseline_tp};;
     }
 
-  # Baseline TP 0-2
+    # Baseline TP 0-2
 
-  parameter: baseline_02_filter {
-    type: string
-  }
+    measure: ctp_baseline_below_2 {
+      type: count
+      filters: {
+        field: baseline_tp
+        value: "<=2"
+      }
+    }
 
-  dimension: baseline_02_filter_value {
-    type: string
-    sql: {% parameter baseline_02_filter %} ;;
-  }
+    measure: ctp_baseline_above_2 {
+      type: count
+      filters: {
+        field: baseline_tp
+        value: ">2"
+      }
+    }
 
-  dimension: baseline_02_buckets {
-    type: tier
-    tiers: [ 0,3,200 ]# 2's
-    style: integer
-    value_format: "0"
-    sql: ${baseline_tp};;
-  }
 
-  # Baseline TP >10
 
-  parameter: baseline_10_filter {
-    type: string
-  }
+    # Baseline TP 0-2
 
-  dimension: baseline_10_filter_value {
-    type: string
-    sql: {% parameter baseline_10_filter %} ;;
-  }
+    parameter: baseline_02_filter {
+      type: string
+    }
 
-  dimension: baseline_10_buckets {
-    type: tier
-    tiers: [ 10,200 ]# 2's
-    style: integer
-    value_format: "0"
-    sql: ${baseline_tp};;
-  }
+    dimension: baseline_02_filter_value {
+      type: string
+      sql: {% parameter baseline_02_filter %} ;;
+    }
+
+    dimension: baseline_02_buckets {
+      type: tier
+      tiers: [ 0,3,200 ]# 2's
+      style: integer
+      value_format: "0"
+      sql: ${baseline_tp};;
+    }
+
+
+    # Baseline TP >10
+
+    measure: ctp_baseline_below_10 {
+      type: count
+      filters: {
+        field: baseline_tp
+        value: "<=10"
+      }
+    }
+
+    measure: ctp_baseline_above_10 {
+      type: count
+      filters: {
+        field: baseline_tp
+        value: ">10"
+      }
+    }
+
+
+
+
+
+    # Baseline TP >10
+
+    parameter: baseline_10_filter {
+      type: string
+    }
+
+    dimension: baseline_10_filter_value {
+      type: string
+      sql: {% parameter baseline_10_filter %} ;;
+    }
+
+    dimension: baseline_10_buckets {
+      type: tier
+      tiers: [ 10,200 ]# 2's
+      style: integer
+      value_format: "0"
+      sql: ${baseline_tp};;
+    }
 
 
     # Bolus arrival AIF
@@ -1237,7 +1313,6 @@ view: techinfo_perf {
 
     measure: count {
       type: count
-      drill_fields: []
     }
 
     measure: count_filtered {

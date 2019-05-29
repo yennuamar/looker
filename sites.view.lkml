@@ -50,19 +50,20 @@ view: sites {
 
   dimension: city {
     type: string
+    html: <h2>{{ city._rendered_value }}</h2> ;;
     sql: ${TABLE}.city ;;
   }
 
   dimension: country {
     type: string
-    map_layer_name: countries
+    html: <h2>{{ country._rendered_value }}</h2> ;;
     sql: ${TABLE}.country ;;
   }
 
   dimension: country_clean {
     description: "Clean data"
     type: string
-    map_layer_name: countries
+    html: <h2>{{ country_clean._rendered_value }}</h2> ;;
     sql: case when ${country} = 'USA' or ${country} = 'US' then 'USA'
          else  ${country}
          end;;
@@ -100,7 +101,7 @@ view: sites {
   dimension: title {
     type: string
     sql: ${site_description} ;;
-      html: <h2>{{ site_description._rendered_value }}</h2> ;;
+    html: <h2>{{ site_description._rendered_value }}</h2> ;;
   }
 
   dimension: site_key {

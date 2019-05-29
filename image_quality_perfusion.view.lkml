@@ -233,6 +233,23 @@ view: image_quality_perfusion {
     sql: ${image_quality} ;;
   }
 
+  measure: image_quality_above_50 {
+    type: count
+    filters: {
+      field: image_quality
+      value: ">=50"
+    }
+  }
+
+  measure: image_quality_below_50{
+    type: count
+    filters: {
+      field: image_quality
+      value: "<50"
+    }
+  }
+
+
 
 
 }
